@@ -16,7 +16,7 @@
 
     "autoload": {
         "psr-4": {
-            "Myparcelcom\\Commons\\Configuration\\": "src/"
+            "Myparcelcom\\Integration\\Configuration\\": "src/"
         }
     },
     "license": "Apache-2.0",

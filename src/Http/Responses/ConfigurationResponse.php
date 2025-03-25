@@ -2,12 +2,13 @@
 
 declare(strict_types=1);
 
-namespace MyParcelCom\Commons\Configuration\Http\Responses;
+namespace MyParcelCom\Integration\Configuration\Http\Responses;
 
 use Illuminate\Contracts\Support\Responsable;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Arr;
-use MyParcelCom\Commons\Configuration\Form\Form;
+use MyParcelCom\Integration\Configuration\Form\Form;
+use MyParcelCom\Integration\Configuration\Values\ValueCollection;
 
 class ConfigurationResponse implements Responsable
 {

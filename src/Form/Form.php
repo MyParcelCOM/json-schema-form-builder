@@ -2,16 +2,15 @@
 
 declare(strict_types=1);
 
-namespace MyParcelCom\Commons\Configuration\Form;
+namespace MyParcelCom\Integration\Configuration\Form;
 
 use Illuminate\Support\Arr;
-use MyParcelCom\Integration\Collection;
-use MyParcelCom\Integration\Configuration\Field;
+use MyParcelCom\Integration\Configuration\Values\ValueCollection;
 
 /**
- * @extends Collection<array-key, Field>
+ * @extends ValueCollection<array-key, Field>
  */
-class Form extends Collection
+class Form extends ValueCollection
 {
     public function toArray(): array
     {

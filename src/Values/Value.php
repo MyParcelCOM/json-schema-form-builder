@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace MyParcelCom\Commons\Configuration\Values;
+namespace MyParcelCom\Integration\Configuration\Values;
 
 class Value
 {

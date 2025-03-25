@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace MyParcelCom\Commons\Configuration\Form;
+namespace MyParcelCom\Integration\Configuration\Form;
 
 use MyParcelCom\Integration\Configuration\Properties\JsonSchemaProperty;
 use MyParcelCom\Integration\Configuration\Properties\PropertyType;

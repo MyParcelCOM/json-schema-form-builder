@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace MyParcelCom\Commons\Configuration\Http\Requests;
+namespace MyParcelCom\Integration\Configuration\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
