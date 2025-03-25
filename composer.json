@@ -1,0 +1,30 @@
+{
+    "name": "myparcelcom/configuration-commons",
+    "description": "configuration related utilities for constructing MyParcel.com integrations",
+    "type": "library",
+    "require": {
+        "php": ">=8.4",
+        "laravel/framework": ">=12.0",
+        "ramsey/uuid": "^4.7"
+    },
+    "require-dev": {
+        "fakerphp/faker": "^1.24",
+        "phpunit/phpunit": ">=12.0",
+        "roave/security-advisories": "dev-latest",
+        "mockery/mockery": "^1.6"
+    },
+
+    "autoload": {
+        "psr-4": {
+            "Myparcelcom\\Commons\\Configuration\\": "src/"
+        }
+    },
+    "license": "Apache-2.0",
+    "authors": [
+        {
+            "name": "MyParcel.com",
+            "email": "info@myparcel.com"
+        }
+    ],
+    "minimum-stability": "stable"
+}
