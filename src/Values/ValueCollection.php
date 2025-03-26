@@ -9,14 +9,13 @@ use ArrayObject;
 
 /**
  *  @template K
- *  @template V
- *  @extends ArrayObject<K,V>
+ *  @extends ArrayObject<K,Value>
  * /
  */
 class ValueCollection extends ArrayObject
 {
     /**
-     * @param V ...$items
+     * @param Value ...$items
      */
     public function __construct(...$items)
     {
