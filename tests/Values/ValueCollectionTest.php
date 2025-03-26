@@ -18,11 +18,10 @@ class ValueCollectionTest extends TestCase
         $name1 = $faker->word();
         $value1 = $faker->word();
 
-        $valueObject1 = new Value($name1, $value1);
-
         $name2 = $faker->word();
         $value2 = $faker->word();
 
+        $valueObject1 = new Value($name1, $value1);
         $valueObject2 = new Value($name2, $value2);
 
         $valueCollection = new ValueCollection($valueObject1, $valueObject2);
