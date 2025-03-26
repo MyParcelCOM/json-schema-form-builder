@@ -4,26 +4,15 @@ declare(strict_types=1);
 
 namespace MyParcelCom\Integration\Configuration\Values;
 
-
-use ArrayObject;
+use MyParcelCom\Integration\Configuration\Collection;
 
 /**
- *  @template K
- *  @extends ArrayObject<K,Value>
- * /
+ *  @extends Collection<Value>
  */
-class ValueCollection extends ArrayObject
+class ValueCollection extends Collection
 {
-    /**
-     * @param Value ...$items
-     */
-    public function __construct(...$items)
-    {
-        parent::__construct($items);
-    }
-
     public function toArray(): array
     {
-        return array_map(static fn ($entry) => $entry->toArray(), (array) $this);
+        return array_map(static fn (Value $entry) => $entry->toArray(), (array) $this);
     }
 }
