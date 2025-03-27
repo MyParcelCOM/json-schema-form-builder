@@ -16,4 +16,15 @@ class ConfigureRequest extends FormRequest
             'data.properties.*.value' => 'required',
         ];
     }
+
+    public function getPropertyValue(string $propertyName): mixed
+    {
+        foreach ($this->input('data.properties', []) as $property) {
+            if ($property['name'] === $propertyName) {
+                return $property['value'];
+            }
+        }
+
+        return null;
+    }
 }
