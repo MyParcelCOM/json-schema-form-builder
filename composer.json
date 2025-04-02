@@ -1,5 +1,5 @@
 {
-    "name": "myparcelcom/configuration-schema-utils",
+    "name": "myparcelcom/json-schema-form-builder",
     "description": "configuration related utilities for constructing MyParcel.com integrations",
     "type": "library",
     "require": {
