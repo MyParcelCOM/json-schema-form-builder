@@ -11,6 +11,10 @@ use ArrayObject;
  */
 class ValueCollection extends ArrayObject
 {
+    public function __construct(...$items)
+    {
+        parent::__construct($items);
+    }
     public function toArray(): array
     {
         return array_map(static fn (Value $entry) => $entry->toArray(), (array) $this);

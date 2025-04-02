@@ -12,6 +12,10 @@ use Illuminate\Support\Arr;
  */
 class Form extends ArrayObject
 {
+    public function __construct(...$items)
+    {
+        parent::__construct($items);
+    }
     public function toArray(): array
     {
         return Arr::map(
