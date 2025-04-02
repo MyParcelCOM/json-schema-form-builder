@@ -15,7 +15,7 @@
     },
     "autoload": {
         "psr-4": {
-            "MyParcelCom\\Integration\\Configuration\\": "src/"
+            "MyParcelCom\\JsonSchema\\FormBuilder\\": "src/"
         }
     },
     "autoload-dev": {

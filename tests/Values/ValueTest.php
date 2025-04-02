@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Tests\Values;
 
 use Faker\Factory;
-use MyParcelCom\Integration\Configuration\Values\Value;
+use MyParcelCom\JsonSchema\FormBuilder\Values\Value;
 use PHPUnit\Framework\TestCase;
 
 use function PHPUnit\Framework\assertEquals;

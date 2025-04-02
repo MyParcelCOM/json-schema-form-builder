@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Tests\Properties;
 
 use Faker\Factory;
-use MyParcelCom\Integration\Configuration\Properties\JsonSchemaProperty;
-use MyParcelCom\Integration\Configuration\Properties\PropertyType;
+use MyParcelCom\JsonSchema\FormBuilder\Properties\JsonSchemaProperty;
+use MyParcelCom\JsonSchema\FormBuilder\Properties\PropertyType;
 use PHPUnit\Framework\TestCase;
 
 use function PHPUnit\Framework\assertEquals;

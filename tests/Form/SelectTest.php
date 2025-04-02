@@ -6,8 +6,8 @@ namespace Tests\Form;
 
 use Faker\Factory;
 use InvalidArgumentException;
-use MyParcelCom\Integration\Configuration\Form\Select;
-use MyParcelCom\Integration\Configuration\Properties\PropertyType;
+use MyParcelCom\JsonSchema\FormBuilder\Form\Select;
+use MyParcelCom\JsonSchema\FormBuilder\Properties\PropertyType;
 use PHPUnit\Framework\TestCase;
 
 use function PHPUnit\Framework\assertEquals;

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace MyParcelCom\Integration\Configuration\Values;
+namespace MyParcelCom\JsonSchema\FormBuilder\Values;
 
 use ArrayObject;
 

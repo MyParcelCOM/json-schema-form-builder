@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace MyParcelCom\Integration\Configuration\Form;
+namespace MyParcelCom\JsonSchema\FormBuilder\Form;
 
 use ArrayObject;
 use Illuminate\Support\Arr;

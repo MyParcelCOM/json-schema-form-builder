@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace MyParcelCom\Integration\Configuration\Form;
+namespace MyParcelCom\JsonSchema\FormBuilder\Form;
 
 use InvalidArgumentException;
-use MyParcelCom\Integration\Configuration\Properties\JsonSchemaProperty;
-use MyParcelCom\Integration\Configuration\Properties\PropertyType;
+use MyParcelCom\JsonSchema\FormBuilder\Properties\JsonSchemaProperty;
+use MyParcelCom\JsonSchema\FormBuilder\Properties\PropertyType;
 
 class Select implements Field
 {

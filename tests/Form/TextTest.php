@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Tests\Form;
 
 use Faker\Factory;
-use MyParcelCom\Integration\Configuration\Form\Text;
+use MyParcelCom\JsonSchema\FormBuilder\Form\Text;
 use PHPUnit\Framework\TestCase;
 
 use function PHPUnit\Framework\assertEquals;

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace MyParcelCom\Integration\Configuration\Properties;
+namespace MyParcelCom\JsonSchema\FormBuilder\Properties;
 
 class JsonSchemaProperty
 {

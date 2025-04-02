@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace MyParcelCom\Integration\Configuration\Form;
+namespace MyParcelCom\JsonSchema\FormBuilder\Form;
 
-use MyParcelCom\Integration\Configuration\Properties\JsonSchemaProperty;
+use MyParcelCom\JsonSchema\FormBuilder\Properties\JsonSchemaProperty;
 
 interface Field
 {
