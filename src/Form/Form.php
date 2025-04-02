@@ -2,17 +2,20 @@
 
 declare(strict_types=1);
 
-namespace MyParcelCom\Commons\Configuration\Form;
+namespace MyParcelCom\JsonSchema\FormBuilder\Form;
 
+use ArrayObject;
 use Illuminate\Support\Arr;
-use MyParcelCom\Integration\Collection;
-use MyParcelCom\Integration\Configuration\Field;
 
 /**
- * @extends Collection<array-key, Field>
+ *  @extends ArrayObject<array-key, Field>
  */
-class Form extends Collection
+class Form extends ArrayObject
 {
+    public function __construct(...$items)
+    {
+        parent::__construct($items);
+    }
     public function toArray(): array
     {
         return Arr::map(

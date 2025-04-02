@@ -2,14 +2,21 @@
 
 declare(strict_types=1);
 
-namespace MyParcelCom\Commons\Configuration\Values;
+namespace MyParcelCom\JsonSchema\FormBuilder\Values;
 
-
-use MyParcelCom\Commons\Configuration\Collection;
+use ArrayObject;
 
 /**
- * @extends Collection<array-key, Value>
+ *  @extends ArrayObject<array-key,Value>
  */
-class ValueCollection extends Collection
+class ValueCollection extends ArrayObject
 {
+    public function __construct(...$items)
+    {
+        parent::__construct($items);
+    }
+    public function toArray(): array
+    {
+        return array_map(static fn (Value $entry) => $entry->toArray(), (array) $this);
+    }
 }

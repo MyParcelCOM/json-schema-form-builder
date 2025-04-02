@@ -2,7 +2,10 @@
 
 declare(strict_types=1);
 
-namespace MyParcelCom\Commons\Configuration\Form;
+namespace MyParcelCom\JsonSchema\FormBuilder\Form;
+
+use MyParcelCom\JsonSchema\FormBuilder\Properties\JsonSchemaProperty;
+use MyParcelCom\JsonSchema\FormBuilder\Properties\PropertyType;
 
 class Checkbox implements Field
 {

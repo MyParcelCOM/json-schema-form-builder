@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace MyParcelCom\Commons\Configuration\Properties;
+namespace MyParcelCom\JsonSchema\FormBuilder\Properties;
 
 enum PropertyType: string
 {

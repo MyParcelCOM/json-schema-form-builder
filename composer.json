@@ -1,6 +1,6 @@
 {
-    "name": "myparcelcom/configuration-commons",
-    "description": "configuration related utilities for constructing MyParcel.com integrations",
+    "name": "myparcelcom/json-schema-form-builder",
+    "description": "A library that provides an object-oriented API for constructing forms, which can then be converted into a JSON Schema.",
     "type": "library",
     "require": {
         "php": ">=8.4",
@@ -13,10 +13,14 @@
         "roave/security-advisories": "dev-latest",
         "mockery/mockery": "^1.6"
     },
-
     "autoload": {
         "psr-4": {
-            "Myparcelcom\\Commons\\Configuration\\": "src/"
+            "MyParcelCom\\JsonSchema\\FormBuilder\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
         }
     },
     "license": "Apache-2.0",
