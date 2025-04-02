@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace MyParcelCom\Integration\Configuration\Values;
 
-use MyParcelCom\Integration\Configuration\Collection;
+use ArrayObject;
 
 /**
- *  @extends Collection<Value>
+ *  @extends ArrayObject<array-key,Value>
  */
-class ValueCollection extends Collection
+class ValueCollection extends ArrayObject
 {
     public function toArray(): array
     {

@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace MyParcelCom\Integration\Configuration\Form;
 
+use ArrayObject;
 use Illuminate\Support\Arr;
-use MyParcelCom\Integration\Configuration\Collection;
 
 /**
- * @extends Collection<Field>
+ *  @extends ArrayObject<array-key, Field>
  */
-class Form extends Collection
+class Form extends ArrayObject
 {
     public function toArray(): array
     {
