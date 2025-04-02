@@ -1,6 +1,6 @@
 {
     "name": "myparcelcom/json-schema-form-builder",
-    "description": "configuration related utilities for constructing MyParcel.com integrations",
+    "description": "A library that provides an object-oriented API for constructing forms, which can then be converted into a JSON Schema.",
     "type": "library",
     "require": {
         "php": ">=8.4",
