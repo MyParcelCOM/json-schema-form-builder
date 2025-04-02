@@ -1,4 +1,4 @@
-# config-schema-utils
+# json-schema-form-builder
 This library provides an object-oriented API for constructing forms, which can then be converted into a JSON Schema. 
 
 This package includes:
