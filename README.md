@@ -1,10 +1,9 @@
 # config-schema-utils
-Library with utility classes used for constructing configuration schemas for MyParcel.com integrations
+This library provides an object-oriented API for constructing forms, which can then be converted into a JSON Schema. 
 
-This includes:
-- Classes that can be used to construct configuration schemas (utilizing OpenAPI Specification)
-- Requests and Response classes that can be used to interact with the MyParcel.com API
-
+This package includes:
+- Classes that can be used to outline simple forms.
+- Functionality to render these forms into JSON Schema
 ## PHP 8
 The minimum PHP version is `8.4`. To update dependencies on a system without PHP 8 use:
 ```shell
