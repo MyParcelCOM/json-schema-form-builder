@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace MyParcelCom\JsonSchema\FormBuilder\Properties;
 
+use MyParcelCom\JsonSchema\FormBuilder\Form\ChoiceFieldType;
+
 class JsonSchemaProperty
 {
     public function __construct(
@@ -14,6 +16,7 @@ class JsonSchemaProperty
         public readonly bool $isPassword = false,
         public readonly array $enum = [],
         public readonly ?string $help = null,
+        public readonly ?ChoiceFieldType $fieldType = null,
     ) {
     }
 
@@ -25,8 +28,9 @@ class JsonSchemaProperty
                 'description' => $this->description,
                 'enum'        => $this->enum,
                 'meta'        => array_filter([
-                    'help'     => $this->help,
-                    'password' => $this->isPassword,
+                    'help'       => $this->help,
+                    'password'   => $this->isPassword,
+                    'field_type' => $this->fieldType?->value,
                 ]),
             ]),
         ];
