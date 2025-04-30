@@ -14,14 +14,13 @@ abstract class AbstractChoiceField implements Field
 
     public function __construct(
         public readonly string $name,
-        public readonly PropertyType $type,
         public readonly string $label,
         public readonly OptionCollection $options,
         public readonly bool $isRequired = false,
         public readonly ?string $help = null,
     ) {
         if (count($options) < 1) {
-            throw new InvalidArgumentException($this->fieldType->value . ' field property requires at least one enum value.');
+            throw new InvalidArgumentException(ucfirst($this->fieldType->value) . ' field property requires at least one enum value.');
         }
     }
 
@@ -29,7 +28,7 @@ abstract class AbstractChoiceField implements Field
     {
         return new JsonSchemaProperty(
             name: $this->name,
-            type: $this->type,
+            type: PropertyType::STRING,
             description: $this->label,
             isRequired: $this->isRequired,
             options: $this->options,

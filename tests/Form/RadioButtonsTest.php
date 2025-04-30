@@ -8,28 +8,28 @@ use Faker\Factory;
 use InvalidArgumentException;
 use MyParcelCom\JsonSchema\FormBuilder\Form\Option;
 use MyParcelCom\JsonSchema\FormBuilder\Form\OptionCollection;
-use MyParcelCom\JsonSchema\FormBuilder\Form\Select;
+use MyParcelCom\JsonSchema\FormBuilder\Form\RadioButtons;
 use MyParcelCom\JsonSchema\FormBuilder\Properties\PropertyType;
 use PHPUnit\Framework\TestCase;
 
 use function PHPUnit\Framework\assertEquals;
 
-class SelectTest extends TestCase
+class RadioButtonsTest extends TestCase
 {
-    public function test_it_converts_a_select_property_into_an_array(): void
+    public function test_it_converts_a_radio_property_into_an_array(): void
     {
         $faker = Factory::create();
 
         $name = $faker->word();
         $label = $faker->words(asText: true);
 
-        $select = new Select(
+        $radio = new RadioButtons(
             name: $name,
             label: $label,
             options: new OptionCollection(
-                new Option('1'),
-                new Option('2'),
-                new Option('3')
+                new Option('a'),
+                new Option('b'),
+                new Option('c')
             ),
         );
 
@@ -37,20 +37,20 @@ class SelectTest extends TestCase
             $name => [
                 'type'        => 'string',
                 'description' => $label,
-                'enum'        => ['1', '2', '3'],
-                'meta' => ['field_type' => 'select']
+                'enum'        => ['a', 'b', 'c'],
+                'meta' => ['field_type' => 'radio']
             ],
-        ], $select->toJsonSchemaProperty()->toArray());
+        ], $radio->toJsonSchemaProperty()->toArray());
     }
 
     public function test_it_throws_an_invalid_argument_exception_without_enum_values(): void
     {
         $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('Select field property requires at least one enum value.');
+        $this->expectExceptionMessage('Radio field property requires at least one enum value.');
 
         $faker = Factory::create();
 
-        new Select(
+        new RadioButtons(
             name: $faker->word,
             label: $faker->words(asText: true),
             options: new OptionCollection(),

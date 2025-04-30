@@ -36,7 +36,7 @@ class OptionCollection extends ArrayObject
                 continue;
             }
             foreach ($option->labelTranslations as $translation) {
-                $labelTranslations[$translation->locale->value][$option->key] = $translation->label;
+                $labelTranslations[$option->key][$translation->locale->value] = $translation->label;
             }
         }
         return empty($labelTranslations) ? null : $labelTranslations;

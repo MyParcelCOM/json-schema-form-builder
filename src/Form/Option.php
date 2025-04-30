@@ -12,7 +12,7 @@ class Option
      * @param array<LabelTranslation>|null $labelTranslations
      */
     public function __construct(
-        public int|string $key,
+        public string $key,
         public ?string $label = null,
         public ?array $labelTranslations = null,
     ) {
