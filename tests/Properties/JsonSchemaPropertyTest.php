@@ -5,6 +5,9 @@ declare(strict_types=1);
 namespace Tests\Properties;
 
 use Faker\Factory;
+use MyParcelCom\JsonSchema\FormBuilder\Form\ChoiceFieldType;
+use MyParcelCom\JsonSchema\FormBuilder\Form\Option;
+use MyParcelCom\JsonSchema\FormBuilder\Form\OptionCollection;
 use MyParcelCom\JsonSchema\FormBuilder\Properties\JsonSchemaProperty;
 use MyParcelCom\JsonSchema\FormBuilder\Properties\PropertyType;
 use PHPUnit\Framework\TestCase;
@@ -45,11 +48,21 @@ class JsonSchemaPropertyTest extends TestCase
         $name = $faker->word();
         $type = $faker->randomElement(PropertyType::cases());
         $description = $faker->words(asText: true);
-        $enum = [
-            $faker->word(),
-            $faker->word(),
-            $faker->word(),
-        ];
+        $options = new OptionCollection(
+            new Option(
+                key: 'option_1',
+                label: 'Option 1',
+            ),
+            new Option(
+                key: 'option_2',
+                label: 'Option 2',
+            ),
+            new Option(
+                key: 'option_3',
+                label: 'Option 3',
+            ),
+
+        );
         $help = $faker->words(asText: true);
 
         $property = new JsonSchemaProperty(
@@ -58,8 +71,9 @@ class JsonSchemaPropertyTest extends TestCase
             description: $description,
             isRequired: true,
             isPassword: true,
-            enum: $enum,
+            options: $options,
             help: $help,
+            fieldType: ChoiceFieldType::SELECT,
         );
 
         assertTrue($property->isRequired);
@@ -67,10 +81,16 @@ class JsonSchemaPropertyTest extends TestCase
             $name => [
                 'type'        => $type->value,
                 'description' => $description,
-                'enum'        => $enum,
+                'enum'        => ['option_1', 'option_2', 'option_3'],
                 'meta'        => [
                     'help'     => $help,
                     'password' => true,
+                    'field_type' => 'select',
+                    'enum_labels' => [
+                        'option_1' => 'Option 1',
+                        'option_2' => 'Option 2',
+                        'option_3' => 'Option 3',
+                    ],
                 ],
             ],
         ], $property->toArray());

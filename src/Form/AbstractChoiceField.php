@@ -16,8 +16,8 @@ abstract class AbstractChoiceField implements Field
         public readonly string $name,
         public readonly PropertyType $type,
         public readonly string $label,
+        public readonly OptionCollection $options,
         public readonly bool $isRequired = false,
-        public readonly array $options = [],
         public readonly ?string $help = null,
     ) {
         if (count($options) < 1) {
@@ -32,7 +32,7 @@ abstract class AbstractChoiceField implements Field
             type: $this->type,
             description: $this->label,
             isRequired: $this->isRequired,
-            enum: $this->options,
+            options: $this->options,
             help: $this->help,
             fieldType: $this->fieldType,
         );
