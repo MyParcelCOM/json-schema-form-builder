@@ -6,7 +6,7 @@ namespace MyParcelCom\JsonSchema\FormBuilder\Form;
 
 use MyParcelCom\JsonSchema\FormBuilder\Properties\JsonSchemaProperty;
 
-interface Field
+interface FormElement
 {
     public function toJsonSchemaProperty(): JsonSchemaProperty;
 }
