@@ -8,6 +8,7 @@ use MyParcelCom\JsonSchema\FormBuilder\Form\ChoiceFieldType;
 use MyParcelCom\JsonSchema\FormBuilder\Form\Option;
 use MyParcelCom\JsonSchema\FormBuilder\Form\OptionCollection;
 use MyParcelCom\JsonSchema\FormBuilder\Translations\LabelTranslation;
+use MyParcelCom\JsonSchema\FormBuilder\Translations\LabelTranslationCollection;
 
 class JsonSchemaProperty
 {
@@ -20,6 +21,7 @@ class JsonSchemaProperty
         public readonly ?OptionCollection $options = null,
         public readonly ?string $help = null,
         public readonly ?ChoiceFieldType $fieldType = null,
+        public readonly ?LabelTranslationCollection $labelTranslations = null,
     ) {
     }
 
@@ -34,8 +36,9 @@ class JsonSchemaProperty
                     'help'        => $this->help,
                     'password'    => $this->isPassword,
                     'field_type'  => $this->fieldType?->value,
+                    'label_translations' => $this->labelTranslations?->toArray(),
                     'enum_labels' => isset($this->options) ? array_filter($this->options?->getLabels()) : null,
-                    'enum_label_translations' => $this->options?->getLabelTranslations(),
+                    'enum_label_translations' => $this->options?->getTranslationsArray(),
                 ]),
             ]),
         ];

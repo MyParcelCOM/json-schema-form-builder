@@ -17,6 +17,7 @@ class OptionCollection extends ArrayObject
     {
         return array_map(fn (Option $entry) => $entry->key, (array) $this);
     }
+
     public function getLabels(): array
     {
         $labelMapping = [];
@@ -24,21 +25,23 @@ class OptionCollection extends ArrayObject
         foreach ($this as $option) {
             $labelMapping[$option->key] = $option->label;
         }
+
         return $labelMapping;
     }
 
-    public function getLabelTranslations(): array|null
+    public function getTranslationsArray(): array|null
     {
         $labelTranslations = [];
         /** @var Option $option */
         foreach ($this as $option) {
-            if(!$option->labelTranslations) {
+            if (!$option->labelTranslations) {
                 continue;
             }
             foreach ($option->labelTranslations as $translation) {
                 $labelTranslations[$option->key][$translation->locale->value] = $translation->label;
             }
         }
+
         return empty($labelTranslations) ? null : $labelTranslations;
     }
 }

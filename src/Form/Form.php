@@ -8,7 +8,7 @@ use ArrayObject;
 use Illuminate\Support\Arr;
 
 /**
- *  @extends ArrayObject<array-key, FormElement>
+ * @extends ArrayObject<array-key, FormElement>
  */
 class Form extends ArrayObject
 {
@@ -16,12 +16,15 @@ class Form extends ArrayObject
     {
         parent::__construct($items);
     }
+
     public function getProperties(): array
     {
-        return Arr::collapse(Arr::map(
-            (array) $this,
-            static fn (FormElement $field) => $field->toJsonSchemaProperty()->toArray(),
-        ));
+        return Arr::collapse(
+            Arr::map(
+                (array) $this,
+                static fn (FormElement $field) => $field->toJsonSchemaProperty()->toArray(),
+            ),
+        );
     }
 
     public function getRequired(): array
@@ -38,6 +41,7 @@ class Form extends ArrayObject
             ),
         );
     }
+
     public function toJsonSchema(): array
     {
         return [

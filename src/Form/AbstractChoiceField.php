@@ -7,6 +7,7 @@ namespace MyParcelCom\JsonSchema\FormBuilder\Form;
 use InvalidArgumentException;
 use MyParcelCom\JsonSchema\FormBuilder\Properties\JsonSchemaProperty;
 use MyParcelCom\JsonSchema\FormBuilder\Properties\PropertyType;
+use MyParcelCom\JsonSchema\FormBuilder\Translations\LabelTranslationCollection;
 
 abstract class AbstractChoiceField implements FormElement
 {
@@ -18,9 +19,12 @@ abstract class AbstractChoiceField implements FormElement
         public readonly OptionCollection $options,
         public readonly bool $isRequired = false,
         public readonly ?string $help = null,
+        public ?LabelTranslationCollection $labelTranslations = null,
     ) {
         if (count($options) < 1) {
-            throw new InvalidArgumentException(ucfirst($this->fieldType->value) . ' field property requires at least one option.');
+            throw new InvalidArgumentException(
+                ucfirst($this->fieldType->value) . ' field property requires at least one option.',
+            );
         }
     }
 
@@ -34,6 +38,7 @@ abstract class AbstractChoiceField implements FormElement
             options: $this->options,
             help: $this->help,
             fieldType: $this->fieldType,
+            labelTranslations: $this->labelTranslations,
         );
     }
 }

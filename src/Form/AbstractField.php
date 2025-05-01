@@ -6,6 +6,7 @@ namespace MyParcelCom\JsonSchema\FormBuilder\Form;
 
 use MyParcelCom\JsonSchema\FormBuilder\Properties\JsonSchemaProperty;
 use MyParcelCom\JsonSchema\FormBuilder\Properties\PropertyType;
+use MyParcelCom\JsonSchema\FormBuilder\Translations\LabelTranslationCollection;
 
 abstract class AbstractField implements FormElement
 {
@@ -17,8 +18,10 @@ abstract class AbstractField implements FormElement
         public readonly string $label,
         public readonly bool $isRequired = false,
         public readonly ?string $help = null,
+        public ?LabelTranslationCollection $labelTranslations = null,
     ) {
     }
+
     public function toJsonSchemaProperty(): JsonSchemaProperty
     {
         return new JsonSchemaProperty(
@@ -28,6 +31,7 @@ abstract class AbstractField implements FormElement
             isRequired: $this->isRequired,
             isPassword: $this->isPassword,
             help: $this->help,
+            labelTranslations: $this->labelTranslations,
         );
     }
 }
