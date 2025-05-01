@@ -28,11 +28,11 @@ class ValueCollectionTest extends TestCase
 
         $this->assertEquals([
             [
-                'name' => $name1,
+                'name'  => $name1,
                 'value' => $value1,
             ],
             [
-                'name' => $name2,
+                'name'  => $name2,
                 'value' => $value2,
             ],
         ], $valueCollection->toArray());

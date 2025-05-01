@@ -83,9 +83,9 @@ class JsonSchemaPropertyTest extends TestCase
                 'description' => $description,
                 'enum'        => ['option_1', 'option_2', 'option_3'],
                 'meta'        => [
-                    'help'     => $help,
-                    'password' => true,
-                    'field_type' => 'select',
+                    'help'        => $help,
+                    'password'    => true,
+                    'field_type'  => 'select',
                     'enum_labels' => [
                         'option_1' => 'Option 1',
                         'option_2' => 'Option 2',

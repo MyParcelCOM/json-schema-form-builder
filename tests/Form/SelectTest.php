@@ -9,7 +9,6 @@ use InvalidArgumentException;
 use MyParcelCom\JsonSchema\FormBuilder\Form\Option;
 use MyParcelCom\JsonSchema\FormBuilder\Form\OptionCollection;
 use MyParcelCom\JsonSchema\FormBuilder\Form\Select;
-use MyParcelCom\JsonSchema\FormBuilder\Properties\PropertyType;
 use PHPUnit\Framework\TestCase;
 
 use function PHPUnit\Framework\assertEquals;
@@ -29,7 +28,7 @@ class SelectTest extends TestCase
             options: new OptionCollection(
                 new Option('1'),
                 new Option('2'),
-                new Option('3')
+                new Option('3'),
             ),
         );
 
@@ -38,7 +37,7 @@ class SelectTest extends TestCase
                 'type'        => 'string',
                 'description' => $label,
                 'enum'        => ['1', '2', '3'],
-                'meta' => ['field_type' => 'select']
+                'meta'        => ['field_type' => 'select'],
             ],
         ], $select->toJsonSchemaProperty()->toArray());
     }

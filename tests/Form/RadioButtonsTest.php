@@ -9,7 +9,6 @@ use InvalidArgumentException;
 use MyParcelCom\JsonSchema\FormBuilder\Form\Option;
 use MyParcelCom\JsonSchema\FormBuilder\Form\OptionCollection;
 use MyParcelCom\JsonSchema\FormBuilder\Form\RadioButtons;
-use MyParcelCom\JsonSchema\FormBuilder\Properties\PropertyType;
 use MyParcelCom\JsonSchema\FormBuilder\Translations\LabelTranslation;
 use MyParcelCom\JsonSchema\FormBuilder\Translations\Locale;
 use PHPUnit\Framework\TestCase;
@@ -31,7 +30,7 @@ class RadioButtonsTest extends TestCase
             options: new OptionCollection(
                 new Option('a'),
                 new Option('b'),
-                new Option('c')
+                new Option('c'),
             ),
             isRequired: true,
             help: 'This is a help text',
@@ -42,10 +41,10 @@ class RadioButtonsTest extends TestCase
                 'type'        => 'string',
                 'description' => $label,
                 'enum'        => ['a', 'b', 'c'],
-                'meta' => [
+                'meta'        => [
                     'field_type' => 'radio',
-                    'help' => 'This is a help text',
-                ]
+                    'help'       => 'This is a help text',
+                ],
             ],
         ], $radio->toJsonSchemaProperty()->toArray());
     }
@@ -63,7 +62,7 @@ class RadioButtonsTest extends TestCase
             options: new OptionCollection(
                 new Option('a', 'A'),
                 new Option('b', 'B'),
-                new Option('c', 'B')
+                new Option('c', 'B'),
             ),
         );
 
@@ -72,14 +71,14 @@ class RadioButtonsTest extends TestCase
                 'type'        => 'string',
                 'description' => $label,
                 'enum'        => ['a', 'b', 'c'],
-                'meta' => [
-                    'field_type' => 'radio',
-                    'enum_labels'     => [
+                'meta'        => [
+                    'field_type'  => 'radio',
+                    'enum_labels' => [
                         'a' => 'A',
                         'b' => 'B',
                         'c' => 'B',
                     ],
-                ]
+                ],
             ],
         ], $radio->toJsonSchemaProperty()->toArray());
     }
@@ -118,9 +117,9 @@ class RadioButtonsTest extends TestCase
                 'type'        => 'string',
                 'description' => $label,
                 'enum'        => ['a', 'b', 'c'],
-                'meta' => [
-                    'field_type' => 'radio',
-                    'enum_labels'     => [
+                'meta'        => [
+                    'field_type'              => 'radio',
+                    'enum_labels'             => [
                         'a' => 'A',
                         'b' => 'B',
                         'c' => 'C',
@@ -141,8 +140,8 @@ class RadioButtonsTest extends TestCase
                             'nl-NL' => 'C in het Nederlands',
                             'de-DE' => 'C in Deutsch',
                         ],
-                    ]
-                ]
+                    ],
+                ],
             ],
         ], $radio->toJsonSchemaProperty()->toArray());
     }

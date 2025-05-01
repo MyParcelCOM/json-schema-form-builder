@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Tests\Form;
 
 use Faker\Factory;
-use Faker\Generator;
 use MyParcelCom\JsonSchema\FormBuilder\Form\Checkbox;
 use MyParcelCom\JsonSchema\FormBuilder\Form\Form;
 use MyParcelCom\JsonSchema\FormBuilder\Form\Option;
@@ -19,6 +18,7 @@ use function PHPUnit\Framework\assertEquals;
 class FormTest extends TestCase
 {
     protected Form $form;
+
     protected function setUp(): void
     {
         parent::setUp();
@@ -45,7 +45,6 @@ class FormTest extends TestCase
             help: 'This field has no purpose',
 
         );
-
         $this->form = new Form($propertyOne, $propertyTwo, $propertyThree);
     }
 
@@ -64,23 +63,23 @@ class FormTest extends TestCase
             'name_2' => [
                 'type'        => 'boolean',
                 'description' => 'Label 2',
-                'meta' => [
+                'meta'        => [
                     'help' => 'Assistance is required',
                 ],
             ],
             'name_3' => [
                 'type'        => 'string',
                 'description' => 'Label 3',
-                'enum'       => ['a', 'b',],
-                'meta' => [
-                    'field_type' => 'radio',
-                    'help' => 'This field has no purpose',
+                'enum'        => ['a', 'b',],
+                'meta'        => [
+                    'field_type'  => 'radio',
+                    'help'        => 'This field has no purpose',
                     'enum_labels' => [
                         'a' => 'A',
                         'b' => 'B',
                     ],
                 ],
-            ]
+            ],
         ], $this->form->getProperties());
     }
 
@@ -98,24 +97,24 @@ class FormTest extends TestCase
                 'name_2' => [
                     'type'        => 'boolean',
                     'description' => 'Label 2',
-                    'meta' => [
+                    'meta'        => [
                         'help' => 'Assistance is required',
                     ],
                 ],
                 'name_3' => [
                     'type'        => 'string',
                     'description' => 'Label 3',
-                    'enum'       => ['a', 'b',],
-                    'meta' => [
-                        'field_type' => 'radio',
-                        'help' => 'This field has no purpose',
+                    'enum'        => ['a', 'b',],
+                    'meta'        => [
+                        'field_type'  => 'radio',
+                        'help'        => 'This field has no purpose',
                         'enum_labels' => [
                             'a' => 'A',
                             'b' => 'B',
                         ],
                     ],
-                ]
-            ]
+                ],
+            ],
         ], $this->form->toJsonSchema());
     }
 }
