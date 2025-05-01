@@ -11,9 +11,6 @@ use MyParcelCom\JsonSchema\FormBuilder\Translations\LabelTranslation;
 
 class JsonSchemaProperty
 {
-    /**
-     * @param array<Option> $options
-     */
     public function __construct(
         public readonly string $name,
         public readonly PropertyType $type,

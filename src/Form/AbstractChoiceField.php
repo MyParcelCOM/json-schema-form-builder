@@ -20,7 +20,7 @@ abstract class AbstractChoiceField implements Field
         public readonly ?string $help = null,
     ) {
         if (count($options) < 1) {
-            throw new InvalidArgumentException(ucfirst($this->fieldType->value) . ' field property requires at least one enum value.');
+            throw new InvalidArgumentException(ucfirst($this->fieldType->value) . ' field property requires at least one option.');
         }
     }
 

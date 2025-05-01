@@ -16,12 +16,12 @@ class Form extends ArrayObject
     {
         parent::__construct($items);
     }
-    public function toArray(): array
+    public function getProperties(): array
     {
-        return Arr::map(
+        return Arr::collapse(Arr::map(
             (array) $this,
             static fn (Field $field) => $field->toJsonSchemaProperty()->toArray(),
-        );
+        ));
     }
 
     public function getRequired(): array
@@ -37,5 +37,14 @@ class Form extends ArrayObject
                 static fn (Field $field) => $field->name,
             ),
         );
+    }
+    public function toJsonSchema(): array
+    {
+        return [
+            '$schema'              => 'http://json-schema.org/draft-04/schema#',
+            'additionalProperties' => false,
+            'required'             => $this->getRequired(),
+            'properties'           => $this->getProperties(),
+        ];
     }
 }

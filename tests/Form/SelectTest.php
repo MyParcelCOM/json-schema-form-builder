@@ -43,10 +43,10 @@ class SelectTest extends TestCase
         ], $select->toJsonSchemaProperty()->toArray());
     }
 
-    public function test_it_throws_an_invalid_argument_exception_without_enum_values(): void
+    public function test_it_throws_an_invalid_argument_exception_without_options(): void
     {
         $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('Select field property requires at least one enum value.');
+        $this->expectExceptionMessage('Select field property requires at least one option.');
 
         $faker = Factory::create();
 
