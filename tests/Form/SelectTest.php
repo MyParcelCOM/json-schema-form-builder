@@ -154,4 +154,35 @@ class SelectTest extends TestCase
             options: new OptionCollection(),
         );
     }
+
+    public function test_multi_select(): void
+    {
+        $faker = Factory::create();
+
+        $name = $faker->word();
+        $label = $faker->words(asText: true);
+
+        $select = new Select(
+            name: $name,
+            label: $label,
+            options: new OptionCollection(
+                new Option('1'),
+                new Option('2'),
+                new Option('3'),
+            ),
+            isMultiSelect: true,
+        );
+
+        assertEquals([
+            $name => [
+                'type'        => 'array',
+                'description' => $label,
+                'enum'        => ['1', '2', '3'],
+                'items'       => [
+                    'type' => 'string',
+                ],
+                'meta'        => ['field_type' => 'select'],
+            ],
+        ], $select->toJsonSchemaProperty()->toArray());
+    }
 }
