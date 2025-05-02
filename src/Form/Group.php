@@ -25,6 +25,7 @@ class Group implements FormElement
             type: PropertyType::OBJECT,
             description: $this->label,
             help: $this->help,
+            children: $this->children,
             labelTranslations: $this->labelTranslations,
         );
     }
