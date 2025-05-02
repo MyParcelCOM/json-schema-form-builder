@@ -46,11 +46,13 @@ class JsonSchemaProperty
         return [
             $this->name => array_filter([
                 'type'        => $this->type->value,
-                'items' => isset($this->itemsType) ? [
+                'items' => $this->type === PropertyType::ARRAY ? [
                     'type' => $this->itemsType->value,
+                    'enum' => $this->options?->getKeys(),
                 ] : null,
                 'description' => $this->description,
-                'enum'        => $this->options?->getKeys(),
+                // enum values are set on the `items` property when the type of the property is an array
+                'enum'        => $this->type === PropertyType::ARRAY ? null : $this->options?->getKeys(),
                 'properties' => $this->children?->toArray(),
                 'meta'        => array_filter([
                     'help'        => $this->help,
