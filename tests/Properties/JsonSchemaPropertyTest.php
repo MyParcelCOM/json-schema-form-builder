@@ -25,18 +25,18 @@ class JsonSchemaPropertyTest extends TestCase
 
         $name = $faker->word();
         $description = $faker->words(asText: true);
-        $type = $faker->randomElement(PropertyType::cases());
+        $fieldType = $faker->randomElement(FieldType::cases());
 
         $property = new JsonSchemaProperty(
             name: $name,
-            type: $type,
+            type: PropertyType::from($fieldType->value),
             description: $description,
         );
 
         assertFalse($property->isRequired);
         assertEquals([
             $name => [
-                'type'        => $type->value,
+                'type'        => $fieldType->value,
                 'description' => $description,
             ],
         ], $property->toArray());
