@@ -155,7 +155,7 @@ class SelectTest extends TestCase
         );
     }
 
-    public function test_multi_select(): void
+    public function test_it_converts_into_an_array_with_type_array_when_multi_select(): void
     {
         $faker = Factory::create();
 
