@@ -10,6 +10,7 @@ use MyParcelCom\JsonSchema\FormBuilder\Form\Option;
 use MyParcelCom\JsonSchema\FormBuilder\Form\OptionCollection;
 use MyParcelCom\JsonSchema\FormBuilder\Form\RadioButtons;
 use MyParcelCom\JsonSchema\FormBuilder\Translations\LabelTranslation;
+use MyParcelCom\JsonSchema\FormBuilder\Translations\LabelTranslationCollection;
 use MyParcelCom\JsonSchema\FormBuilder\Translations\Locale;
 use PHPUnit\Framework\TestCase;
 
@@ -110,6 +111,11 @@ class RadioButtonsTest extends TestCase
                     new LabelTranslation(locale: Locale::DE_DE, label: 'C in Deutsch'),
                 ]),
             ),
+            labelTranslations: new LabelTranslationCollection(
+                new LabelTranslation(locale: Locale::EN_GB, label: 'English label'),
+                new LabelTranslation(locale: Locale::NL_NL, label: 'Nederlands label'),
+                new LabelTranslation(locale: Locale::DE_DE, label: 'Deutsches Etikett'),
+            ),
         );
 
         assertEquals([
@@ -123,6 +129,11 @@ class RadioButtonsTest extends TestCase
                         'a' => 'A',
                         'b' => 'B',
                         'c' => 'C',
+                    ],
+                    'label_translations' => [
+                        'en-GB' => 'English label',
+                        'nl-NL' => 'Nederlands label',
+                        'de-DE' => 'Deutsches Etikett',
                     ],
                     'enum_label_translations' => [
                         'a' => [
