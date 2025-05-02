@@ -20,10 +20,13 @@ docker run -v $(pwd):/app --rm -w /app php:8.4-cli vendor/bin/phpunit
 ```
 
 ## Usage
-The following describes how to use this library, this includes:
-1. Constructing forms and rendering them as a JSON Schema using the `Form` class.
-2. Associating a form with values by Creating a `ValueCollection`.
-3. Add translations to form element labels and option labels (if applicable).
+The following describes how to use this library. The following functionalities are available:
+1. Constructing forms and rendering them as a JSON Schema:
+2. Adding translations to form an element using the `LabelTranslationCollection` class. This includes:
+   - Field labels 
+   - Option labels (for fields with a finite set of options such as `Select` and `Radio`).
+3. Grouping form elements into sections using the `Group` class.
+4. Defining values for form fields using the `ValueCollection` class.
 
 #### Example: Creating a Form and Converting it to a JSON Schema
 ```php
@@ -147,5 +150,11 @@ The resulting JSON Schema property will look as follows:
     }
   }
 }
+```
+#### Example: Adding Option translations to Form Elements
+```php
+use MyParcelCom\JsonSchema\FormBuilder\Form\Select;
+
+
 
 ```
