@@ -28,6 +28,7 @@ The following describes how to use this library, this includes:
 #### Example: Creating a Form and Converting it to a JSON Schema
 ```php
 use MyParcelCom\JsonSchema\FormBuilder\Form\Form;
+use MyParcelCom\JsonSchema\FormBuilder\Form\Text;
 use MyParcelCom\JsonSchema\FormBuilder\Form\Select;
 use MyParcelCom\JsonSchema\FormBuilder\Form\Option;
 use MyParcelCom\JsonSchema\FormBuilder\Form\OptionCollection;
@@ -37,7 +38,6 @@ $textField = new Text(
     label: 'Example Text Field',
     isRequired: true,
     help: 'Please enter some text.',
-    placeholder: 'Enter text here'
 );
 
 $checkboxField = new Checkbox(
@@ -50,9 +50,9 @@ $selectField = new Select(
     name: 'example_select',
     label: 'Example Select Field',
     options: new OptionCollection(
-    new Option('option_1_key', 'Option 1 Label'),
-    new Option('option_2_key', 'Option 2 Label')
-),
+        new Option('option_1_key', 'Option 1 Label'),
+        new Option('option_2_key', 'Option 2 Label')
+    ),
     isRequired: true,
     help: 'Please select an option.',
     isMultiSelect: false
@@ -97,6 +97,9 @@ The resulting JSON Schema will look as follows:
   }
 }
 ```
+
+NOTE: As this example shows fields that are not part of the JSON Schema specification are stored as `meta` fields.
+
 #### Example: Adding Label translations to Form Elements
 ```php
 use MyParcelCom\JsonSchema\FormBuilder\Form\Text;
@@ -108,9 +111,7 @@ use MyParcelCom\JsonSchema\FormBuilder\Translations\Locale
 $textField = new Text(
     name: 'example_text',
     label: 'Example Text Field',
-    isRequired: true,
     help: 'Please enter some text.',
-    placeholder: 'Enter text here',
     labelTranslations: new LabelTranslationCollection(
         new LabelTranslation(Locale::DE_DE, 'Beispiel Textfeld'),
         new LabelTranslation(Locale::EL_GR, 'Παράδειγμα πεδίου κειμένου'),
@@ -126,6 +127,25 @@ $textField = new Text(
 ```
 The resulting JSON Schema property will look as follows:
 ```json
-
+{
+  "example_text": {
+    "type": "string",
+    "description": "Example Text Field",
+    "meta": {
+      "help": "Please enter some text.",
+      "label_translations": {
+        "de-DE": "Beispiel Textfeld",
+        "el-GR": "Παράδειγμα πεδίου κειμένου",
+        "en-GB": "Example Text Field",
+        "es-ES": "Campo de texto de ejemplo",
+        "fr-FR": "Champ de texte exemple",
+        "it-IT": "Campo di testo di esempio",
+        "nl-NL": "Voorbeeld tekstveld",
+        "pl-PL": "Przykładowe pole tekstowe",
+        "pt-PT": "Campo de texto de exemplo"
+      }
+    }
+  }
+}
 
 ```
