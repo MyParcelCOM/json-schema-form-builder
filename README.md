@@ -28,6 +28,8 @@ The following describes how to use this library. The following functionalities a
 3. Grouping form elements into sections using the `Group` class.
 4. Defining values for form fields using the `ValueCollection` class.
 
+NOTE: As the following examples show, all fields that are not part of the JSON Schema specification are stored as `meta` fields.
+
 #### Example: Constructing a Form and Converting it to a JSON Schema
 ```php
 use MyParcelCom\JsonSchema\FormBuilder\Form\Form;
@@ -100,8 +102,6 @@ The resulting JSON Schema will look as follows:
   }
 }
 ```
-
-NOTE: As this example shows fields that are not part of the JSON Schema specification are stored as `meta` fields.
 
 #### Example: Adding translations to a form element
 ```php
