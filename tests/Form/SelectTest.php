@@ -90,21 +90,21 @@ class SelectTest extends TestCase
             name: $name,
             label: $label,
             options: new OptionCollection(
-                new Option('a', 'A', [
+                new Option('a', 'A', new LabelTranslationCollection(
                     new LabelTranslation(locale: Locale::EN_GB, label: 'A'),
                     new LabelTranslation(locale: Locale::NL_NL, label: 'A in het Nederlands'),
                     new LabelTranslation(locale: Locale::DE_DE, label: 'A in Deutsch'),
-                ]),
-                new Option('b', 'B', [
+                )),
+                new Option('b', 'B', new LabelTranslationCollection(
                     new LabelTranslation(locale: Locale::EN_GB, label: 'B'),
                     new LabelTranslation(locale: Locale::NL_NL, label: 'B in het Nederlands'),
                     new LabelTranslation(locale: Locale::DE_DE, label: 'B in Deutsch'),
-                ]),
-                new Option('c', 'C', [
+                )),
+                new Option('c', 'C', new LabelTranslationCollection(
                     new LabelTranslation(locale: Locale::EN_GB, label: 'C'),
                     new LabelTranslation(locale: Locale::NL_NL, label: 'C in het Nederlands'),
                     new LabelTranslation(locale: Locale::DE_DE, label: 'C in Deutsch'),
-                ]),
+                )),
             ),
             labelTranslations: new LabelTranslationCollection(
                 new LabelTranslation(locale: Locale::EN_GB, label: 'English label'),

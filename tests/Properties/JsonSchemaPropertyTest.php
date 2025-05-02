@@ -6,6 +6,7 @@ namespace Tests\Properties;
 
 use Faker\Factory;
 use MyParcelCom\JsonSchema\FormBuilder\Form\ChoiceFieldType;
+use MyParcelCom\JsonSchema\FormBuilder\Form\FieldType;
 use MyParcelCom\JsonSchema\FormBuilder\Form\Option;
 use MyParcelCom\JsonSchema\FormBuilder\Form\OptionCollection;
 use MyParcelCom\JsonSchema\FormBuilder\Properties\JsonSchemaProperty;
@@ -46,7 +47,7 @@ class JsonSchemaPropertyTest extends TestCase
         $faker = Factory::create();
 
         $name = $faker->word();
-        $type = $faker->randomElement(PropertyType::cases());
+        $type = $faker->randomElement(FieldType::cases());
         $description = $faker->words(asText: true);
         $options = new OptionCollection(
             new Option(
@@ -67,7 +68,7 @@ class JsonSchemaPropertyTest extends TestCase
 
         $property = new JsonSchemaProperty(
             name: $name,
-            type: $type,
+            type: PropertyType::from($type->value),
             description: $description,
             isRequired: true,
             isPassword: true,
