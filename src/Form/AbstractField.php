@@ -26,7 +26,7 @@ abstract class AbstractField implements FormElement
     {
         return new SchemaProperty(
             name: $this->name,
-            type: SchemaPropertyType::from($this->fieldType->value),
+            type: SchemaPropertyType::fromFieldType($this->fieldType),
             description: $this->label,
             isRequired: $this->isRequired,
             isPassword: $this->isPassword,

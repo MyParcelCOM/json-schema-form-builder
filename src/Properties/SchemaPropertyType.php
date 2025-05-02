@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace MyParcelCom\JsonSchema\FormBuilder\Properties;
 
+use MyParcelCom\JsonSchema\FormBuilder\Form\FieldType;
+
 enum SchemaPropertyType: string
 {
     case STRING = 'string';
@@ -11,4 +13,9 @@ enum SchemaPropertyType: string
     case BOOLEAN = 'boolean';
     case OBJECT = 'object';
     case ARRAY = 'array';
+
+    public static function fromFieldType(FieldType $fieldType): self
+    {
+        return self::from($fieldType->value);
+    }
 }
