@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace MyParcelCom\JsonSchema\FormBuilder\Properties;
 
+use Illuminate\Support\Arr;
 use MyParcelCom\JsonSchema\FormBuilder\Form\ChoiceFieldType;
 use MyParcelCom\JsonSchema\FormBuilder\Form\FormElement;
 use MyParcelCom\JsonSchema\FormBuilder\Form\FormElementCollection;
@@ -50,10 +51,7 @@ class JsonSchemaProperty
                 ] : null,
                 'description' => $this->description,
                 'enum'        => $this->options?->getKeys(),
-                'properties' => isset($this->children) ? array_map(
-                    fn (FormElement $el) => $el->toJsonSchemaProperty(),
-                    $this->children->getArrayCopy()
-                ) : null,
+                'properties' => $this->children?->toArray(),
                 'meta'        => array_filter([
                     'help'        => $this->help,
                     'password'    => $this->isPassword,
