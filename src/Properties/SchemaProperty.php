@@ -21,7 +21,7 @@ class SchemaProperty
      * @param bool                            $isPassword        Whether the property is a password field.
      * @param OptionCollection|null           $options           The options for the property, Only applicable for choice fields.
      * @param string|null                     $help              Help text for the property.
-     * @param ChoiceFieldType|null            $fieldType         The meta-field, `field_type` of the property. Used to differentiate between choice fields.
+     * @param ChoiceFieldType|null            $choiceFieldType   Populates the meta-field, `field_type` of the property. Used to differentiate between choice fields.
      * @param FormElementCollection|null      $children          The child elements of the property, Only applicable for rendering groups (type => 'object').
      * @param LabelTranslationCollection|null $labelTranslations Translations for the label (description field).
      */
@@ -33,7 +33,7 @@ class SchemaProperty
         public readonly bool $isPassword = false,
         public readonly ?OptionCollection $options = null,
         public readonly ?string $help = null,
-        public readonly ?ChoiceFieldType $fieldType = null,
+        public readonly ?ChoiceFieldType $choiceFieldType = null,
         public readonly ?FormElementCollection $children = null,
         public readonly ?LabelTranslationCollection $labelTranslations = null,
     ) {
@@ -55,7 +55,7 @@ class SchemaProperty
                 'meta'        => array_filter([
                     'help'        => $this->help,
                     'password'    => $this->isPassword,
-                    'field_type'  => $this->fieldType?->value,
+                    'field_type'  => $this->choiceFieldType?->value,
                     'label_translations' => $this->labelTranslations?->toArray(),
                     'enum_labels' => isset($this->options) ? array_filter($this->options?->getLabels()) : null,
                     'enum_label_translations' => $this->options?->getTranslationsArray(),

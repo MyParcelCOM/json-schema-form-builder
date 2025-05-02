@@ -74,7 +74,7 @@ class SchemaPropertyTest extends TestCase
             isPassword: true,
             options: $options,
             help: $help,
-            fieldType: ChoiceFieldType::SELECT,
+            choiceFieldType: ChoiceFieldType::SELECT,
         );
 
         assertTrue($property->isRequired);

@@ -37,7 +37,7 @@ abstract class AbstractChoiceField implements FormElement
             isRequired: $this->isRequired,
             options: $this->options,
             help: $this->help,
-            fieldType: $this->fieldType,
+            choiceFieldType: $this->fieldType,
             labelTranslations: $this->labelTranslations,
         );
     }
