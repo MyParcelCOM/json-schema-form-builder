@@ -9,15 +9,15 @@ use MyParcelCom\JsonSchema\FormBuilder\Form\ChoiceFieldType;
 use MyParcelCom\JsonSchema\FormBuilder\Form\FieldType;
 use MyParcelCom\JsonSchema\FormBuilder\Form\Option;
 use MyParcelCom\JsonSchema\FormBuilder\Form\OptionCollection;
-use MyParcelCom\JsonSchema\FormBuilder\Properties\JsonSchemaProperty;
-use MyParcelCom\JsonSchema\FormBuilder\Properties\PropertyType;
+use MyParcelCom\JsonSchema\FormBuilder\Properties\SchemaProperty;
+use MyParcelCom\JsonSchema\FormBuilder\Properties\SchemaPropertyType;
 use PHPUnit\Framework\TestCase;
 
 use function PHPUnit\Framework\assertEquals;
 use function PHPUnit\Framework\assertFalse;
 use function PHPUnit\Framework\assertTrue;
 
-class JsonSchemaPropertyTest extends TestCase
+class SchemaPropertyTest extends TestCase
 {
     public function test_it_converts_property_with_minimal_properties_into_array(): void
     {
@@ -27,9 +27,9 @@ class JsonSchemaPropertyTest extends TestCase
         $description = $faker->words(asText: true);
         $fieldType = $faker->randomElement(FieldType::cases());
 
-        $property = new JsonSchemaProperty(
+        $property = new SchemaProperty(
             name: $name,
-            type: PropertyType::from($fieldType->value),
+            type: SchemaPropertyType::from($fieldType->value),
             description: $description,
         );
 
@@ -66,9 +66,9 @@ class JsonSchemaPropertyTest extends TestCase
         );
         $help = $faker->words(asText: true);
 
-        $property = new JsonSchemaProperty(
+        $property = new SchemaProperty(
             name: $name,
-            type: PropertyType::from($type->value),
+            type: SchemaPropertyType::from($type->value),
             description: $description,
             isRequired: true,
             isPassword: true,

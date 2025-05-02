@@ -5,14 +5,13 @@ declare(strict_types=1);
 namespace MyParcelCom\JsonSchema\FormBuilder\Form;
 
 use InvalidArgumentException;
-use MyParcelCom\JsonSchema\FormBuilder\Properties\JsonSchemaProperty;
-use MyParcelCom\JsonSchema\FormBuilder\Properties\PropertyType;
+use MyParcelCom\JsonSchema\FormBuilder\Properties\SchemaProperty;
+use MyParcelCom\JsonSchema\FormBuilder\Properties\SchemaPropertyType;
 use MyParcelCom\JsonSchema\FormBuilder\Translations\LabelTranslationCollection;
 
 abstract class AbstractChoiceField implements FormElement
 {
     protected ChoiceFieldType $fieldType;
-
 
     public function __construct(
         public readonly string $name,
@@ -29,10 +28,9 @@ abstract class AbstractChoiceField implements FormElement
             );
         }
     }
-
-    public function toJsonSchemaProperty(): JsonSchemaProperty
+    public function toJsonSchemaProperty(): SchemaProperty
     {
-        return new JsonSchemaProperty(
+        return new SchemaProperty(
             name: $this->name,
             type: $this->getType(),
             description: $this->label,
@@ -40,21 +38,13 @@ abstract class AbstractChoiceField implements FormElement
             options: $this->options,
             help: $this->help,
             fieldType: $this->fieldType,
-            itemsType: $this->getItemType(),
             labelTranslations: $this->labelTranslations,
         );
     }
-    private function getType(): PropertyType
+    private function getType(): SchemaPropertyType
     {
         return $this->multipleValues
-            ? PropertyType::ARRAY
-            : PropertyType::STRING;
-    }
-
-    private function getItemType(): ?PropertyType
-    {
-        return $this->multipleValues
-            ? PropertyType::STRING
-            : null;
+            ? SchemaPropertyType::ARRAY
+            : SchemaPropertyType::STRING;
     }
 }

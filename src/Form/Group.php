@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace MyParcelCom\JsonSchema\FormBuilder\Form;
 
-use MyParcelCom\JsonSchema\FormBuilder\Properties\JsonSchemaProperty;
-use MyParcelCom\JsonSchema\FormBuilder\Properties\PropertyType;
+use MyParcelCom\JsonSchema\FormBuilder\Properties\SchemaProperty;
+use MyParcelCom\JsonSchema\FormBuilder\Properties\SchemaPropertyType;
 use MyParcelCom\JsonSchema\FormBuilder\Translations\LabelTranslationCollection;
 
 class Group implements FormElement
@@ -18,11 +18,11 @@ class Group implements FormElement
         public ?LabelTranslationCollection $labelTranslations = null,
     ) {
     }
-    public function toJsonSchemaProperty(): JsonSchemaProperty
+    public function toJsonSchemaProperty(): SchemaProperty
     {
-        return new JsonSchemaProperty(
+        return new SchemaProperty(
             name: $this->name,
-            type: PropertyType::OBJECT,
+            type: SchemaPropertyType::OBJECT,
             description: $this->label,
             help: $this->help,
             children: $this->children,

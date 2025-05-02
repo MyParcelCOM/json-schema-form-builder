@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace MyParcelCom\JsonSchema\FormBuilder\Properties;
 
-enum PropertyType: string
+enum SchemaPropertyType: string
 {
     case STRING = 'string';
     case NUMBER = 'number';

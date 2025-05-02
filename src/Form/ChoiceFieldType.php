@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace MyParcelCom\JsonSchema\FormBuilder\Form;
 
 /**
- * Used to render the `field_type` meta-field in the JsonSchemaProperty::toArray() method.
+ * Used to render the `field_type` meta-field in the SchemaProperty::toArray() method.
  * This property is necessary to differentiate between choice fields, as they are otherwise identical in their behavior within the JSON schema.
  */
 enum ChoiceFieldType: string
