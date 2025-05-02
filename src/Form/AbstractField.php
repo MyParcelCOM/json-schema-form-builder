@@ -10,7 +10,7 @@ use MyParcelCom\JsonSchema\FormBuilder\Translations\LabelTranslationCollection;
 
 abstract class AbstractField implements FormElement
 {
-    protected PropertyType $propertyType;
+    protected FieldType $fieldType;
     protected bool $isPassword = false;
 
     public function __construct(
@@ -26,7 +26,7 @@ abstract class AbstractField implements FormElement
     {
         return new JsonSchemaProperty(
             name: $this->name,
-            type: $this->propertyType,
+            type: PropertyType::from($this->fieldType->value),
             description: $this->label,
             isRequired: $this->isRequired,
             isPassword: $this->isPassword,

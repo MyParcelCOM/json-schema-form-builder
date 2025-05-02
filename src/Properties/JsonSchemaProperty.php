@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace MyParcelCom\JsonSchema\FormBuilder\Properties;
 
 use MyParcelCom\JsonSchema\FormBuilder\Form\ChoiceFieldType;
-use MyParcelCom\JsonSchema\FormBuilder\Form\Option;
+use MyParcelCom\JsonSchema\FormBuilder\Form\FormElement;
+use MyParcelCom\JsonSchema\FormBuilder\Form\FormElementCollection;
 use MyParcelCom\JsonSchema\FormBuilder\Form\OptionCollection;
-use MyParcelCom\JsonSchema\FormBuilder\Translations\LabelTranslation;
 use MyParcelCom\JsonSchema\FormBuilder\Translations\LabelTranslationCollection;
 
 class JsonSchemaProperty
@@ -21,6 +21,8 @@ class JsonSchemaProperty
         public readonly ?OptionCollection $options = null,
         public readonly ?string $help = null,
         public readonly ?ChoiceFieldType $fieldType = null,
+        public readonly ?PropertyType $itemsType = null,
+        public readonly ?FormElementCollection $children = null,
         public readonly ?LabelTranslationCollection $labelTranslations = null,
     ) {
     }
@@ -30,8 +32,15 @@ class JsonSchemaProperty
         return [
             $this->name => array_filter([
                 'type'        => $this->type->value,
+                'items' => isset($this->itemsType) ? [
+                    'type' => $this->itemsType->value,
+                ] : null,
                 'description' => $this->description,
                 'enum'        => $this->options?->getKeys(),
+                'properties' => isset($this->children) ? array_map(
+                    fn (FormElement $el) => $el->toJsonSchemaProperty(),
+                    $this->children->getArrayCopy()
+                ) : null,
                 'meta'        => array_filter([
                     'help'        => $this->help,
                     'password'    => $this->isPassword,

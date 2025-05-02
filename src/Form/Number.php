@@ -8,5 +8,5 @@ use MyParcelCom\JsonSchema\FormBuilder\Properties\PropertyType;
 
 class Number extends AbstractField
 {
-    protected PropertyType $propertyType = PropertyType::NUMBER;
+    protected FieldType $fieldType = FieldType::NUMBER;
 }

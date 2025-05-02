@@ -13,6 +13,7 @@ abstract class AbstractChoiceField implements FormElement
 {
     protected ChoiceFieldType $fieldType;
 
+
     public function __construct(
         public readonly string $name,
         public readonly string $label,
@@ -20,6 +21,7 @@ abstract class AbstractChoiceField implements FormElement
         public readonly bool $isRequired = false,
         public readonly ?string $help = null,
         public ?LabelTranslationCollection $labelTranslations = null,
+        protected bool $multipleValues = false
     ) {
         if (count($options) < 1) {
             throw new InvalidArgumentException(
@@ -32,13 +34,27 @@ abstract class AbstractChoiceField implements FormElement
     {
         return new JsonSchemaProperty(
             name: $this->name,
-            type: PropertyType::STRING,
+            type: $this->getType(),
             description: $this->label,
             isRequired: $this->isRequired,
             options: $this->options,
             help: $this->help,
             fieldType: $this->fieldType,
+            itemsType: $this->getItemType(),
             labelTranslations: $this->labelTranslations,
         );
+    }
+    private function getType(): PropertyType
+    {
+        return $this->multipleValues
+            ? PropertyType::ARRAY
+            : PropertyType::STRING;
+    }
+
+    private function getItemType(): ?PropertyType
+    {
+        return $this->multipleValues
+            ? PropertyType::STRING
+            : null;
     }
 }
