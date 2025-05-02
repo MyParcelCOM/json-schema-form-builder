@@ -268,14 +268,14 @@ The resulting JSON Schema property will looks as follows:
       },
       "enum_label_translations": {
         "option_1_key": {
-          "en-GB": "Option 1 Label EN",
-          "de-DE": "Option 1 Label DE",
-          "el-GR": "Option 1 Label EL"
+          "de-DE": "Option 1 Beschriftung",
+          "el-GR": "Επιλογή 2 Ετικέτα",
+          "en-GB": "Option 1 Label"
         },
         "option_2_key": {
-          "en-GB": "Option 2 Label EN",
-          "de-DE": "Option 2 Label DE",
-          "el-GR": "Option 2 Label EL"
+          "de-DE": "Option 2 Beschriftung",
+          "el-GR": "Επιλογή 2 Ετικέτα", 
+          "en-GB": "Option 2 Label"
         }
       }
     }
@@ -283,8 +283,41 @@ The resulting JSON Schema property will looks as follows:
 }
 ```
 
-#### Example MultiSelect
-
+#### Example: Multi-Select
+Rendering a `MultiSelect` field can be done by setting the `isMultiSelect` property to `true` when creating the `Select` field. The resulting JSON Schema will look similar to the `Select` field, but with the `isMultiSelect` property creating a `Select` field.
 ```php
+use MyParcelCom\JsonSchema\FormBuilder\Form\Select;
 
+$multiSelectField = new Select(
+    name: 'example_multi_select',
+    label: 'Example Multi-Select Field',
+    options: new OptionCollection(
+        new Option('option_1_key', 'Option 1 Label'),
+        new Option('option_2_key', 'Option 2 Label')
+    ),
+    isMultiSelect: true,
+    help: 'Please select one or more options.',
+);
+```
+The JSON Schema property will look as follows:
+```json
+{
+  "example_multi_select": {
+    "type": "array",
+    "items": {
+      "type": "string",
+      "enum": [
+        "option_1_key",
+        "option_2_key"
+      ]
+    },
+    "meta": {
+      "help": "Please select one or more options.",
+      "enum_labels": {
+        "option_1_key": "Option 1 Label",
+        "option_2_key": "Option 2 Label"
+      }
+    }
+  }
+}
 ```
