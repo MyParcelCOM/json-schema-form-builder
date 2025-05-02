@@ -177,9 +177,9 @@ class SelectTest extends TestCase
             $name => [
                 'type'        => 'array',
                 'description' => $label,
-                'enum'        => ['1', '2', '3'],
                 'items'       => [
                     'type' => 'string',
+                    'enum' => ['1', '2', '3'],
                 ],
                 'meta'        => ['field_type' => 'select'],
             ],
