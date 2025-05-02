@@ -97,3 +97,35 @@ The resulting JSON Schema will look as follows:
   }
 }
 ```
+#### Example: Adding Label translations to Form Elements
+```php
+use MyParcelCom\JsonSchema\FormBuilder\Form\Text;
+use MyParcelCom\JsonSchema\FormBuilder\Form\Checkbox;
+use MyParcelCom\JsonSchema\FormBuilder\Translations\LabelTranslationCollection;
+use MyParcelCom\JsonSchema\FormBuilder\Translations\LabelTranslation;
+use MyParcelCom\JsonSchema\FormBuilder\Translations\Locale
+
+$textField = new Text(
+    name: 'example_text',
+    label: 'Example Text Field',
+    isRequired: true,
+    help: 'Please enter some text.',
+    placeholder: 'Enter text here',
+    labelTranslations: new LabelTranslationCollection(
+        new LabelTranslation(Locale::DE_DE, 'Beispiel Textfeld'),
+        new LabelTranslation(Locale::EL_GR, 'Παράδειγμα πεδίου κειμένου'),
+        new LabelTranslation(Locale::EN_GB, 'Example Text Field'),
+        new LabelTranslation(Locale::ES_ES, 'Campo de texto de ejemplo'),
+        new LabelTranslation(Locale::FR_FR, 'Champ de texte exemple')
+        new LabelTranslation(Locale::IT_IT, 'Campo di testo di esempio'),
+        new LabelTranslation(Locale::NL_NL, 'Voorbeeld tekstveld'),
+        new LabelTranslation(Locale::PL_PL, 'Przykładowe pole tekstowe'),
+        new LabelTranslation(Locale::PT_PT, 'Campo de texto de exemplo'),
+    )
+);
+```
+The resulting JSON Schema property will look as follows:
+```json
+
+
+```
