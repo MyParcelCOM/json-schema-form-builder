@@ -2,12 +2,16 @@
 
 This library provides an object-oriented API for constructing forms, which can be converted into a JSON Schema.
 
-This package includes:
+This package includes the following functionalities:
 
-- Classes that can be used to outline simple forms.
-- Functionality to render these forms into JSON Schema.
-- Support for translations of form elements and options.
-- Defining corresponding values for form elements.
+1. Constructing forms and rendering them as a JSON Schema.
+2. Creating simple fields such as `text`, `number` and `checkbox`.
+3. Creating choice fields such as `select`, `radio` and `multi-select`.
+4. Grouping form fields (`group` element).
+5. Adding translations to form elements using the `LabelTranslationCollection` class. This includes:
+    - Field label translations (for all fields and groups).
+    - Option labels (for fields with a finite set of options such as `Select` and `Radio`).
+6. Defining values for form fields using the `ValueCollection` class.
 
 ## PHP 8
 
@@ -27,21 +31,23 @@ docker run -v $(pwd):/app --rm -w /app php:8.4-cli vendor/bin/phpunit
 
 ## Usage
 
-The following describes how to use this library. The following functionalities are available:
+### Meta Fields
 
-1. Constructing forms and rendering them as a JSON Schema.
-2. Creating simple fields such as `Text`, `Number` and `Checkbox`.
-3. Creating choice fields such as `Select`, `Radio` and `MultiSelect`.
-4. Adding translations to form elements using the `LabelTranslationCollection` class. This includes:
-    - Field label translations (for all fields).
-    - Option labels (for fields with a finite set of options such as `Select` and `Radio`).
-5. Grouping form elements into sections using the `Group` class.
-6. Defining values for form fields using the `ValueCollection` class.
-
-NOTE: As the following examples show, all fields that are not part of the JSON Schema specification are stored as `meta`
+All properties that are not part of the JSON Schema specification will be stored as `meta`
 fields.
 
-#### Example: Constructing a Form with some elements and Converting it to a JSON Schema
+The following fields are used in this library:
+
+- `help`: A string that describes the purpose of the field.
+- `label_translations`: Translations for the label of the field. (the non-translated label is stored as the
+  `description` property)
+- `field_type`: Used to differentiate between fields that have the same JSON Schema format. **Only used for choice
+  fields at the moment**
+- `enum_labels`: Used to define labels for field options. (The keys are stored in the `enum` property) **Only for choice
+  fields**
+- `enum_label_translations`: Used to define translations for labels of field options. **Only for choice fields**
+
+### Example: Constructing a Form and Converting it to a JSON Schema
 
 ```php
 use MyParcelCom\JsonSchema\FormBuilder\Form\Form;
@@ -122,7 +128,66 @@ The resulting JSON Schema will look as follows:
 }
 ```
 
-#### Example: Adding translations to a form element
+### Example: Grouping elements
+
+```php
+use MyParcelCom\JsonSchema\FormBuilder\Form\Form;
+use MyParcelCom\JsonSchema\FormBuilder\Form\Group;
+use MyParcelCom\JsonSchema\FormBuilder\Form\FormElementCollection;
+use MyParcelCom\JsonSchema\FormBuilder\Form\Text;
+use MyParcelCom\JsonSchema\FormBuilder\Form\Checkbox;
+use MyParcelCom\JsonSchema\FormBuilder\Form\Number;
+use MyParcelCom\JsonSchema\FormBuilder\Translations\LabelTranslationCollection;
+
+$group = new Group(
+    name: 'my_group',
+    label: 'My Group',
+    children: new FormElementCollection(
+        new Text('my_text', 'My Text Field'),
+        new Checkbox('my_checkbox', 'My Checkbox Field'),
+        new Number('my_number', 'My Number Field')
+    ),
+    help: 'This following fields are related to...',
+);
+
+$someOtherTextField = new Text(
+    name: 'some_other_text',
+    label: 'Some Other Text Field',
+    help: 'Please enter some other text.',
+);
+
+$form = new Form($group, $someOtherTextField);
+```
+
+The resulting JSON Schema property for the group will look as follows:
+
+```json
+{
+  "my_group": {
+    "type": "object",
+    "description": "My Group",
+    "properties": {
+      "my_text": {
+        "type": "string",
+        "description": "My Text Field"
+      },
+      "my_checkbox": {
+        "type": "boolean",
+        "description": "My Checkbox Field"
+      },
+      "my_number": {
+        "type": "number",
+        "description": "My Number Field"
+      }
+    },
+    "meta": {
+      "help": "This following fields are related to..."
+    }
+  }
+}
+```
+
+### Example: Adding translations to a form element's label
 
 ```php
 use MyParcelCom\JsonSchema\FormBuilder\Form\Text;
@@ -174,7 +239,7 @@ The resulting JSON Schema property will look as follows:
 }
 ```
 
-#### Example: Adding Option translations to a Form Element
+### Example: Adding translations to a Form element's labels and option labels
 
 ```php
 use MyParcelCom\JsonSchema\FormBuilder\Form\RadioButtons;
@@ -244,7 +309,7 @@ $radioField = new RadioButtons(
     help: 'Please select an option.',
 ```
 
-The resulting JSON Schema property will looks as follows:
+The resulting JSON Schema property will look as follows:
 
 ```json
 {
@@ -274,7 +339,7 @@ The resulting JSON Schema property will looks as follows:
         },
         "option_2_key": {
           "de-DE": "Option 2 Beschriftung",
-          "el-GR": "Επιλογή 2 Ετικέτα", 
+          "el-GR": "Επιλογή 2 Ετικέτα",
           "en-GB": "Option 2 Label"
         }
       }
@@ -283,8 +348,10 @@ The resulting JSON Schema property will looks as follows:
 }
 ```
 
-#### Example: Multi-Select
-Rendering a `MultiSelect` field can be done by setting the `isMultiSelect` property to `true` when creating the `Select` field. The resulting JSON Schema will look similar to the `Select` field, but with the `isMultiSelect` property creating a `Select` field.
+### Example: Multi-Select
+
+Rendering a `MultiSelect` field can be done by setting the `isMultiSelect` property to `true`.
+
 ```php
 use MyParcelCom\JsonSchema\FormBuilder\Form\Select;
 
@@ -299,7 +366,9 @@ $multiSelectField = new Select(
     help: 'Please select one or more options.',
 );
 ```
-The JSON Schema property will look as follows:
+
+The resulting JSON Schema property will be of type `array` and look as follows:
+
 ```json
 {
   "example_multi_select": {
