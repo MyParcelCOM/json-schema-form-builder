@@ -10,7 +10,6 @@ use MyParcelCom\JsonSchema\FormBuilder\Form\AbstractChoiceField;
 use MyParcelCom\JsonSchema\FormBuilder\Form\ChoiceFieldType;
 use MyParcelCom\JsonSchema\FormBuilder\Form\Option;
 use MyParcelCom\JsonSchema\FormBuilder\Form\OptionCollection;
-use MyParcelCom\JsonSchema\FormBuilder\Form\Select;
 use MyParcelCom\JsonSchema\FormBuilder\Translations\LabelTranslation;
 use MyParcelCom\JsonSchema\FormBuilder\Translations\LabelTranslationCollection;
 use MyParcelCom\JsonSchema\FormBuilder\Translations\Locale;
@@ -46,8 +45,8 @@ class AbstractChoiceFieldTest extends TestCase
                 'description' => $label,
                 'enum'        => ['1', '2', '3'],
                 'meta'        => [
-                    'help' => 'Help text',
-                    'field_type' => 'select'
+                    'help'       => 'Help text',
+                    'field_type' => 'select',
                 ],
             ],
         ], $field->toJsonSchemaProperty()->toArray());
@@ -102,21 +101,27 @@ class AbstractChoiceFieldTest extends TestCase
             name: $name,
             label: $label,
             options: new OptionCollection(
-                new Option('a', 'A', new LabelTranslationCollection(
+                new Option(
+                    'a', 'A', new LabelTranslationCollection(
                     new LabelTranslation(locale: Locale::EN_GB, label: 'A'),
                     new LabelTranslation(locale: Locale::NL_NL, label: 'A in het Nederlands'),
                     new LabelTranslation(locale: Locale::DE_DE, label: 'A in Deutsch'),
-                )),
-                new Option('b', 'B', new LabelTranslationCollection(
+                ),
+                ),
+                new Option(
+                    'b', 'B', new LabelTranslationCollection(
                     new LabelTranslation(locale: Locale::EN_GB, label: 'B'),
                     new LabelTranslation(locale: Locale::NL_NL, label: 'B in het Nederlands'),
                     new LabelTranslation(locale: Locale::DE_DE, label: 'B in Deutsch'),
-                )),
-                new Option('c', 'C', new LabelTranslationCollection(
+                ),
+                ),
+                new Option(
+                    'c', 'C', new LabelTranslationCollection(
                     new LabelTranslation(locale: Locale::EN_GB, label: 'C'),
                     new LabelTranslation(locale: Locale::NL_NL, label: 'C in het Nederlands'),
                     new LabelTranslation(locale: Locale::DE_DE, label: 'C in Deutsch'),
-                )),
+                ),
+                ),
             ),
             labelTranslations: new LabelTranslationCollection(
                 new LabelTranslation(locale: Locale::EN_GB, label: 'English label'),
@@ -139,7 +144,7 @@ class AbstractChoiceFieldTest extends TestCase
                         'b' => 'B',
                         'c' => 'C',
                     ],
-                    'label_translations' => [
+                    'label_translations'      => [
                         'en-GB' => 'English label',
                         'nl-NL' => 'Nederlands label',
                         'de-DE' => 'Deutsches Etikett',
@@ -181,25 +186,26 @@ class AbstractChoiceFieldTest extends TestCase
             protected ChoiceFieldType $fieldType = ChoiceFieldType::RADIO;
         };
     }
-    public function test_it_converts_into_an_array_with_type_array_when_multi_select(): void
+
+    public function test_it_converts_into_an_array_multiple_values(): void
     {
         $faker = Factory::create();
 
         $name = $faker->word();
         $label = $faker->words(asText: true);
 
-
-
-        $select = new Select(
+        $select = new class(
             name: $name,
             label: $label,
             options: new OptionCollection(
-                new Option('1'),
-                new Option('2'),
-                new Option('3'),
+                new Option('1', 'One'),
+                new Option('2', 'Two'),
+                new Option('3', 'Three'),
             ),
-            isMultiSelect: true,
-        );
+            multipleValues: true,
+        ) extends AbstractChoiceField {
+            protected ChoiceFieldType $fieldType = ChoiceFieldType::RADIO;
+        };
 
         assertEquals([
             $name => [
@@ -209,7 +215,14 @@ class AbstractChoiceFieldTest extends TestCase
                     'type' => 'string',
                     'enum' => ['1', '2', '3'],
                 ],
-                'meta'        => ['field_type' => 'select'],
+                'meta'        => [
+                    'field_type'  => 'radio',
+                    'enum_labels' => [
+                        '1' => 'One',
+                        '2' => 'Two',
+                        '3' => 'Three',
+                    ],
+                ],
             ],
         ], $select->toJsonSchemaProperty()->toArray());
     }
