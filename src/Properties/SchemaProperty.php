@@ -4,9 +4,7 @@ declare(strict_types=1);
 
 namespace MyParcelCom\JsonSchema\FormBuilder\Properties;
 
-use Illuminate\Support\Arr;
 use MyParcelCom\JsonSchema\FormBuilder\Form\ChoiceFieldType;
-use MyParcelCom\JsonSchema\FormBuilder\Form\FormElement;
 use MyParcelCom\JsonSchema\FormBuilder\Form\FormElementCollection;
 use MyParcelCom\JsonSchema\FormBuilder\Form\OptionCollection;
 use MyParcelCom\JsonSchema\FormBuilder\Translations\LabelTranslationCollection;
@@ -44,20 +42,22 @@ class SchemaProperty
         return [
             $this->name => array_filter([
                 'type'        => $this->type->value,
-                'items' => $this->type === SchemaPropertyType::ARRAY ? [
+                'items'       => $this->type === SchemaPropertyType::ARRAY ? [
                     'type' => SchemaPropertyType::STRING->value,
                     'enum' => $this->options?->getKeys(),
                 ] : null,
                 'description' => $this->description,
                 // enum values are set on the `items` property when the type of the property is an array
                 'enum'        => $this->type === SchemaPropertyType::ARRAY ? null : $this->options?->getKeys(),
-                'properties' => $this->children?->toArray(),
+                'properties'  => $this->children?->toArray(),
                 'meta'        => array_filter([
-                    'help'        => $this->help,
-                    'password'    => $this->isPassword,
-                    'field_type'  => $this->choiceFieldType?->value,
-                    'label_translations' => $this->labelTranslations?->toArray(),
-                    'enum_labels' => isset($this->options) ? array_filter($this->options?->getLabels()) : null,
+                    'help'                    => $this->help,
+                    'password'                => $this->isPassword,
+                    'field_type'              => $this->choiceFieldType?->value,
+                    'label_translations'      => $this->labelTranslations?->toArray(),
+                    'enum_labels'             => isset($this->options) ? array_filter(
+                        $this->options?->getLabels(),
+                    ) : null,
                     'enum_label_translations' => $this->options?->getTranslationsArray(),
                 ]),
             ]),

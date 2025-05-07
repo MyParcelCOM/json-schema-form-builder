@@ -9,6 +9,7 @@ use MyParcelCom\JsonSchema\FormBuilder\Translations\LabelTranslationCollection;
 class Select extends AbstractChoiceField
 {
     protected ChoiceFieldType $fieldType = ChoiceFieldType::SELECT;
+
     public function __construct(
         string $name,
         string $label,
@@ -17,8 +18,7 @@ class Select extends AbstractChoiceField
         ?string $help = null,
         ?LabelTranslationCollection $labelTranslations = null,
         bool $isMultiSelect = false,
-    )
-    {
+    ) {
         parent::__construct(
             name: $name,
             label: $label,

@@ -18,6 +18,7 @@ class Group implements FormElement
         public ?LabelTranslationCollection $labelTranslations = null,
     ) {
     }
+
     public function toJsonSchemaProperty(): SchemaProperty
     {
         return new SchemaProperty(

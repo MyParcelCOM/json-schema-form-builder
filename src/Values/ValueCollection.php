@@ -7,7 +7,7 @@ namespace MyParcelCom\JsonSchema\FormBuilder\Values;
 use ArrayObject;
 
 /**
- *  @extends ArrayObject<array-key,Value>
+ * @extends ArrayObject<array-key,Value>
  */
 class ValueCollection extends ArrayObject
 {
@@ -15,6 +15,7 @@ class ValueCollection extends ArrayObject
     {
         parent::__construct($items);
     }
+
     public function toArray(): array
     {
         return array_map(static fn (Value $entry) => $entry->toArray(), (array) $this);

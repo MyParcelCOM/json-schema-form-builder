@@ -9,14 +9,18 @@ use Illuminate\Support\Arr;
 
 class FormElementCollection extends ArrayObject
 {
-    public function __construct(FormElement ...$formElements) {
+    public function __construct(FormElement ...$formElements)
+    {
         parent::__construct($formElements);
     }
+
     public function toArray(): array
     {
-        return Arr::collapse(array_map(
-            fn (FormElement $el) => $el->toJsonSchemaProperty()->toArray(),
-            $this->getArrayCopy()
-        ));
+        return Arr::collapse(
+            array_map(
+                fn (FormElement $el) => $el->toJsonSchemaProperty()->toArray(),
+                $this->getArrayCopy(),
+            ),
+        );
     }
 }

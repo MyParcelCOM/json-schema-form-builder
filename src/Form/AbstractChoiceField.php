@@ -20,7 +20,7 @@ abstract class AbstractChoiceField implements FormElement
         public readonly bool $isRequired = false,
         public readonly ?string $help = null,
         public ?LabelTranslationCollection $labelTranslations = null,
-        protected bool $multipleValues = false
+        protected bool $multipleValues = false,
     ) {
         if (count($options) < 1) {
             throw new InvalidArgumentException(
@@ -28,6 +28,7 @@ abstract class AbstractChoiceField implements FormElement
             );
         }
     }
+
     public function toJsonSchemaProperty(): SchemaProperty
     {
         return new SchemaProperty(
@@ -41,6 +42,7 @@ abstract class AbstractChoiceField implements FormElement
             labelTranslations: $this->labelTranslations,
         );
     }
+
     private function getType(): SchemaPropertyType
     {
         return $this->multipleValues
