@@ -4,17 +4,17 @@ declare(strict_types=1);
 
 namespace MyParcelCom\JsonSchema\FormBuilder\Properties\Meta;
 
-use MyParcelCom\JsonSchema\FormBuilder\Form\OptionCollection;
 use MyParcelCom\JsonSchema\FormBuilder\Translations\LabelTranslationCollection;
 
 class Meta
 {
     public function __construct(
-        private readonly ?string $help,
-        private readonly ?bool $password,
-        private readonly ?MetaFieldType $fieldType,
-        private readonly ?LabelTranslationCollection $labelTranslations,
-        private readonly ?OptionCollection $options,
+        private readonly ?string $help = null,
+        private readonly ?bool $password = null,
+        private readonly ?MetaFieldType $fieldType = null,
+        private readonly ?array $labelTranslations = null,
+        private readonly ?array $enumLabels = null,
+        private readonly ?array $enumLabelTranslations = null,
     ) {
     }
     public function toArray(): array
@@ -23,11 +23,9 @@ class Meta
             'help'                    => $this->help,
             'password'                => $this->password,
             'field_type'              => $this->fieldType?->value,
-            'label_translations'      => $this->labelTranslations?->toArray(),
-            'enum_labels'             => isset($this->options) ? array_filter(
-                $this->options?->getLabels(),
-            ) : null,
-            'enum_label_translations' => $this->options?->getTranslationsArray(),
+            'label_translations'      => $this->labelTranslations,
+            'enum_labels'             => $this->enumLabels,
+            'enum_label_translations' => $this->enumLabelTranslations,
         ]);
     }
 }

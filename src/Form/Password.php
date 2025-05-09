@@ -8,10 +8,12 @@ use MyParcelCom\JsonSchema\FormBuilder\Properties\SchemaPropertyType;
 
 class Password extends AbstractField
 {
-    protected bool $isPassword = true;
-
     protected function schemaPropertyType(): SchemaPropertyType
     {
         return SchemaPropertyType::STRING;
+    }
+    public function isPassword(): bool
+    {
+        return true;
     }
 }

@@ -29,7 +29,7 @@ class OptionCollection extends ArrayObject
         return $labelMapping;
     }
 
-    public function getTranslationsArray(): array|null
+    public function getLabelTranslations(): array|null
     {
         $labelTranslations = [];
         /** @var Option $option */

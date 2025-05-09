@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace MyParcelCom\JsonSchema\FormBuilder\Form;
 
+use MyParcelCom\JsonSchema\FormBuilder\Properties\Meta\Meta;
 use MyParcelCom\JsonSchema\FormBuilder\Properties\SchemaProperty;
 use MyParcelCom\JsonSchema\FormBuilder\Properties\SchemaPropertyType;
 use MyParcelCom\JsonSchema\FormBuilder\Translations\LabelTranslationCollection;
@@ -22,21 +23,21 @@ abstract class AbstractField extends FormElement
         parent::__construct($isRequired);
     }
 
-    public function isRequired(): bool
+    public function isPassword(): bool
     {
-        return $this->isRequired;
+        return false;
     }
 
     public function toJsonSchemaProperty(): SchemaProperty
     {
         return new SchemaProperty(
             name: $this->name,
-            type: SchemaPropertyType::fromFieldType($this->fieldType),
+            type: $this->schemaPropertyType(),
             description: $this->label,
-            isRequired: $this->isRequired,
-            isPassword: $this->isPassword,
-            help: $this->help,
-            labelTranslations: $this->labelTranslations,
+            meta: new Meta(
+                help: $this->help,
+                labelTranslations: $this->labelTranslations,
+            )
         );
     }
 }

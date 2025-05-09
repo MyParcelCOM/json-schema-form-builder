@@ -13,11 +13,11 @@ abstract class FormElement
       private readonly bool $required
     ) {
     }
+    abstract protected function schemaPropertyType(): SchemaPropertyType;
+    abstract public function toJsonSchemaProperty(): SchemaProperty;
 
     public function isRequired(): bool
     {
         return $this->required;
     }
-    abstract protected function schemaPropertyType(): SchemaPropertyType;
-    abstract public function toJsonSchemaProperty(): SchemaProperty;
 }

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace MyParcelCom\JsonSchema\FormBuilder\Form;
 
+use MyParcelCom\JsonSchema\FormBuilder\Properties\Meta\Meta;
 use MyParcelCom\JsonSchema\FormBuilder\Properties\SchemaProperty;
 use MyParcelCom\JsonSchema\FormBuilder\Properties\SchemaPropertyType;
 use MyParcelCom\JsonSchema\FormBuilder\Translations\LabelTranslationCollection;
@@ -26,19 +27,17 @@ class Group extends FormElement
             name: $this->name,
             type: SchemaPropertyType::OBJECT,
             description: $this->label,
-            help: $this->help,
-            properties: $this->children,
-            labelTranslations: $this->labelTranslations,
+            required: $this->children->getRequired(),
+            properties: $this->children->getProperties(),
+            meta: new Meta(
+                help: $this->help,
+                labelTranslations: $this->labelTranslations,
+            )
         );
     }
 
     protected function schemaPropertyType(): SchemaPropertyType
     {
         return SchemaPropertyType::OBJECT;
-    }
-
-    public function isRequired(): bool
-    {
-        return false;
     }
 }

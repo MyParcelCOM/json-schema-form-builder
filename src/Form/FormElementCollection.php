@@ -6,6 +6,7 @@ namespace MyParcelCom\JsonSchema\FormBuilder\Form;
 
 use ArrayObject;
 use Illuminate\Support\Arr;
+use MyParcelCom\JsonSchema\FormBuilder\Properties\SchemaPropertyCollection;
 
 class FormElementCollection extends ArrayObject
 {
@@ -14,13 +15,31 @@ class FormElementCollection extends ArrayObject
         parent::__construct($formElements);
     }
 
-    public function toArray(): array
+    public function getProperties(): SchemaPropertyCollection
     {
-        return Arr::collapse(
-            array_map(
-                fn (FormElement $el) => $el->toJsonSchemaProperty()->toArray(),
-                $this->getArrayCopy(),
+        $properties = Arr::map(
+            (array) $this,
+            static fn (FormElement $formElement) => $formElement->toJsonSchemaProperty(),
+        );
+        return new SchemaPropertyCollection(...$properties);
+    }
+
+    /**
+     * @return array<string>
+     */
+    public function getRequired(): array
+    {
+        $requiredProperties = array_filter(
+            (array) $this,
+            static fn (FormElement $field) => $field->toJsonSchemaProperty()->isRequired,
+        );
+
+        return array_values(
+            Arr::map(
+                $requiredProperties,
+                static fn (FormElement $field) => $field->name,
             ),
         );
     }
+
 }
