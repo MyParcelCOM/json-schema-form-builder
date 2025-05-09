@@ -5,14 +5,12 @@ declare(strict_types=1);
 namespace MyParcelCom\JsonSchema\FormBuilder\Form;
 
 use InvalidArgumentException;
+use MyParcelCom\JsonSchema\FormBuilder\Properties\Meta\MetaFieldType;
 use MyParcelCom\JsonSchema\FormBuilder\Properties\SchemaProperty;
-use MyParcelCom\JsonSchema\FormBuilder\Properties\SchemaPropertyType;
 use MyParcelCom\JsonSchema\FormBuilder\Translations\LabelTranslationCollection;
 
-abstract class AbstractChoiceField implements FormElement
+abstract class AbstractChoiceField extends FormElement
 {
-    protected ChoiceFieldType $fieldType;
-
     public function __construct(
         public readonly string $name,
         public readonly string $label,
@@ -24,29 +22,25 @@ abstract class AbstractChoiceField implements FormElement
     ) {
         if (count($options) < 1) {
             throw new InvalidArgumentException(
-                ucfirst($this->fieldType->value) . ' field property requires at least one option.',
+                ucfirst($this->fieldType()->value) . ' field property requires at least one option.',
             );
         }
+        parent::__construct($isRequired);
     }
+
+    abstract protected function fieldType(): MetaFieldType;
 
     public function toJsonSchemaProperty(): SchemaProperty
     {
         return new SchemaProperty(
             name: $this->name,
-            type: $this->getType(),
+            type: $this->schemaPropertyType(),
             description: $this->label,
             isRequired: $this->isRequired,
             options: $this->options,
             help: $this->help,
-            choiceFieldType: $this->fieldType,
+            metaFieldType: $this->fieldType(),
             labelTranslations: $this->labelTranslations,
         );
-    }
-
-    private function getType(): SchemaPropertyType
-    {
-        return $this->multipleValues
-            ? SchemaPropertyType::ARRAY
-            : SchemaPropertyType::STRING;
     }
 }

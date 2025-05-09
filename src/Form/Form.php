@@ -12,7 +12,7 @@ use Illuminate\Support\Arr;
  */
 class Form extends ArrayObject
 {
-    public function __construct(...$items)
+    public function __construct(FormElement ...$items)
     {
         parent::__construct($items);
     }

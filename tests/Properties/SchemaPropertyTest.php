@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Tests\Properties;
 
 use Faker\Factory;
-use MyParcelCom\JsonSchema\FormBuilder\Form\ChoiceFieldType;
 use MyParcelCom\JsonSchema\FormBuilder\Form\FieldType;
 use MyParcelCom\JsonSchema\FormBuilder\Form\Option;
 use MyParcelCom\JsonSchema\FormBuilder\Form\OptionCollection;
+use MyParcelCom\JsonSchema\FormBuilder\Properties\Meta\MetaFieldType;
 use MyParcelCom\JsonSchema\FormBuilder\Properties\SchemaProperty;
 use MyParcelCom\JsonSchema\FormBuilder\Properties\SchemaPropertyType;
 use PHPUnit\Framework\TestCase;
@@ -74,7 +74,7 @@ class SchemaPropertyTest extends TestCase
             isPassword: true,
             options: $options,
             help: $help,
-            choiceFieldType: ChoiceFieldType::SELECT,
+            metaFieldType: MetaFieldType::SELECT,
         );
 
         assertTrue($property->isRequired);

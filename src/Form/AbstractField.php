@@ -8,9 +8,8 @@ use MyParcelCom\JsonSchema\FormBuilder\Properties\SchemaProperty;
 use MyParcelCom\JsonSchema\FormBuilder\Properties\SchemaPropertyType;
 use MyParcelCom\JsonSchema\FormBuilder\Translations\LabelTranslationCollection;
 
-abstract class AbstractField implements FormElement
+abstract class AbstractField extends FormElement
 {
-    protected FieldType $fieldType;
     protected bool $isPassword = false;
 
     public function __construct(
@@ -20,6 +19,12 @@ abstract class AbstractField implements FormElement
         public readonly ?string $help = null,
         public ?LabelTranslationCollection $labelTranslations = null,
     ) {
+        parent::__construct($isRequired);
+    }
+
+    public function isRequired(): bool
+    {
+        return $this->isRequired;
     }
 
     public function toJsonSchemaProperty(): SchemaProperty

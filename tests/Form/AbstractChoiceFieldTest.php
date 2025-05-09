@@ -7,9 +7,9 @@ namespace Tests\Form;
 use Faker\Factory;
 use InvalidArgumentException;
 use MyParcelCom\JsonSchema\FormBuilder\Form\AbstractChoiceField;
-use MyParcelCom\JsonSchema\FormBuilder\Form\ChoiceFieldType;
 use MyParcelCom\JsonSchema\FormBuilder\Form\Option;
 use MyParcelCom\JsonSchema\FormBuilder\Form\OptionCollection;
+use MyParcelCom\JsonSchema\FormBuilder\Properties\Meta\MetaFieldType;
 use MyParcelCom\JsonSchema\FormBuilder\Translations\LabelTranslation;
 use MyParcelCom\JsonSchema\FormBuilder\Translations\LabelTranslationCollection;
 use MyParcelCom\JsonSchema\FormBuilder\Translations\Locale;
@@ -36,7 +36,7 @@ class AbstractChoiceFieldTest extends TestCase
                 new Option('3'),
             ),
         ) extends AbstractChoiceField {
-            protected ChoiceFieldType $fieldType = ChoiceFieldType::SELECT;
+            protected MetaFieldType $fieldType = MetaFieldType::SELECT;
         };
 
         assertEquals([
@@ -69,7 +69,7 @@ class AbstractChoiceFieldTest extends TestCase
                 new Option('c', 'B'),
             ),
         ) extends AbstractChoiceField {
-            protected ChoiceFieldType $fieldType = ChoiceFieldType::RADIO;
+            protected MetaFieldType $fieldType = MetaFieldType::RADIO;
         };
 
         assertEquals([
@@ -129,7 +129,7 @@ class AbstractChoiceFieldTest extends TestCase
                 new LabelTranslation(locale: Locale::DE_DE, label: 'Deutsches Etikett'),
             ),
         ) extends AbstractChoiceField {
-            protected ChoiceFieldType $fieldType = ChoiceFieldType::RADIO;
+            protected MetaFieldType $fieldType = MetaFieldType::RADIO;
         };
 
         assertEquals([
@@ -183,7 +183,7 @@ class AbstractChoiceFieldTest extends TestCase
             label: $faker->words(asText: true),
             options: new OptionCollection(),
         ) extends AbstractChoiceField {
-            protected ChoiceFieldType $fieldType = ChoiceFieldType::RADIO;
+            protected MetaFieldType $fieldType = MetaFieldType::RADIO;
         };
     }
 
@@ -204,7 +204,7 @@ class AbstractChoiceFieldTest extends TestCase
             ),
             multipleValues: true,
         ) extends AbstractChoiceField {
-            protected ChoiceFieldType $fieldType = ChoiceFieldType::RADIO;
+            protected MetaFieldType $fieldType = MetaFieldType::RADIO;
         };
 
         assertEquals([

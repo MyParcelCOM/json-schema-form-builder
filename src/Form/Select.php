@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace MyParcelCom\JsonSchema\FormBuilder\Form;
 
+use MyParcelCom\JsonSchema\FormBuilder\Properties\Meta\MetaFieldType;
+use MyParcelCom\JsonSchema\FormBuilder\Properties\SchemaPropertyType;
 use MyParcelCom\JsonSchema\FormBuilder\Translations\LabelTranslationCollection;
 
 class Select extends AbstractChoiceField
 {
-    protected ChoiceFieldType $fieldType = ChoiceFieldType::SELECT;
-
     public function __construct(
         string $name,
         string $label,
@@ -28,5 +28,18 @@ class Select extends AbstractChoiceField
             labelTranslations: $labelTranslations,
             multipleValues: $isMultiSelect,
         );
+    }
+
+    protected function fieldType(): MetaFieldType
+    {
+        return MetaFieldType::SELECT;
+    }
+
+    protected function schemaPropertyType(): SchemaPropertyType
+    {
+        if($this->multipleValues) {
+            return SchemaPropertyType::ARRAY;
+        }
+        return SchemaPropertyType::STRING;
     }
 }

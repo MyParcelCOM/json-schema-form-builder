@@ -5,8 +5,19 @@ declare(strict_types=1);
 namespace MyParcelCom\JsonSchema\FormBuilder\Form;
 
 use MyParcelCom\JsonSchema\FormBuilder\Properties\SchemaProperty;
+use MyParcelCom\JsonSchema\FormBuilder\Properties\SchemaPropertyType;
 
-interface FormElement
+abstract class FormElement
 {
-    public function toJsonSchemaProperty(): SchemaProperty;
+    public function __construct(
+      private readonly bool $required
+    ) {
+    }
+
+    public function isRequired(): bool
+    {
+        return $this->required;
+    }
+    abstract protected function schemaPropertyType(): SchemaPropertyType;
+    abstract public function toJsonSchemaProperty(): SchemaProperty;
 }
