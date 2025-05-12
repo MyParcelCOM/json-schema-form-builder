@@ -80,7 +80,7 @@ class FormTest extends TestCase
                     ],
                 ],
             ],
-        ], $this->form->getProperties());
+        ], $this->form->getProperties()->toArray());
     }
 
     public function test_it_converts_to_json_schema(): void

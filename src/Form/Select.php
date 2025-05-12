@@ -17,7 +17,7 @@ class Select extends AbstractChoiceField
         bool $isRequired = false,
         ?string $help = null,
         ?LabelTranslationCollection $labelTranslations = null,
-        bool $isMultiSelect = false,
+        private readonly bool $isMultiSelect = false,
     ) {
         parent::__construct(
             name: $name,
@@ -26,20 +26,11 @@ class Select extends AbstractChoiceField
             isRequired: $isRequired,
             help: $help,
             labelTranslations: $labelTranslations,
-            multipleValues: $isMultiSelect,
+            withMultipleValues: $this->isMultiSelect,
         );
     }
-
     protected function fieldType(): MetaFieldType
     {
         return MetaFieldType::SELECT;
-    }
-
-    protected function schemaPropertyType(): SchemaPropertyType
-    {
-        if($this->multipleValues) {
-            return SchemaPropertyType::ARRAY;
-        }
-        return SchemaPropertyType::STRING;
     }
 }

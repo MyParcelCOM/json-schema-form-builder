@@ -29,9 +29,9 @@ class RadioButtonsTest extends TestCase
             name: $name,
             label: $label,
             options: new OptionCollection(
-                new Option('a'),
-                new Option('b'),
-                new Option('c'),
+                new Option('a', 'Option A'),
+                new Option('b', 'Option B'),
+                new Option('c', 'Option C'),
             ),
             isRequired: true,
             help: 'This is a help text',
@@ -45,6 +45,11 @@ class RadioButtonsTest extends TestCase
                 'meta'        => [
                     'field_type' => 'radio',
                     'help'       => 'This is a help text',
+                    'enum_labels' => [
+                        'a' => 'Option A',
+                        'b' => 'Option B',
+                        'c' => 'Option C',
+                    ],
                 ],
             ],
         ], $radio->toJsonSchemaProperty()->toArray());

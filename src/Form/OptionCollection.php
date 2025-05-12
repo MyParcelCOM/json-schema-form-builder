@@ -26,7 +26,7 @@ class OptionCollection extends ArrayObject
             $labelMapping[$option->key] = $option->label;
         }
 
-        return $labelMapping;
+        return array_filter($labelMapping);
     }
 
     public function getLabelTranslations(): array|null

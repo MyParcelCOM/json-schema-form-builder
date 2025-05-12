@@ -31,45 +31,15 @@ class AbstractChoiceFieldTest extends TestCase
             label: $label,
             help: 'Help text',
             options: new OptionCollection(
-                new Option('1'),
-                new Option('2'),
-                new Option('3'),
-            ),
-        ) extends AbstractChoiceField {
-            protected MetaFieldType $fieldType = MetaFieldType::SELECT;
-        };
-
-        assertEquals([
-            $name => [
-                'type'        => 'string',
-                'description' => $label,
-                'enum'        => ['1', '2', '3'],
-                'meta'        => [
-                    'help'       => 'Help text',
-                    'field_type' => 'select',
-                ],
-            ],
-        ], $field->toJsonSchemaProperty()->toArray());
-    }
-
-    public function test_it_converts_into_an_array_with_option_labels(): void
-    {
-        $faker = Factory::create();
-
-        $name = $faker->word();
-        $label = $faker->words(asText: true);
-
-        $field = new class(
-            name: $name,
-            label: $label,
-            help: 'Help text',
-            options: new OptionCollection(
                 new Option('a', 'A'),
                 new Option('b', 'B'),
-                new Option('c', 'B'),
+                new Option('c', 'C'),
             ),
         ) extends AbstractChoiceField {
-            protected MetaFieldType $fieldType = MetaFieldType::RADIO;
+            protected function fieldType(): MetaFieldType
+            {
+                return MetaFieldType::RADIO;
+            }
         };
 
         assertEquals([
@@ -83,14 +53,14 @@ class AbstractChoiceFieldTest extends TestCase
                     'enum_labels' => [
                         'a' => 'A',
                         'b' => 'B',
-                        'c' => 'B',
+                        'c' => 'C',
                     ],
                 ],
             ],
         ], $field->toJsonSchemaProperty()->toArray());
     }
 
-    public function test_it_converts_into_an_array_with_option_labels_and_translations(): void
+    public function test_it_converts_into_an_array_with_translations(): void
     {
         $faker = Factory::create();
 
@@ -129,7 +99,10 @@ class AbstractChoiceFieldTest extends TestCase
                 new LabelTranslation(locale: Locale::DE_DE, label: 'Deutsches Etikett'),
             ),
         ) extends AbstractChoiceField {
-            protected MetaFieldType $fieldType = MetaFieldType::RADIO;
+            protected function fieldType(): MetaFieldType
+            {
+                return MetaFieldType::RADIO;
+            }
         };
 
         assertEquals([
@@ -183,7 +156,10 @@ class AbstractChoiceFieldTest extends TestCase
             label: $faker->words(asText: true),
             options: new OptionCollection(),
         ) extends AbstractChoiceField {
-            protected MetaFieldType $fieldType = MetaFieldType::RADIO;
+            protected function fieldType(): MetaFieldType
+            {
+                return MetaFieldType::RADIO;
+            }
         };
     }
 
@@ -202,9 +178,12 @@ class AbstractChoiceFieldTest extends TestCase
                 new Option('2', 'Two'),
                 new Option('3', 'Three'),
             ),
-            multipleValues: true,
+            withMultipleValues: true,
         ) extends AbstractChoiceField {
-            protected MetaFieldType $fieldType = MetaFieldType::RADIO;
+            protected function fieldType(): MetaFieldType
+            {
+                return MetaFieldType::RADIO;
+            }
         };
 
         assertEquals([

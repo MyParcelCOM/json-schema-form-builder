@@ -31,7 +31,7 @@ class Group extends FormElement
             properties: $this->children->getProperties(),
             meta: new Meta(
                 help: $this->help,
-                labelTranslations: $this->labelTranslations,
+                labelTranslations: $this->labelTranslations?->toArray(),
             )
         );
     }

@@ -10,7 +10,7 @@ class Option
 {
     public function __construct(
         public string $key,
-        public ?string $label = null,
+        public string $label,
         public ?LabelTranslationCollection $labelTranslations = null,
     ) {
     }

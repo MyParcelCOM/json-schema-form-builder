@@ -25,9 +25,9 @@ class SelectTest extends TestCase
             name: $name,
             label: $label,
             options: new OptionCollection(
-                new Option('1'),
-                new Option('2'),
-                new Option('3'),
+                new Option('1', 'One'),
+                new Option('2', 'Two'),
+                new Option('3', 'Three'),
             ),
         );
 
@@ -36,7 +36,14 @@ class SelectTest extends TestCase
                 'type'        => 'string',
                 'description' => $label,
                 'enum'        => ['1', '2', '3'],
-                'meta'        => ['field_type' => 'select'],
+                'meta'        => [
+                    'field_type' => 'select',
+                    'enum_labels' => [
+                        '1' => 'One',
+                        '2' => 'Two',
+                        '3' => 'Three',
+                    ],
+                ],
             ],
         ], $select->toJsonSchemaProperty()->toArray());
     }

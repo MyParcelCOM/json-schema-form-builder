@@ -20,7 +20,7 @@ class Items
     public function toArray(): array
     {
         return [
-            'type' => self::TYPE,
+            'type' => self::TYPE->value,
             'enum' => $this->enum,
         ];
     }

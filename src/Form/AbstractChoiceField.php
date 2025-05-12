@@ -9,6 +9,7 @@ use MyParcelCom\JsonSchema\FormBuilder\Properties\Items\Items;
 use MyParcelCom\JsonSchema\FormBuilder\Properties\Meta\Meta;
 use MyParcelCom\JsonSchema\FormBuilder\Properties\Meta\MetaFieldType;
 use MyParcelCom\JsonSchema\FormBuilder\Properties\SchemaProperty;
+use MyParcelCom\JsonSchema\FormBuilder\Properties\SchemaPropertyType;
 use MyParcelCom\JsonSchema\FormBuilder\Translations\LabelTranslationCollection;
 
 abstract class AbstractChoiceField extends FormElement
@@ -20,7 +21,7 @@ abstract class AbstractChoiceField extends FormElement
         public readonly bool $isRequired = false,
         public readonly ?string $help = null,
         public ?LabelTranslationCollection $labelTranslations = null,
-        protected bool $multipleValues = false,
+        public ?bool $withMultipleValues = false,
     ) {
         if (count($options) < 1) {
             throw new InvalidArgumentException(
@@ -32,18 +33,38 @@ abstract class AbstractChoiceField extends FormElement
 
     abstract protected function fieldType(): MetaFieldType;
 
+    protected function schemaPropertyType(): SchemaPropertyType
+    {
+        return $this->withMultipleValues
+            ? SchemaPropertyType::ARRAY
+            : SchemaPropertyType::STRING;
+    }
+
+    protected function enum(): ?array
+    {
+        return $this->withMultipleValues
+            ? null
+            : $this->options->getKeys();
+    }
+    protected function items(): ?Items
+    {
+        return $this->withMultipleValues
+            ? new Items(enum: $this->options->getKeys())
+            : null;
+    }
+
     public function toJsonSchemaProperty(): SchemaProperty
     {
         return new SchemaProperty(
             name: $this->name,
             type: $this->schemaPropertyType(),
             description: $this->label,
-            enum: $this->options->getKeys(),
-            items: new Items(enum: $this->options->getKeys()),
+            enum: $this->enum(),
+            items: $this->items(),
             meta: new Meta(
                 help: $this->help,
                 fieldType: $this->fieldType(),
-                labelTranslations: $this->labelTranslations->toArray(),
+                labelTranslations: $this->labelTranslations?->toArray(),
                 enumLabels: $this->options->getLabels(),
                 enumLabelTranslations: $this->options->getLabelTranslations(),
             )

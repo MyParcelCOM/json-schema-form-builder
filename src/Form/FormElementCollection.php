@@ -31,7 +31,7 @@ class FormElementCollection extends ArrayObject
     {
         $requiredProperties = array_filter(
             (array) $this,
-            static fn (FormElement $field) => $field->toJsonSchemaProperty()->isRequired,
+            static fn (FormElement $field) => $field->isRequired(),
         );
 
         return array_values(

@@ -6,7 +6,6 @@ namespace MyParcelCom\JsonSchema\FormBuilder\Form;
 
 use MyParcelCom\JsonSchema\FormBuilder\Properties\Meta\Meta;
 use MyParcelCom\JsonSchema\FormBuilder\Properties\SchemaProperty;
-use MyParcelCom\JsonSchema\FormBuilder\Properties\SchemaPropertyType;
 use MyParcelCom\JsonSchema\FormBuilder\Translations\LabelTranslationCollection;
 
 abstract class AbstractField extends FormElement
@@ -36,6 +35,7 @@ abstract class AbstractField extends FormElement
             description: $this->label,
             meta: new Meta(
                 help: $this->help,
+                password: $this->isPassword(),
                 labelTranslations: $this->labelTranslations,
             )
         );

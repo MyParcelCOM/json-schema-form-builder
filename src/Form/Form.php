@@ -12,11 +12,6 @@ use Illuminate\Support\Arr;
  */
 class Form extends FormElementCollection
 {
-    public function __construct(FormElement ...$items)
-    {
-        parent::__construct($items);
-    }
-
     public function toJsonSchema(): array
     {
         return [

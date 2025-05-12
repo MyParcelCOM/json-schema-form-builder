@@ -6,7 +6,7 @@ namespace Tests\Form;
 
 use Faker\Factory;
 use MyParcelCom\JsonSchema\FormBuilder\Form\AbstractField;
-use MyParcelCom\JsonSchema\FormBuilder\Form\FieldType;
+use MyParcelCom\JsonSchema\FormBuilder\Properties\SchemaPropertyType;
 use PHPUnit\Framework\TestCase;
 
 class AbstractFieldTest extends TestCase
@@ -23,8 +23,14 @@ class AbstractFieldTest extends TestCase
             label: $label,
             help: 'Help text',
         ) extends AbstractField {
-            protected FieldType $fieldType = FieldType::STRING;
-            protected bool $isPassword = true;
+            public function isPassword(): bool
+            {
+                return true;
+            }
+            protected function schemaPropertyType(): SchemaPropertyType
+            {
+                return SchemaPropertyType::STRING;
+            }
         };
 
         $this->assertEquals([

@@ -56,6 +56,43 @@ class GroupTest extends TestCase
         ], $group->toJsonSchemaProperty()->toArray());
     }
 
+    public function test_it_converts_into_an_array_with_required(): void
+    {
+        $group = new Group(
+            name: 'test_group',
+            label: 'Test Group',
+            children: new FormElementCollection(
+                new Text('name_1', 'Label 1', isRequired: true),
+                new Checkbox('name_2', 'Label 2'),
+            ),
+            help: 'Test help',
+        );
+
+        $this->assertEquals([
+            'test_group' => [
+                'type'        => 'object',
+                'description' => 'Test Group',
+                'properties'  => [
+                    'name_1' => [
+                        'type'        => 'string',
+                        'description' => 'Label 1',
+                    ],
+                    'name_2' => [
+                        'type'        => 'boolean',
+                        'description' => 'Label 2',
+                    ],
+                ],
+                'required'    => ['name_1'],
+                'meta'        => [
+                    'help' => 'Test help',
+                ],
+            ],
+        ], $group->toJsonSchemaProperty()->toArray());
+
+    }
+
+    // TODO: Add test for `required` property in group
+
     public function test_it_converts_into_an_array_nested_group(): void
     {
         $group = new Group(

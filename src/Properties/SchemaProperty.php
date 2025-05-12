@@ -33,11 +33,11 @@ class SchemaProperty
             $this->name => array_filter([
                 'type'        => $this->type->value,
                 'description' => $this->description,
-                'items'       => $this->items->toArray(),
+                'items'       => $this->items?->toArray(),
                 'required'    => $this->required,
                 'enum'        => $this->enum,
                 'properties'  => $this->properties?->toArray(),
-                'meta'        => $this->meta->toArray(),
+                'meta'        => $this->meta?->toArray(),
             ]),
         ];
     }
