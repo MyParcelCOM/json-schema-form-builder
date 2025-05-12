@@ -10,8 +10,6 @@ use MyParcelCom\JsonSchema\FormBuilder\Translations\LabelTranslationCollection;
 
 abstract class Field extends FormElement
 {
-    protected bool $isPassword = false;
-
     public function __construct(
         public readonly string $name,
         public readonly string $label,
