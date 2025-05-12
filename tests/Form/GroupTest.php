@@ -91,8 +91,6 @@ class GroupTest extends TestCase
 
     }
 
-    // TODO: Add test for `required` property in group
-
     public function test_it_converts_into_an_array_nested_group(): void
     {
         $group = new Group(
