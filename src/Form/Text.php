@@ -6,7 +6,7 @@ namespace MyParcelCom\JsonSchema\FormBuilder\Form;
 
 use MyParcelCom\JsonSchema\FormBuilder\Properties\SchemaPropertyType;
 
-class Text extends AbstractField
+class Text extends Field
 {
     protected function schemaPropertyType(): SchemaPropertyType
     {

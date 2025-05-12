@@ -8,7 +8,7 @@ use MyParcelCom\JsonSchema\FormBuilder\Properties\Meta\Meta;
 use MyParcelCom\JsonSchema\FormBuilder\Properties\SchemaProperty;
 use MyParcelCom\JsonSchema\FormBuilder\Translations\LabelTranslationCollection;
 
-abstract class AbstractField extends FormElement
+abstract class Field extends FormElement
 {
     protected bool $isPassword = false;
 

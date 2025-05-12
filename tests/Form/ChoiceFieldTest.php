@@ -17,7 +17,7 @@ use PHPUnit\Framework\TestCase;
 
 use function PHPUnit\Framework\assertEquals;
 
-class AbstractChoiceFieldTest extends TestCase
+class ChoiceFieldTest extends TestCase
 {
     public function test_it_converts_into_an_array(): void
     {

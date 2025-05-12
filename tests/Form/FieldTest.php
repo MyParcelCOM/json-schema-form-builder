@@ -5,13 +5,13 @@ declare(strict_types=1);
 namespace Tests\Form;
 
 use Faker\Factory;
-use MyParcelCom\JsonSchema\FormBuilder\Form\AbstractField;
+use MyParcelCom\JsonSchema\FormBuilder\Form\Field;
 use MyParcelCom\JsonSchema\FormBuilder\Properties\SchemaPropertyType;
 use PHPUnit\Framework\TestCase;
 
 use function PHPUnit\Framework\assertEquals;
 
-class AbstractFieldTest extends TestCase
+class FieldTest extends TestCase
 {
     public function test_it_converts_a_field_into_an_array(): void
     {
@@ -24,7 +24,7 @@ class AbstractFieldTest extends TestCase
             name: $name,
             label: $label,
             help: 'Help text',
-        ) extends AbstractField {
+        ) extends Field {
             public function isPassword(): bool
             {
                 return true;
