@@ -6,7 +6,7 @@ namespace Tests\Form;
 
 use Faker\Factory;
 use InvalidArgumentException;
-use MyParcelCom\JsonSchema\FormBuilder\Form\AbstractChoiceField;
+use MyParcelCom\JsonSchema\FormBuilder\Form\ChoiceField;
 use MyParcelCom\JsonSchema\FormBuilder\Form\Option;
 use MyParcelCom\JsonSchema\FormBuilder\Form\OptionCollection;
 use MyParcelCom\JsonSchema\FormBuilder\Properties\Meta\MetaFieldType;
@@ -35,7 +35,7 @@ class AbstractChoiceFieldTest extends TestCase
                 new Option('b', 'B'),
                 new Option('c', 'C'),
             ),
-        ) extends AbstractChoiceField {
+        ) extends ChoiceField {
             protected function fieldType(): MetaFieldType
             {
                 return MetaFieldType::RADIO;
@@ -98,7 +98,7 @@ class AbstractChoiceFieldTest extends TestCase
                 new LabelTranslation(locale: Locale::NL_NL, label: 'Nederlands label'),
                 new LabelTranslation(locale: Locale::DE_DE, label: 'Deutsches Etikett'),
             ),
-        ) extends AbstractChoiceField {
+        ) extends ChoiceField {
             protected function fieldType(): MetaFieldType
             {
                 return MetaFieldType::RADIO;
@@ -155,7 +155,7 @@ class AbstractChoiceFieldTest extends TestCase
             name: $faker->word,
             label: $faker->words(asText: true),
             options: new OptionCollection(),
-        ) extends AbstractChoiceField {
+        ) extends ChoiceField {
             protected function fieldType(): MetaFieldType
             {
                 return MetaFieldType::RADIO;
@@ -179,7 +179,7 @@ class AbstractChoiceFieldTest extends TestCase
                 new Option('3', 'Three'),
             ),
             withMultipleValues: true,
-        ) extends AbstractChoiceField {
+        ) extends ChoiceField {
             protected function fieldType(): MetaFieldType
             {
                 return MetaFieldType::RADIO;

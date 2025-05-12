@@ -6,7 +6,7 @@ namespace MyParcelCom\JsonSchema\FormBuilder\Form;
 
 use MyParcelCom\JsonSchema\FormBuilder\Properties\Meta\MetaFieldType;
 
-class RadioButtons extends AbstractChoiceField
+class RadioButtons extends ChoiceField
 {
     protected function fieldType(): MetaFieldType
     {

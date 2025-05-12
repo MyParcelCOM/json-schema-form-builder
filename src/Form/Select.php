@@ -8,7 +8,7 @@ use MyParcelCom\JsonSchema\FormBuilder\Properties\Meta\MetaFieldType;
 use MyParcelCom\JsonSchema\FormBuilder\Properties\SchemaPropertyType;
 use MyParcelCom\JsonSchema\FormBuilder\Translations\LabelTranslationCollection;
 
-class Select extends AbstractChoiceField
+class Select extends ChoiceField
 {
     public function __construct(
         string $name,

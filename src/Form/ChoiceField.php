@@ -12,7 +12,7 @@ use MyParcelCom\JsonSchema\FormBuilder\Properties\SchemaProperty;
 use MyParcelCom\JsonSchema\FormBuilder\Properties\SchemaPropertyType;
 use MyParcelCom\JsonSchema\FormBuilder\Translations\LabelTranslationCollection;
 
-abstract class AbstractChoiceField extends FormElement
+abstract class ChoiceField extends FormElement
 {
     public function __construct(
         public readonly string $name,
@@ -20,8 +20,8 @@ abstract class AbstractChoiceField extends FormElement
         public readonly OptionCollection $options,
         public readonly bool $isRequired = false,
         public readonly ?string $help = null,
-        public ?LabelTranslationCollection $labelTranslations = null,
-        public ?bool $withMultipleValues = false,
+        public readonly ?LabelTranslationCollection $labelTranslations = null,
+        public readonly ?bool $withMultipleValues = false,
     ) {
         if (count($options) < 1) {
             throw new InvalidArgumentException(
