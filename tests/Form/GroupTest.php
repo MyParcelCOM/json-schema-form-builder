@@ -14,6 +14,8 @@ use MyParcelCom\JsonSchema\FormBuilder\Translations\LabelTranslationCollection;
 use MyParcelCom\JsonSchema\FormBuilder\Translations\Locale;
 use PHPUnit\Framework\TestCase;
 
+use function PHPUnit\Framework\assertEquals;
+
 class GroupTest extends TestCase
 {
     public function test_it_converts_into_an_array_with_translations(): void
@@ -31,7 +33,8 @@ class GroupTest extends TestCase
                 new LabelTranslation(Locale::DE_DE, 'Test Gruppe'),
             ),
         );
-        $this->assertEquals([
+
+        assertEquals([
             'test_group' => [
                 'type'        => 'object',
                 'description' => 'Test Group',
@@ -68,7 +71,7 @@ class GroupTest extends TestCase
             help: 'Test help',
         );
 
-        $this->assertEquals([
+        assertEquals([
             'test_group' => [
                 'type'        => 'object',
                 'description' => 'Test Group',
@@ -111,7 +114,7 @@ class GroupTest extends TestCase
             help: 'Test help',
         );
 
-        $this->assertEquals([
+        assertEquals([
             'test_group' => [
                 'type'        => 'object',
                 'description' => 'Test Group',

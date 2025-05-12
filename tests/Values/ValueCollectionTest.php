@@ -9,6 +9,8 @@ use MyParcelCom\JsonSchema\FormBuilder\Values\Value;
 use MyParcelCom\JsonSchema\FormBuilder\Values\ValueCollection;
 use PHPUnit\Framework\TestCase;
 
+use function PHPUnit\Framework\assertEquals;
+
 class ValueCollectionTest extends TestCase
 {
     public function test_value_collection()
@@ -26,7 +28,7 @@ class ValueCollectionTest extends TestCase
 
         $valueCollection = new ValueCollection($valueObject1, $valueObject2);
 
-        $this->assertEquals([
+        assertEquals([
             [
                 'name'  => $name1,
                 'value' => $value1,

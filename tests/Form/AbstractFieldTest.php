@@ -9,6 +9,8 @@ use MyParcelCom\JsonSchema\FormBuilder\Form\AbstractField;
 use MyParcelCom\JsonSchema\FormBuilder\Properties\SchemaPropertyType;
 use PHPUnit\Framework\TestCase;
 
+use function PHPUnit\Framework\assertEquals;
+
 class AbstractFieldTest extends TestCase
 {
     public function test_it_converts_a_field_into_an_array(): void
@@ -33,7 +35,7 @@ class AbstractFieldTest extends TestCase
             }
         };
 
-        $this->assertEquals([
+        assertEquals([
             $name => [
                 'type'        => 'string',
                 'description' => $label,
