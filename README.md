@@ -4,7 +4,7 @@ This library provides an object-oriented API for constructing forms, which can b
 
 This package includes the following functionalities:
 
-1. Constructing forms and rendering them as a JSON Schema.
+1. Constructing forms and rendering them as `JSON Schema`.
 2. Creating simple fields such as `text`, `number` and `checkbox`.
 3. Creating choice fields such as `select`, `radio` and `multi-select`.
 4. Grouping form fields (`group` element).
@@ -31,12 +31,13 @@ docker run -v $(pwd):/app --rm -w /app php:8.4-cli vendor/bin/phpunit
 
 ## Usage
 
+The following section provides examples of how to use the library to create forms and convert them into JSON Schema.
+
 ### Meta Fields
 
-All properties that are not part of the JSON Schema specification will be stored as `meta`
-fields.
-
-The following fields are used in this library:
+While `JSON Schema` is useful for laying out forms it is also limited in the options in allows specifying. To prevent this from being an issue, information that is not part of the JSON Schema specification will be stored as `meta`
+fields. and will be defined using the `Meta.php` class.
+The following meta-fields are supported:
 
 - `help`: A string that describes the purpose of the field.
 - `label_translations`: Translations for the label of the field. (the non-translated label is stored as the
@@ -143,9 +144,9 @@ $group = new Group(
     name: 'my_group',
     label: 'My Group',
     children: new FormElementCollection(
-        new Text('my_text', 'My Text Field'),
-        new Checkbox('my_checkbox', 'My Checkbox Field'),
-        new Number('my_number', 'My Number Field')
+        new Text(name: 'my_text', label: 'My Text Field', isRequired: true),
+        new Checkbox(name: 'my_checkbox', label: 'My Checkbox Field'),
+        new Number(name: 'my_number', label: 'My Number Field')
     ),
     help: 'This following fields are related to...',
 );
@@ -166,6 +167,7 @@ The resulting JSON Schema property for the group will look as follows:
   "my_group": {
     "type": "object",
     "description": "My Group",
+    "required": ["my_text"],
     "properties": {
       "my_text": {
         "type": "string",
@@ -186,6 +188,8 @@ The resulting JSON Schema property for the group will look as follows:
   }
 }
 ```
+
+NOTE: When defining groups, required properties that are its direct children will be added to its `required` property rather than the `required` property of the parent form.
 
 ### Example: Adding translations to a form element's label
 
@@ -350,7 +354,7 @@ The resulting JSON Schema property will look as follows:
 
 ### Example: Multi-Select
 
-Rendering a `MultiSelect` field can be done by setting the `isMultiSelect` property to `true`.
+Rendering a `MultiSelect` field can be done by creating an instance of `Select.php` and setting `isMultiSelect` to `true`.
 
 ```php
 use MyParcelCom\JsonSchema\FormBuilder\Form\Select;
