@@ -5,9 +5,13 @@ declare(strict_types=1);
 namespace Tests\Form;
 
 use Faker\Factory;
+use InvalidArgumentException;
 use MyParcelCom\JsonSchema\FormBuilder\Form\MultiSelect;
 use MyParcelCom\JsonSchema\FormBuilder\Form\Option;
 use MyParcelCom\JsonSchema\FormBuilder\Form\OptionCollection;
+use MyParcelCom\JsonSchema\FormBuilder\Translations\LabelTranslation;
+use MyParcelCom\JsonSchema\FormBuilder\Translations\LabelTranslationCollection;
+use MyParcelCom\JsonSchema\FormBuilder\Translations\Locale;
 use PHPUnit\Framework\TestCase;
 
 use function PHPUnit\Framework\assertEquals;
@@ -21,13 +25,76 @@ class MultiSelectTest extends TestCase
         $name = $faker->word();
         $label = $faker->words(asText: true);
 
-        $select = new MultiSelect(
+        $field = new MultiSelect(
             name: $name,
             label: $label,
             options: new OptionCollection(
-                new Option('1', 'One'),
-                new Option('2', 'Two'),
-                new Option('3', 'Three'),
+                new Option('a', 'A'),
+                new Option('b', 'B'),
+                new Option('c', 'C'),
+            ),
+            help: 'Help text',
+        );
+
+
+        assertEquals([
+            $name => [
+                'type'        => 'array',
+                'description' => $label,
+                'items'       => [
+                    'type' => 'string',
+                    'enum' => ['a', 'b', 'c'],
+                ],
+                'meta'        => [
+                    'field_type'  => 'select',
+                    'help'        => 'Help text',
+                    'enum_labels' => [
+                        'a' => 'A',
+                        'b' => 'B',
+                        'c' => 'C',
+                    ],
+                ],
+            ],
+        ], $field->toJsonSchemaProperty()->toArray());
+    }
+
+    public function test_it_converts_into_an_array_with_translations(): void
+    {
+        $faker = Factory::create();
+
+        $name = $faker->word();
+        $label = $faker->words(asText: true);
+
+        $field = new MultiSelect(
+            name: $name,
+            label: $label,
+            options: new OptionCollection(
+                new Option(
+                    'a', 'A', new LabelTranslationCollection(
+                    new LabelTranslation(locale: Locale::EN_GB, label: 'A'),
+                    new LabelTranslation(locale: Locale::NL_NL, label: 'A in het Nederlands'),
+                    new LabelTranslation(locale: Locale::DE_DE, label: 'A in Deutsch'),
+                ),
+                ),
+                new Option(
+                    'b', 'B', new LabelTranslationCollection(
+                    new LabelTranslation(locale: Locale::EN_GB, label: 'B'),
+                    new LabelTranslation(locale: Locale::NL_NL, label: 'B in het Nederlands'),
+                    new LabelTranslation(locale: Locale::DE_DE, label: 'B in Deutsch'),
+                ),
+                ),
+                new Option(
+                    'c', 'C', new LabelTranslationCollection(
+                    new LabelTranslation(locale: Locale::EN_GB, label: 'C'),
+                    new LabelTranslation(locale: Locale::NL_NL, label: 'C in het Nederlands'),
+                    new LabelTranslation(locale: Locale::DE_DE, label: 'C in Deutsch'),
+                ),
+                ),
+            ),
+            labelTranslations: new LabelTranslationCollection(
+                new LabelTranslation(locale: Locale::EN_GB, label: 'English label'),
+                new LabelTranslation(locale: Locale::NL_NL, label: 'Nederlands label'),
+                new LabelTranslation(locale: Locale::DE_DE, label: 'Deutsches Etikett'),
             ),
         );
 
@@ -37,17 +104,53 @@ class MultiSelectTest extends TestCase
                 'description' => $label,
                 'items'       => [
                     'type' => 'string',
-                    'enum' => ['1', '2', '3'],
+                    'enum' => ['a', 'b', 'c'],
                 ],
                 'meta'        => [
-                    'field_type'  => 'select',
-                    'enum_labels' => [
-                        '1' => 'One',
-                        '2' => 'Two',
-                        '3' => 'Three',
+                    'field_type'              => 'select',
+                    'enum_labels'             => [
+                        'a' => 'A',
+                        'b' => 'B',
+                        'c' => 'C',
+                    ],
+                    'label_translations'      => [
+                        'en-GB' => 'English label',
+                        'nl-NL' => 'Nederlands label',
+                        'de-DE' => 'Deutsches Etikett',
+                    ],
+                    'enum_label_translations' => [
+                        'a' => [
+                            'en-GB' => 'A',
+                            'nl-NL' => 'A in het Nederlands',
+                            'de-DE' => 'A in Deutsch',
+                        ],
+                        'b' => [
+                            'en-GB' => 'B',
+                            'nl-NL' => 'B in het Nederlands',
+                            'de-DE' => 'B in Deutsch',
+                        ],
+                        'c' => [
+                            'en-GB' => 'C',
+                            'nl-NL' => 'C in het Nederlands',
+                            'de-DE' => 'C in Deutsch',
+                        ],
                     ],
                 ],
             ],
-        ], $select->toJsonSchemaProperty()->toArray());
+        ], $field->toJsonSchemaProperty()->toArray());
+    }
+
+    public function test_it_throws_an_invalid_argument_exception_without_options(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Select field property requires at least one option.');
+
+        $faker = Factory::create();
+
+        new MultiSelect(
+            name: $faker->word,
+            label: $faker->words(asText: true),
+            options: new OptionCollection(),
+        );
     }
 }
