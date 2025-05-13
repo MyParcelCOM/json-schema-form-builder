@@ -34,7 +34,7 @@ abstract class Field extends FormElement
             meta: new Meta(
                 help: $this->help,
                 password: $this->isPassword(),
-                labelTranslations: $this->labelTranslations,
+                labelTranslations: $this->labelTranslations?->toArray(),
             ),
         );
     }
