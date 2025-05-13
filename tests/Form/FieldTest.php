@@ -29,6 +29,7 @@ class FieldTest extends TestCase
             {
                 return true;
             }
+
             protected function schemaPropertyType(): SchemaPropertyType
             {
                 return SchemaPropertyType::STRING;
@@ -39,8 +40,8 @@ class FieldTest extends TestCase
             $name => [
                 'type'        => 'string',
                 'description' => $label,
-                'meta' => [
-                    'help'       => 'Help text',
+                'meta'        => [
+                    'help'     => 'Help text',
                     'password' => true,
                 ],
             ],

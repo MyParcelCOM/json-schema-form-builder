@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace MyParcelCom\JsonSchema\FormBuilder\Form;
 
 use ArrayObject;
-use Illuminate\Support\Arr;
 
 /**
  * @extends ArrayObject<array-key, FormElement>

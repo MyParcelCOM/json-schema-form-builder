@@ -12,6 +12,7 @@ class Password extends Field
     {
         return SchemaPropertyType::STRING;
     }
+
     public function isPassword(): bool
     {
         return true;

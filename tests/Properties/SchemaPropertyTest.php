@@ -5,8 +5,6 @@ declare(strict_types=1);
 namespace Tests\Properties;
 
 use Faker\Factory;
-use MyParcelCom\JsonSchema\FormBuilder\Form\Option;
-use MyParcelCom\JsonSchema\FormBuilder\Form\OptionCollection;
 use MyParcelCom\JsonSchema\FormBuilder\Properties\Items\Items;
 use MyParcelCom\JsonSchema\FormBuilder\Properties\Meta\Meta;
 use MyParcelCom\JsonSchema\FormBuilder\Properties\Meta\MetaFieldType;
@@ -16,8 +14,6 @@ use MyParcelCom\JsonSchema\FormBuilder\Properties\SchemaPropertyType;
 use PHPUnit\Framework\TestCase;
 
 use function PHPUnit\Framework\assertEquals;
-use function PHPUnit\Framework\assertFalse;
-use function PHPUnit\Framework\assertTrue;
 
 class SchemaPropertyTest extends TestCase
 {
@@ -58,8 +54,8 @@ class SchemaPropertyTest extends TestCase
                     type: SchemaPropertyType::STRING,
                     description: 'Label 1',
                     meta: new Meta(
-                        help: 'help property 1'
-                    )
+                        help: 'help property 1',
+                    ),
                 ),
                 new SchemaProperty(
                     name: 'name_2',
@@ -76,7 +72,7 @@ class SchemaPropertyTest extends TestCase
                     'option_2' => 'Option 2',
                     'option_3' => 'Option 3',
                 ],
-            )
+            ),
         );
 
         assertEquals([
@@ -99,19 +95,19 @@ class SchemaPropertyTest extends TestCase
                     'type' => 'string',
                     'enum' => ['option_1', 'option_2', 'option_3'],
                 ],
-                'properties' => [
+                'properties'  => [
                     'name_1' => [
                         'type'        => 'string',
                         'description' => 'Label 1',
-                        'meta' => [
+                        'meta'        => [
                             'help' => 'help property 1',
-                        ]
+                        ],
                     ],
                     'name_2' => [
                         'type'        => 'boolean',
                         'description' => 'Label 2',
                     ],
-                ]
+                ],
             ],
         ], $property->toArray());
     }

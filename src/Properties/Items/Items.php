@@ -15,8 +15,9 @@ class Items
      */
     public function __construct(
         private readonly array $enum,
-    ){
+    ) {
     }
+
     public function toArray(): array
     {
         return [

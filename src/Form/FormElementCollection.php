@@ -21,6 +21,7 @@ class FormElementCollection extends ArrayObject
             (array) $this,
             static fn (FormElement $formElement) => $formElement->toJsonSchemaProperty(),
         );
+
         return new SchemaPropertyCollection(...$properties);
     }
 

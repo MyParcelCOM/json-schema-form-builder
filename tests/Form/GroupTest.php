@@ -91,7 +91,6 @@ class GroupTest extends TestCase
                 ],
             ],
         ], $group->toJsonSchemaProperty()->toArray());
-
     }
 
     public function test_it_converts_into_an_array_nested_group(): void

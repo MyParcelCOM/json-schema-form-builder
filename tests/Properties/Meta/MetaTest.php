@@ -35,7 +35,7 @@ class MetaTest extends TestCase
                     'nl-NL' => 'Label 2 NL',
                     'de-DE' => 'Label 2 DE',
                 ],
-            ]
+            ],
         );
 
         assertEquals([

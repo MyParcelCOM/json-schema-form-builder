@@ -183,6 +183,7 @@ class ChoiceFieldTest extends TestCase
             {
                 return MetaFieldType::RADIO;
             }
+
             protected function withMultipleValues(): bool
             {
                 return true;

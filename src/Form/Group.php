@@ -32,7 +32,7 @@ class Group extends FormElement
             meta: new Meta(
                 help: $this->help,
                 labelTranslations: $this->labelTranslations?->toArray(),
-            )
+            ),
         );
     }
 

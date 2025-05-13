@@ -35,7 +35,7 @@ abstract class Field extends FormElement
                 help: $this->help,
                 password: $this->isPassword(),
                 labelTranslations: $this->labelTranslations,
-            )
+            ),
         );
     }
 }

@@ -5,8 +5,6 @@ declare(strict_types=1);
 namespace MyParcelCom\JsonSchema\FormBuilder\Form;
 
 use MyParcelCom\JsonSchema\FormBuilder\Properties\Meta\MetaFieldType;
-use MyParcelCom\JsonSchema\FormBuilder\Properties\SchemaPropertyType;
-use MyParcelCom\JsonSchema\FormBuilder\Translations\LabelTranslationCollection;
 
 class Select extends ChoiceField
 {

@@ -13,6 +13,7 @@ class SchemaPropertyCollection extends ArrayObject
     {
         parent::__construct($schemaProperties);
     }
+
     public function toArray(): array
     {
         return Arr::collapse(

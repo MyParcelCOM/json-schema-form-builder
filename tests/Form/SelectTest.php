@@ -37,7 +37,7 @@ class SelectTest extends TestCase
                 'description' => $label,
                 'enum'        => ['1', '2', '3'],
                 'meta'        => [
-                    'field_type' => 'select',
+                    'field_type'  => 'select',
                     'enum_labels' => [
                         '1' => 'One',
                         '2' => 'Two',

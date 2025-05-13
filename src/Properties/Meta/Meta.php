@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace MyParcelCom\JsonSchema\FormBuilder\Properties\Meta;
 
-use MyParcelCom\JsonSchema\FormBuilder\Translations\LabelTranslationCollection;
-
 class Meta
 {
     public function __construct(
@@ -17,6 +15,7 @@ class Meta
         private readonly ?array $enumLabelTranslations = null,
     ) {
     }
+
     public function toArray(): array
     {
         return array_filter([

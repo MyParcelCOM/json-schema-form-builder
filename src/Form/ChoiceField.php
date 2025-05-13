@@ -34,6 +34,7 @@ abstract class ChoiceField extends FormElement
     {
         return false;
     }
+
     abstract protected function fieldType(): MetaFieldType;
 
     protected function schemaPropertyType(): SchemaPropertyType
@@ -49,6 +50,7 @@ abstract class ChoiceField extends FormElement
             ? null
             : $this->options->getKeys();
     }
+
     protected function items(): ?Items
     {
         return $this->withMultipleValues()
@@ -70,7 +72,7 @@ abstract class ChoiceField extends FormElement
                 labelTranslations: $this->labelTranslations?->toArray(),
                 enumLabels: $this->options->getLabels(),
                 enumLabelTranslations: $this->options->getLabelTranslations(),
-            )
+            ),
         );
     }
 }
