@@ -354,19 +354,16 @@ The resulting JSON Schema property will look as follows:
 
 ### Example: Multi-Select
 
-Rendering a `MultiSelect` field can be done by creating an instance of `Select.php` and setting `isMultiSelect` to `true`.
-
 ```php
-use MyParcelCom\JsonSchema\FormBuilder\Form\Select;
+use MyParcelCom\JsonSchema\FormBuilder\Form\MultiSelect;
 
-$multiSelectField = new Select(
+$multiSelectField = new MultiSelect(
     name: 'example_multi_select',
     label: 'Example Multi-Select Field',
     options: new OptionCollection(
         new Option('option_1_key', 'Option 1 Label'),
         new Option('option_2_key', 'Option 2 Label')
     ),
-    isMultiSelect: true,
     help: 'Please select one or more options.',
 );
 ```
