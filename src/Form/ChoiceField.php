@@ -30,30 +30,18 @@ abstract class ChoiceField extends FormElement
         parent::__construct($isRequired);
     }
 
-    protected function withMultipleValues(): bool
-    {
-        return false;
-    }
-
     abstract protected function fieldType(): MetaFieldType;
-
-    protected function schemaPropertyType(): SchemaPropertyType
-    {
-        return $this->withMultipleValues()
-            ? SchemaPropertyType::ARRAY
-            : SchemaPropertyType::STRING;
-    }
 
     protected function enum(): ?array
     {
-        return $this->withMultipleValues()
+        return $this->schemaPropertyType() === SchemaPropertyType::ARRAY
             ? null
             : $this->options->getKeys();
     }
 
     protected function items(): ?Items
     {
-        return $this->withMultipleValues()
+        return $this->schemaPropertyType() === SchemaPropertyType::ARRAY
             ? new Items(enum: $this->options->getKeys())
             : null;
     }

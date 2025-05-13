@@ -10,6 +10,7 @@ use MyParcelCom\JsonSchema\FormBuilder\Form\ChoiceField;
 use MyParcelCom\JsonSchema\FormBuilder\Form\Option;
 use MyParcelCom\JsonSchema\FormBuilder\Form\OptionCollection;
 use MyParcelCom\JsonSchema\FormBuilder\Properties\Meta\MetaFieldType;
+use MyParcelCom\JsonSchema\FormBuilder\Properties\SchemaPropertyType;
 use MyParcelCom\JsonSchema\FormBuilder\Translations\LabelTranslation;
 use MyParcelCom\JsonSchema\FormBuilder\Translations\LabelTranslationCollection;
 use MyParcelCom\JsonSchema\FormBuilder\Translations\Locale;
@@ -39,6 +40,11 @@ class ChoiceFieldTest extends TestCase
             protected function fieldType(): MetaFieldType
             {
                 return MetaFieldType::RADIO;
+            }
+
+            protected function schemaPropertyType(): SchemaPropertyType
+            {
+                return SchemaPropertyType::STRING;
             }
         };
 
@@ -103,6 +109,11 @@ class ChoiceFieldTest extends TestCase
             {
                 return MetaFieldType::RADIO;
             }
+
+            protected function schemaPropertyType(): SchemaPropertyType
+            {
+                return SchemaPropertyType::STRING;
+            }
         };
 
         assertEquals([
@@ -160,6 +171,11 @@ class ChoiceFieldTest extends TestCase
             {
                 return MetaFieldType::RADIO;
             }
+
+            protected function schemaPropertyType(): SchemaPropertyType
+            {
+                return SchemaPropertyType::STRING;
+            }
         };
     }
 
@@ -184,9 +200,9 @@ class ChoiceFieldTest extends TestCase
                 return MetaFieldType::RADIO;
             }
 
-            protected function withMultipleValues(): bool
+            protected function schemaPropertyType(): SchemaPropertyType
             {
-                return true;
+                return SchemaPropertyType::ARRAY;
             }
         };
 

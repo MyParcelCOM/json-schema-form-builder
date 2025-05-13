@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace MyParcelCom\JsonSchema\FormBuilder\Form;
 
 use MyParcelCom\JsonSchema\FormBuilder\Properties\Meta\MetaFieldType;
+use MyParcelCom\JsonSchema\FormBuilder\Properties\SchemaPropertyType;
 
 class MultiSelect extends ChoiceField
 {
@@ -12,9 +13,8 @@ class MultiSelect extends ChoiceField
     {
         return MetaFieldType::SELECT;
     }
-
-    protected function withMultipleValues(): bool
+    protected function schemaPropertyType(): SchemaPropertyType
     {
-        return true;
+        return SchemaPropertyType::ARRAY;
     }
 }
