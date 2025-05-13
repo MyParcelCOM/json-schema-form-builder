@@ -178,11 +178,14 @@ class ChoiceFieldTest extends TestCase
                 new Option('2', 'Two'),
                 new Option('3', 'Three'),
             ),
-            withMultipleValues: true,
         ) extends ChoiceField {
             protected function fieldType(): MetaFieldType
             {
                 return MetaFieldType::RADIO;
+            }
+            protected function withMultipleValues(): bool
+            {
+                return true;
             }
         };
 

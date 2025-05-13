@@ -5,14 +5,14 @@ declare(strict_types=1);
 namespace Tests\Form;
 
 use Faker\Factory;
+use MyParcelCom\JsonSchema\FormBuilder\Form\MultiSelect;
 use MyParcelCom\JsonSchema\FormBuilder\Form\Option;
 use MyParcelCom\JsonSchema\FormBuilder\Form\OptionCollection;
-use MyParcelCom\JsonSchema\FormBuilder\Form\Select;
 use PHPUnit\Framework\TestCase;
 
 use function PHPUnit\Framework\assertEquals;
 
-class SelectTest extends TestCase
+class MultiSelectTest extends TestCase
 {
     public function test_it_converts_into_an_array(): void
     {
@@ -21,7 +21,7 @@ class SelectTest extends TestCase
         $name = $faker->word();
         $label = $faker->words(asText: true);
 
-        $select = new Select(
+        $select = new MultiSelect(
             name: $name,
             label: $label,
             options: new OptionCollection(
@@ -33,11 +33,14 @@ class SelectTest extends TestCase
 
         assertEquals([
             $name => [
-                'type'        => 'string',
+                'type'        => 'array',
                 'description' => $label,
-                'enum'        => ['1', '2', '3'],
+                'items'       => [
+                    'type' => 'string',
+                    'enum' => ['1', '2', '3'],
+                ],
                 'meta'        => [
-                    'field_type' => 'select',
+                    'field_type'  => 'select',
                     'enum_labels' => [
                         '1' => 'One',
                         '2' => 'Two',

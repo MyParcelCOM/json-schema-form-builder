@@ -21,7 +21,6 @@ abstract class ChoiceField extends FormElement
         public readonly bool $isRequired = false,
         public readonly ?string $help = null,
         public readonly ?LabelTranslationCollection $labelTranslations = null,
-        public readonly ?bool $withMultipleValues = false,
     ) {
         if (count($options) < 1) {
             throw new InvalidArgumentException(
@@ -31,24 +30,28 @@ abstract class ChoiceField extends FormElement
         parent::__construct($isRequired);
     }
 
+    protected function withMultipleValues(): bool
+    {
+        return false;
+    }
     abstract protected function fieldType(): MetaFieldType;
 
     protected function schemaPropertyType(): SchemaPropertyType
     {
-        return $this->withMultipleValues
+        return $this->withMultipleValues()
             ? SchemaPropertyType::ARRAY
             : SchemaPropertyType::STRING;
     }
 
     protected function enum(): ?array
     {
-        return $this->withMultipleValues
+        return $this->withMultipleValues()
             ? null
             : $this->options->getKeys();
     }
     protected function items(): ?Items
     {
-        return $this->withMultipleValues
+        return $this->withMultipleValues()
             ? new Items(enum: $this->options->getKeys())
             : null;
     }
