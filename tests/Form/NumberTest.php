@@ -35,7 +35,7 @@ class NumberTest extends TestCase
                 'type'        => 'number',
                 'description' => $label,
                 'meta'        => [
-                    'help'     => 'Help text',
+                    'help' => 'Help text',
                 ],
             ],
         ], $field->toJsonSchemaProperty()->toArray());
@@ -56,8 +56,8 @@ class NumberTest extends TestCase
 
         assertTrue($requiredField->isRequired());
         assertFalse($nonRequiredField->isRequired());
-
     }
+
     public function test_it_converts_into_an_array_with_translations(): void
     {
         $field = new Number(
@@ -76,12 +76,12 @@ class NumberTest extends TestCase
                 'type'        => 'number',
                 'description' => 'label',
                 'meta'        => [
-                    'help'     => 'Help text',
+                    'help'               => 'Help text',
                     'label_translations' => [
                         'en-GB' => 'English label',
                         'nl-NL' => 'Nederlands label',
                         'de-DE' => 'Deutsches Etikett',
-                    ]
+                    ],
                 ],
             ],
         ], $field->toJsonSchemaProperty()->toArray());

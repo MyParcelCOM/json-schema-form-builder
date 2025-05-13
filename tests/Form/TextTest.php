@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Tests\Form;
 
 use Faker\Factory;
-use MyParcelCom\JsonSchema\FormBuilder\Form\Password;
 use MyParcelCom\JsonSchema\FormBuilder\Form\Text;
 use MyParcelCom\JsonSchema\FormBuilder\Translations\LabelTranslation;
 use MyParcelCom\JsonSchema\FormBuilder\Translations\LabelTranslationCollection;
@@ -36,7 +35,7 @@ class TextTest extends TestCase
                 'type'        => 'string',
                 'description' => $label,
                 'meta'        => [
-                    'help'     => 'Help text',
+                    'help' => 'Help text',
                 ],
             ],
         ], $field->toJsonSchemaProperty()->toArray());
@@ -57,8 +56,8 @@ class TextTest extends TestCase
 
         assertTrue($requiredField->isRequired());
         assertFalse($nonRequiredField->isRequired());
-
     }
+
     public function test_it_converts_into_an_array_with_translations(): void
     {
         $field = new Text(
@@ -77,12 +76,12 @@ class TextTest extends TestCase
                 'type'        => 'string',
                 'description' => 'label',
                 'meta'        => [
-                    'help'     => 'Help text',
+                    'help'               => 'Help text',
                     'label_translations' => [
                         'en-GB' => 'English label',
                         'nl-NL' => 'Nederlands label',
                         'de-DE' => 'Deutsches Etikett',
-                    ]
+                    ],
                 ],
             ],
         ], $field->toJsonSchemaProperty()->toArray());

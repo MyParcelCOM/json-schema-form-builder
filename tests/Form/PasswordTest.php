@@ -57,8 +57,8 @@ class PasswordTest extends TestCase
 
         assertTrue($requiredField->isRequired());
         assertFalse($nonRequiredField->isRequired());
-
     }
+
     public function test_it_converts_into_an_array_with_translations(): void
     {
         $field = new Password(
@@ -77,13 +77,13 @@ class PasswordTest extends TestCase
                 'type'        => 'string',
                 'description' => 'label',
                 'meta'        => [
-                    'help'     => 'Help text',
-                    'password' => true,
+                    'help'               => 'Help text',
+                    'password'           => true,
                     'label_translations' => [
                         'en-GB' => 'English label',
                         'nl-NL' => 'Nederlands label',
                         'de-DE' => 'Deutsches Etikett',
-                    ]
+                    ],
                 ],
             ],
         ], $field->toJsonSchemaProperty()->toArray());
