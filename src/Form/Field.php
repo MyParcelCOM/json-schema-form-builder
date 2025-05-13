@@ -7,6 +7,7 @@ namespace MyParcelCom\JsonSchema\FormBuilder\Form;
 use MyParcelCom\JsonSchema\FormBuilder\Properties\Meta\Meta;
 use MyParcelCom\JsonSchema\FormBuilder\Properties\SchemaProperty;
 use MyParcelCom\JsonSchema\FormBuilder\Translations\LabelTranslationCollection;
+use Override;
 
 abstract class Field extends FormElement
 {
@@ -25,6 +26,7 @@ abstract class Field extends FormElement
         return false;
     }
 
+    #[Override]
     public function toJsonSchemaProperty(): SchemaProperty
     {
         return new SchemaProperty(

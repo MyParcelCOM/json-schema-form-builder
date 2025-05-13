@@ -210,10 +210,7 @@ class ChoiceFieldTest extends TestCase
             $name => [
                 'type'        => 'array',
                 'description' => $label,
-                'items'       => [
-                    'type' => 'string',
-                    'enum' => ['1', '2', '3'],
-                ],
+                'enum'        => ['1', '2', '3'],
                 'meta'        => [
                     'field_type'  => 'radio',
                     'enum_labels' => [
