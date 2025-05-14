@@ -7,11 +7,11 @@ namespace MyParcelCom\JsonSchema\FormBuilder\Form;
 use MyParcelCom\JsonSchema\FormBuilder\Properties\Meta\MetaFieldType;
 use Override;
 
-class Select extends ChoiceField
+class RadioButtons extends ChoiceField
 {
     #[Override]
     protected function fieldType(): MetaFieldType
     {
-        return MetaFieldType::SELECT;
+        return MetaFieldType::RADIO;
     }
 }

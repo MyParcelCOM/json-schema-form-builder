@@ -1,0 +1,46 @@
+<?php
+
+declare(strict_types=1);
+
+namespace MyParcelCom\JsonSchema\FormBuilder\Form;
+
+use ArrayObject;
+use Illuminate\Support\Arr;
+use MyParcelCom\JsonSchema\FormBuilder\Properties\SchemaPropertyCollection;
+
+class FormElementCollection extends ArrayObject
+{
+    public function __construct(FormElement ...$formElements)
+    {
+        parent::__construct($formElements);
+    }
+
+    public function getProperties(): SchemaPropertyCollection
+    {
+        $properties = Arr::map(
+            (array) $this,
+            static fn (FormElement $formElement) => $formElement->toJsonSchemaProperty(),
+        );
+
+        return new SchemaPropertyCollection(...$properties);
+    }
+
+    /**
+     * @return array<string>
+     */
+    public function getRequired(): array
+    {
+        $requiredProperties = array_filter(
+            (array) $this,
+            static fn (FormElement $field) => $field->isRequired(),
+        );
+
+        return array_values(
+            Arr::map(
+                $requiredProperties,
+                static fn (FormElement $field) => $field->name,
+            ),
+        );
+    }
+
+}

@@ -6,24 +6,20 @@ namespace MyParcelCom\JsonSchema\FormBuilder\Form;
 
 use MyParcelCom\JsonSchema\FormBuilder\Properties\Meta\Meta;
 use MyParcelCom\JsonSchema\FormBuilder\Properties\SchemaProperty;
+use MyParcelCom\JsonSchema\FormBuilder\Properties\SchemaPropertyType;
 use MyParcelCom\JsonSchema\FormBuilder\Translations\LabelTranslationCollection;
 use Override;
 
-abstract class Field extends FormElement
+class Group extends FormElement
 {
     public function __construct(
         public readonly string $name,
         public readonly string $label,
-        public readonly bool $isRequired = false,
+        public readonly FormElementCollection $children,
         public readonly ?string $help = null,
         public ?LabelTranslationCollection $labelTranslations = null,
     ) {
-        parent::__construct($isRequired);
-    }
-
-    public function isPassword(): bool
-    {
-        return false;
+        parent::__construct(false);
     }
 
     #[Override]
@@ -31,13 +27,20 @@ abstract class Field extends FormElement
     {
         return new SchemaProperty(
             name: $this->name,
-            type: $this->schemaPropertyType(),
+            type: SchemaPropertyType::OBJECT,
             description: $this->label,
+            required: $this->children->getRequired(),
+            properties: $this->children->getProperties(),
             meta: new Meta(
                 help: $this->help,
-                password: $this->isPassword(),
                 labelTranslations: $this->labelTranslations?->toArray(),
             ),
         );
+    }
+
+    #[Override]
+    protected function schemaPropertyType(): SchemaPropertyType
+    {
+        return SchemaPropertyType::OBJECT;
     }
 }

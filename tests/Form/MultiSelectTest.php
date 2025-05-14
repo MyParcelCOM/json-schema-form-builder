@@ -6,9 +6,9 @@ namespace Tests\Form;
 
 use Faker\Factory;
 use InvalidArgumentException;
+use MyParcelCom\JsonSchema\FormBuilder\Form\MultiSelect;
 use MyParcelCom\JsonSchema\FormBuilder\Form\Option;
 use MyParcelCom\JsonSchema\FormBuilder\Form\OptionCollection;
-use MyParcelCom\JsonSchema\FormBuilder\Form\Select;
 use MyParcelCom\JsonSchema\FormBuilder\Translations\LabelTranslation;
 use MyParcelCom\JsonSchema\FormBuilder\Translations\LabelTranslationCollection;
 use MyParcelCom\JsonSchema\FormBuilder\Translations\Locale;
@@ -16,7 +16,7 @@ use PHPUnit\Framework\TestCase;
 
 use function PHPUnit\Framework\assertEquals;
 
-class SelectTest extends TestCase
+class MultiSelectTest extends TestCase
 {
     public function test_it_converts_into_an_array(): void
     {
@@ -25,7 +25,7 @@ class SelectTest extends TestCase
         $name = $faker->word();
         $label = $faker->words(asText: true);
 
-        $field = new Select(
+        $field = new MultiSelect(
             name: $name,
             label: $label,
             options: new OptionCollection(
@@ -39,9 +39,12 @@ class SelectTest extends TestCase
 
         assertEquals([
             $name => [
-                'type'        => 'string',
+                'type'        => 'array',
                 'description' => $label,
-                'enum'        => ['a', 'b', 'c'],
+                'items'       => [
+                    'type' => 'string',
+                    'enum' => ['a', 'b', 'c'],
+                ],
                 'meta'        => [
                     'field_type'  => 'select',
                     'help'        => 'Help text',
@@ -62,7 +65,7 @@ class SelectTest extends TestCase
         $name = $faker->word();
         $label = $faker->words(asText: true);
 
-        $field = new Select(
+        $field = new MultiSelect(
             name: $name,
             label: $label,
             options: new OptionCollection(
@@ -97,9 +100,12 @@ class SelectTest extends TestCase
 
         assertEquals([
             $name => [
-                'type'        => 'string',
+                'type'        => 'array',
                 'description' => $label,
-                'enum'        => ['a', 'b', 'c'],
+                'items'       => [
+                    'type' => 'string',
+                    'enum' => ['a', 'b', 'c'],
+                ],
                 'meta'        => [
                     'field_type'              => 'select',
                     'enum_labels'             => [
@@ -141,7 +147,7 @@ class SelectTest extends TestCase
 
         $faker = Factory::create();
 
-        new Select(
+        new MultiSelect(
             name: $faker->word,
             label: $faker->words(asText: true),
             options: new OptionCollection(),

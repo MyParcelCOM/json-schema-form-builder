@@ -8,7 +8,7 @@ use Faker\Factory;
 use InvalidArgumentException;
 use MyParcelCom\JsonSchema\FormBuilder\Form\Option;
 use MyParcelCom\JsonSchema\FormBuilder\Form\OptionCollection;
-use MyParcelCom\JsonSchema\FormBuilder\Form\Select;
+use MyParcelCom\JsonSchema\FormBuilder\Form\RadioButtons;
 use MyParcelCom\JsonSchema\FormBuilder\Translations\LabelTranslation;
 use MyParcelCom\JsonSchema\FormBuilder\Translations\LabelTranslationCollection;
 use MyParcelCom\JsonSchema\FormBuilder\Translations\Locale;
@@ -16,7 +16,7 @@ use PHPUnit\Framework\TestCase;
 
 use function PHPUnit\Framework\assertEquals;
 
-class SelectTest extends TestCase
+class RadioButtonsTest extends TestCase
 {
     public function test_it_converts_into_an_array(): void
     {
@@ -25,7 +25,7 @@ class SelectTest extends TestCase
         $name = $faker->word();
         $label = $faker->words(asText: true);
 
-        $field = new Select(
+        $field = new RadioButtons(
             name: $name,
             label: $label,
             options: new OptionCollection(
@@ -43,7 +43,7 @@ class SelectTest extends TestCase
                 'description' => $label,
                 'enum'        => ['a', 'b', 'c'],
                 'meta'        => [
-                    'field_type'  => 'select',
+                    'field_type'  => 'radio',
                     'help'        => 'Help text',
                     'enum_labels' => [
                         'a' => 'A',
@@ -62,7 +62,7 @@ class SelectTest extends TestCase
         $name = $faker->word();
         $label = $faker->words(asText: true);
 
-        $field = new Select(
+        $field = new RadioButtons(
             name: $name,
             label: $label,
             options: new OptionCollection(
@@ -101,7 +101,7 @@ class SelectTest extends TestCase
                 'description' => $label,
                 'enum'        => ['a', 'b', 'c'],
                 'meta'        => [
-                    'field_type'              => 'select',
+                    'field_type'              => 'radio',
                     'enum_labels'             => [
                         'a' => 'A',
                         'b' => 'B',
@@ -137,11 +137,11 @@ class SelectTest extends TestCase
     public function test_it_throws_an_invalid_argument_exception_without_options(): void
     {
         $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('Select field property requires at least one option.');
+        $this->expectExceptionMessage('Radio field property requires at least one option.');
 
         $faker = Factory::create();
 
-        new Select(
+        new RadioButtons(
             name: $faker->word,
             label: $faker->words(asText: true),
             options: new OptionCollection(),

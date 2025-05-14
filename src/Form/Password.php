@@ -4,28 +4,20 @@ declare(strict_types=1);
 
 namespace MyParcelCom\JsonSchema\FormBuilder\Form;
 
-use MyParcelCom\JsonSchema\FormBuilder\Properties\JsonSchemaProperty;
-use MyParcelCom\JsonSchema\FormBuilder\Properties\PropertyType;
+use MyParcelCom\JsonSchema\FormBuilder\Properties\SchemaPropertyType;
+use Override;
 
-class Password implements Field
+class Password extends Field
 {
-    public function __construct(
-        public readonly string $name,
-        public readonly string $label,
-        public readonly bool $isRequired = false,
-        public readonly ?string $help = null,
-    ) {
+    #[Override]
+    protected function schemaPropertyType(): SchemaPropertyType
+    {
+        return SchemaPropertyType::STRING;
     }
 
-    public function toJsonSchemaProperty(): JsonSchemaProperty
+    #[Override]
+    public function isPassword(): bool
     {
-        return new JsonSchemaProperty(
-            name: $this->name,
-            type: PropertyType::STRING,
-            description: $this->label,
-            isRequired: $this->isRequired,
-            isPassword: true,
-            help: $this->help,
-        );
+        return true;
     }
 }
