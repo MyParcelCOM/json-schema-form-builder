@@ -8,6 +8,7 @@ use MyParcelCom\JsonSchema\FormBuilder\Properties\Meta\Meta;
 use MyParcelCom\JsonSchema\FormBuilder\Properties\SchemaProperty;
 use MyParcelCom\JsonSchema\FormBuilder\Properties\SchemaPropertyType;
 use MyParcelCom\JsonSchema\FormBuilder\Translations\LabelTranslationCollection;
+use Override;
 
 class Group extends FormElement
 {
@@ -21,6 +22,7 @@ class Group extends FormElement
         parent::__construct(false);
     }
 
+    #[Override]
     public function toJsonSchemaProperty(): SchemaProperty
     {
         return new SchemaProperty(
@@ -36,6 +38,7 @@ class Group extends FormElement
         );
     }
 
+    #[Override]
     protected function schemaPropertyType(): SchemaPropertyType
     {
         return SchemaPropertyType::OBJECT;

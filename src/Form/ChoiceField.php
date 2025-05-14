@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace MyParcelCom\JsonSchema\FormBuilder\Form;
 
 use InvalidArgumentException;
-use MyParcelCom\JsonSchema\FormBuilder\Properties\Items\Items;
 use MyParcelCom\JsonSchema\FormBuilder\Properties\Meta\Meta;
 use MyParcelCom\JsonSchema\FormBuilder\Properties\Meta\MetaFieldType;
 use MyParcelCom\JsonSchema\FormBuilder\Properties\SchemaProperty;
 use MyParcelCom\JsonSchema\FormBuilder\Properties\SchemaPropertyType;
 use MyParcelCom\JsonSchema\FormBuilder\Translations\LabelTranslationCollection;
+use Override;
 
 abstract class ChoiceField extends FormElement
 {
@@ -32,28 +32,20 @@ abstract class ChoiceField extends FormElement
 
     abstract protected function fieldType(): MetaFieldType;
 
-    protected function enum(): ?array
+    #[Override]
+    protected function schemaPropertyType(): SchemaPropertyType
     {
-        return $this->schemaPropertyType() === SchemaPropertyType::ARRAY
-            ? null
-            : $this->options->getKeys();
+        return SchemaPropertyType::STRING;
     }
 
-    protected function items(): ?Items
-    {
-        return $this->schemaPropertyType() === SchemaPropertyType::ARRAY
-            ? new Items(enum: $this->options->getKeys())
-            : null;
-    }
-
+    #[Override]
     public function toJsonSchemaProperty(): SchemaProperty
     {
         return new SchemaProperty(
             name: $this->name,
             type: $this->schemaPropertyType(),
             description: $this->label,
-            enum: $this->enum(),
-            items: $this->items(),
+            enum: $this->options->getKeys(),
             meta: new Meta(
                 help: $this->help,
                 fieldType: $this->fieldType(),
