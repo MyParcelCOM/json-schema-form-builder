@@ -63,7 +63,6 @@ class NumberTest extends TestCase
         $field = new Number(
             name: 'name',
             label: 'label',
-            initialValue: 'e',
             help: 'Help text',
             labelTranslations: new LabelTranslationCollection(
                 new LabelTranslation(locale: Locale::EN_GB, label: 'English label'),
