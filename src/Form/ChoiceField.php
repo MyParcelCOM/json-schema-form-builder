@@ -21,6 +21,7 @@ abstract class ChoiceField extends FormElement
         public readonly bool $isRequired = false,
         public readonly ?string $help = null,
         public readonly ?LabelTranslationCollection $labelTranslations = null,
+        public readonly mixed $value = null,
     ) {
         if (count($options) < 1) {
             throw new InvalidArgumentException(

@@ -17,6 +17,7 @@ abstract class Field extends FormElement
         public readonly bool $isRequired = false,
         public readonly ?string $help = null,
         public ?LabelTranslationCollection $labelTranslations = null,
+        public mixed $initialValue = null,
     ) {
         parent::__construct($isRequired);
     }

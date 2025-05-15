@@ -18,6 +18,8 @@ abstract class FormElement
 
     abstract public function toJsonSchemaProperty(): SchemaProperty;
 
+    abstract public function value(): mixed;
+
     public function isRequired(): bool
     {
         return $this->required;
