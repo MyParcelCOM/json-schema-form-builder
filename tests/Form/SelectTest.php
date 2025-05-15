@@ -82,8 +82,8 @@ class SelectTest extends TestCase
             ),
         );
 
-        assertTrue($requiredField->isRequired());
-        assertFalse($nonRequiredField->isRequired());
+        assertTrue($requiredField->isRequired);
+        assertFalse($nonRequiredField->isRequired);
     }
 
     public function test_it_gets_value(): void

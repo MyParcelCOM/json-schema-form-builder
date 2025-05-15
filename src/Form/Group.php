@@ -26,7 +26,7 @@ class Group extends FormElement
     public function toJsonSchemaProperty(): SchemaProperty
     {
         return new SchemaProperty(
-            name: $this->name(),
+            name: $this->name,
             type: SchemaPropertyType::OBJECT,
             description: $this->label,
             required: $this->children->getRequired(),

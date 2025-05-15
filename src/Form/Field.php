@@ -14,7 +14,7 @@ abstract class Field extends FormElement
     public function __construct(
         string $name,
         public readonly string $label,
-        public readonly bool $isRequired = false,
+        bool $isRequired = false,
         public readonly ?string $help = null,
         public ?LabelTranslationCollection $labelTranslations = null,
     ) {
@@ -30,7 +30,7 @@ abstract class Field extends FormElement
     public function toJsonSchemaProperty(): SchemaProperty
     {
         return new SchemaProperty(
-            name: $this->name(),
+            name: $this->name,
             type: $this->schemaPropertyType(),
             description: $this->label,
             meta: new Meta(

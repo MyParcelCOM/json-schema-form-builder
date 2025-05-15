@@ -18,7 +18,7 @@ abstract class ChoiceField extends FormElement
         string $name,
         public readonly string $label,
         public readonly OptionCollection $options,
-        public readonly bool $isRequired = false,
+        bool $isRequired = false,
         public readonly ?string $help = null,
         public readonly ?LabelTranslationCollection $labelTranslations = null,
     ) {
@@ -42,7 +42,7 @@ abstract class ChoiceField extends FormElement
     public function toJsonSchemaProperty(): SchemaProperty
     {
         return new SchemaProperty(
-            name: $this->name(),
+            name: $this->name,
             type: $this->schemaPropertyType(),
             description: $this->label,
             enum: $this->options->getKeys(),

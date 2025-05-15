@@ -10,24 +10,12 @@ use MyParcelCom\JsonSchema\FormBuilder\Properties\SchemaPropertyType;
 abstract class FormElement
 {
     public function __construct(
-        private readonly string $name,
-        private readonly bool $required,
+        public readonly string $name,
+        public readonly bool $isRequired,
     ) {
     }
 
     abstract protected function schemaPropertyType(): SchemaPropertyType;
-
     abstract public function toJsonSchemaProperty(): SchemaProperty;
-
     abstract public function value(): mixed;
-
-    public function name(): string
-    {
-        return $this->name;
-    }
-
-    public function isRequired(): bool
-    {
-        return $this->required;
-    }
 }

@@ -45,7 +45,7 @@ class MultiSelect extends ChoiceField
     public function toJsonSchemaProperty(): SchemaProperty
     {
         return new SchemaProperty(
-            name: $this->name(),
+            name: $this->name,
             type: $this->schemaPropertyType(),
             description: $this->label,
             items: new Items($this->options->getKeys()),

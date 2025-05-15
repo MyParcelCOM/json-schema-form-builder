@@ -116,9 +116,9 @@ class FormTest extends TestCase
         ], $this->form->toJsonSchema());
     }
 
-    public function test_it_gets_values(): void
-    {
-        // TODO: implement
-        $nestedForm = new Form (...$this->form->getProperties());
-    }
+//    public function test_it_gets_values(): void
+//    {
+//        // TODO: implement
+//        $nestedForm = new Form (...$this->form->getProperties());
+//    }
 }
