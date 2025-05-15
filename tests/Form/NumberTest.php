@@ -13,6 +13,7 @@ use PHPUnit\Framework\TestCase;
 
 use function PHPUnit\Framework\assertEquals;
 use function PHPUnit\Framework\assertFalse;
+use function PHPUnit\Framework\assertNull;
 use function PHPUnit\Framework\assertTrue;
 
 class NumberTest extends TestCase
@@ -56,6 +57,24 @@ class NumberTest extends TestCase
 
         assertTrue($requiredField->isRequired());
         assertFalse($nonRequiredField->isRequired());
+    }
+
+    public function test_it_gets_value(): void
+    {
+        $field = new Number(
+            name: 'name',
+            label: 'label',
+        );
+        assertNull($field->value());
+
+        $field = new Number(
+            name: 'name',
+            label: 'label',
+            initialValue: 5.5,
+        );
+
+        assertEquals(5.5, $field->value());
+
     }
 
     public function test_it_converts_into_an_array_with_translations(): void

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Tests\Form;
 
 use Faker\Factory;
+use MyParcelCom\JsonSchema\FormBuilder\Form\Password;
 use MyParcelCom\JsonSchema\FormBuilder\Form\Text;
 use MyParcelCom\JsonSchema\FormBuilder\Translations\LabelTranslation;
 use MyParcelCom\JsonSchema\FormBuilder\Translations\LabelTranslationCollection;
@@ -13,6 +14,7 @@ use PHPUnit\Framework\TestCase;
 
 use function PHPUnit\Framework\assertEquals;
 use function PHPUnit\Framework\assertFalse;
+use function PHPUnit\Framework\assertNull;
 use function PHPUnit\Framework\assertTrue;
 
 class TextTest extends TestCase
@@ -56,6 +58,23 @@ class TextTest extends TestCase
 
         assertTrue($requiredField->isRequired());
         assertFalse($nonRequiredField->isRequired());
+    }
+
+    public function test_it_gets_value(): void
+    {
+        $field = new Text(
+            name: 'name',
+            label: 'label',
+        );
+        assertNull($field->value());
+
+        $field = new Text(
+            name: 'name',
+            label: 'label',
+            initialValue: 'Hello world',
+        );
+
+        assertEquals('Hello world', $field->value());
     }
 
     public function test_it_converts_into_an_array_with_translations(): void

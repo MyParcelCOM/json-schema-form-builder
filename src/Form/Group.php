@@ -45,8 +45,9 @@ class Group extends FormElement
     }
 
     #[Override]
-    public function value(): array
+    public function value(): ?array
     {
-        return $this->children->getValues();
+        $values = $this->children->getValues();
+        return empty($values) ? null : $values;
     }
 }

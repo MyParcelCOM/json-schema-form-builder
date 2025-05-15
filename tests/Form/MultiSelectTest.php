@@ -15,6 +15,9 @@ use MyParcelCom\JsonSchema\FormBuilder\Translations\Locale;
 use PHPUnit\Framework\TestCase;
 
 use function PHPUnit\Framework\assertEquals;
+use function PHPUnit\Framework\assertFalse;
+use function PHPUnit\Framework\assertNull;
+use function PHPUnit\Framework\assertTrue;
 
 class MultiSelectTest extends TestCase
 {
@@ -56,6 +59,74 @@ class MultiSelectTest extends TestCase
                 ],
             ],
         ], $field->toJsonSchemaProperty()->toArray());
+    }
+
+    public function test_it_gets_is_required(): void
+    {
+        $requiredField = new MultiSelect(
+            name: 'name',
+            label: 'label',
+            options: new OptionCollection(
+                new Option('a', 'A'),
+                new Option('b', 'B'),
+                new Option('c', 'C'),
+            ),
+            isRequired: true,
+        );
+
+        $nonRequiredField = new MultiSelect(
+            name: 'name',
+            label: 'label',
+            options: new OptionCollection(
+                new Option('a', 'A'),
+                new Option('b', 'B'),
+                new Option('c', 'C'),
+            ),
+        );
+
+        assertTrue($requiredField->isRequired());
+        assertFalse($nonRequiredField->isRequired());
+    }
+
+    public function test_it_gets_value(): void
+    {
+        $field = new MultiSelect(
+            name: 'name',
+            label: 'label',
+            options: new OptionCollection(
+                new Option('a', 'A'),
+                new Option('b', 'B'),
+                new Option('c', 'C'),
+            ),
+        );
+
+        assertNull($field->value());
+
+        $field = new MultiSelect(
+            name: 'name',
+            label: 'label',
+            options: new OptionCollection(
+                new Option('a', 'A'),
+                new Option('b', 'B'),
+                new Option('c', 'C'),
+            ),
+            initialValue: ['a'],
+        );
+
+        assertEquals(['a'], $field->value());
+
+        $field = new MultiSelect(
+            name: 'name',
+            label: 'label',
+            options: new OptionCollection(
+                new Option('a', 'A'),
+                new Option('b', 'B'),
+                new Option('c', 'C'),
+            ),
+            initialValue: ['a', 'b'],
+        );
+
+        assertEquals(['a', 'b'], $field->value());
     }
 
     public function test_it_converts_into_an_array_with_translations(): void
