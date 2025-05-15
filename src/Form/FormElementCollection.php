@@ -43,4 +43,16 @@ class FormElementCollection extends ArrayObject
         );
     }
 
+    public function values(): array
+    {
+        $values = [];
+
+        foreach ($this as $formElement) {
+            if ($formElement instanceof FormElement) {
+                $values[$formElement->name] = $formElement->value();
+            }
+        }
+
+        return $values;
+    }
 }

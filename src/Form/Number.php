@@ -9,9 +9,16 @@ use Override;
 
 class Number extends Field
 {
+    private ?int $value = null;
+
     #[Override]
     protected function schemaPropertyType(): SchemaPropertyType
     {
         return SchemaPropertyType::NUMBER;
+    }
+
+    public function value(): ?int
+    {
+        return $this->value;
     }
 }

@@ -6,6 +6,7 @@ namespace MyParcelCom\JsonSchema\FormBuilder\Form;
 
 use MyParcelCom\JsonSchema\FormBuilder\Properties\SchemaProperty;
 use MyParcelCom\JsonSchema\FormBuilder\Properties\SchemaPropertyType;
+use MyParcelCom\JsonSchema\FormBuilder\Values\Value;
 
 abstract class FormElement
 {
@@ -17,6 +18,8 @@ abstract class FormElement
     abstract protected function schemaPropertyType(): SchemaPropertyType;
 
     abstract public function toJsonSchemaProperty(): SchemaProperty;
+
+    abstract public function value(): mixed;
 
     public function isRequired(): bool
     {
