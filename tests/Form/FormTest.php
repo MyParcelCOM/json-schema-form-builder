@@ -120,41 +120,47 @@ class FormTest extends TestCase
 
     public function test_it_gets_values(): void
     {
-        $textField = new Text(
+        $text = new Text(
             name: 'name_1',
             label: 'Label 1',
             initialValue: 'Initial text'
         );
-        $checkboxField = new Checkbox(
+        $checkbox = new Checkbox(
             name: 'name_2',
             label: 'Label 2',
             initialValue: true,
         );
-        $radioButtonsField = new RadioButtons(
+        $radioButtons = new RadioButtons(
             name: 'name_3',
             label: 'Label 3',
             options: new OptionCollection(
                 new Option('a', 'A'),
                 new Option('b', 'B'),
             ),
-            isRequired: false,
-            help: 'This field has no purpose',
         );
         $group = new Group(
-            name: 'group',
+            name: 'name_4',
             label: 'Group',
             children: new FormElementCollection(
-                $textField,
-                $checkboxField,
-                $radioButtonsField,
+                $text,
+                $checkbox,
+                $radioButtons,
             )
         );
         $form = new Form(
-            $textField,
-            $checkboxField,
-            $radioButtonsField,
+            $text,
+            $checkbox,
+            $radioButtons,
             $group,
         );
-        // TODO: continue writing this test
+
+        assertEquals([
+            'name_1' => 'Initial text',
+            'name_2' => true,
+            'name_4'  => [
+                'name_1' => 'Initial text',
+                'name_2' => true,
+            ],
+        ], $form->getValues());
     }
 }
