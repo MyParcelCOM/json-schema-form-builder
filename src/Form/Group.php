@@ -13,20 +13,20 @@ use Override;
 class Group extends FormElement
 {
     public function __construct(
-        public readonly string $name,
+        string $name,
         public readonly string $label,
         public readonly FormElementCollection $children,
         public readonly ?string $help = null,
         public ?LabelTranslationCollection $labelTranslations = null,
     ) {
-        parent::__construct(false);
+        parent::__construct($name,false);
     }
 
     #[Override]
     public function toJsonSchemaProperty(): SchemaProperty
     {
         return new SchemaProperty(
-            name: $this->name,
+            name: $this->name(),
             type: SchemaPropertyType::OBJECT,
             description: $this->label,
             required: $this->children->getRequired(),

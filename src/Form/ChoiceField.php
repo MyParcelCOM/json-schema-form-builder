@@ -15,7 +15,7 @@ use Override;
 abstract class ChoiceField extends FormElement
 {
     public function __construct(
-        public readonly string $name,
+        string $name,
         public readonly string $label,
         public readonly OptionCollection $options,
         public readonly bool $isRequired = false,
@@ -28,7 +28,7 @@ abstract class ChoiceField extends FormElement
                 ucfirst($this->fieldType()->value) . ' field property requires at least one option.',
             );
         }
-        parent::__construct($isRequired);
+        parent::__construct($name, $isRequired);
     }
 
     abstract protected function fieldType(): MetaFieldType;
@@ -43,7 +43,7 @@ abstract class ChoiceField extends FormElement
     public function toJsonSchemaProperty(): SchemaProperty
     {
         return new SchemaProperty(
-            name: $this->name,
+            name: $this->name(),
             type: $this->schemaPropertyType(),
             description: $this->label,
             enum: $this->options->getKeys(),
