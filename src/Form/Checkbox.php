@@ -16,9 +16,9 @@ class Checkbox extends Field
         bool $isRequired = false,
         ?string $help = null,
         ?LabelTranslationCollection $labelTranslations = null,
-        ?bool $initialValue = null,
+        protected readonly ?bool $initialValue = null,
     ) {
-        parent::__construct($name, $label, $isRequired, $help, $labelTranslations, $initialValue);
+        parent::__construct($name, $label, $isRequired, $help, $labelTranslations);
     }
 
     #[Override]

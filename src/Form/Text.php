@@ -16,9 +16,9 @@ class Text extends Field
         bool $isRequired = false,
         ?string $help = null,
         ?LabelTranslationCollection $labelTranslations = null,
-        ?string $initialValue = null,
+        protected readonly ?string $initialValue = null,
     ) {
-        parent::__construct($name, $label, $isRequired, $help, $labelTranslations, $initialValue);
+        parent::__construct($name, $label, $isRequired, $help, $labelTranslations);
     }
 
     #[Override]

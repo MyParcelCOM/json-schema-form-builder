@@ -17,9 +17,9 @@ class Number extends Field
         bool $isRequired = false,
         ?string $help = null,
         ?LabelTranslationCollection $labelTranslations = null,
-        ?float $initialValue = null,
+        protected readonly ?float $initialValue = null,
     ) {
-        parent::__construct($name, $label, $isRequired, $help, $labelTranslations, $initialValue);
+        parent::__construct($name, $label, $isRequired, $help, $labelTranslations);
     }
 
     #[Override]

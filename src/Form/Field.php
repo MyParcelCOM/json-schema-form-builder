@@ -12,14 +12,13 @@ use Override;
 abstract class Field extends FormElement
 {
     public function __construct(
-        public readonly string $name,
+        string $name,
         public readonly string $label,
         public readonly bool $isRequired = false,
         public readonly ?string $help = null,
         public ?LabelTranslationCollection $labelTranslations = null,
-        public mixed $initialValue = null,
     ) {
-        parent::__construct($isRequired);
+        parent::__construct($name, $isRequired);
     }
 
     public function isPassword(): bool
@@ -31,7 +30,7 @@ abstract class Field extends FormElement
     public function toJsonSchemaProperty(): SchemaProperty
     {
         return new SchemaProperty(
-            name: $this->name,
+            name: $this->name(),
             type: $this->schemaPropertyType(),
             description: $this->label,
             meta: new Meta(

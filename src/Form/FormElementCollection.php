@@ -38,8 +38,20 @@ class FormElementCollection extends ArrayObject
         return array_values(
             Arr::map(
                 $requiredProperties,
-                static fn (FormElement $field) => $field->name,
+                static fn (FormElement $field) => $field->name(),
             ),
+        );
+    }
+
+    public function getValues(): array
+    {
+        return Arr::collapse(
+            Arr::map(
+                (array) $this,
+                static fn (FormElement $formElement) => [
+                    $formElement->name() => $formElement->value()
+                ],
+            )
         );
     }
 

@@ -43,4 +43,10 @@ class Group extends FormElement
     {
         return SchemaPropertyType::OBJECT;
     }
+
+    #[Override]
+    public function value(): array
+    {
+        return $this->children->getValues();
+    }
 }

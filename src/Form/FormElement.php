@@ -10,6 +10,7 @@ use MyParcelCom\JsonSchema\FormBuilder\Properties\SchemaPropertyType;
 abstract class FormElement
 {
     public function __construct(
+        private readonly string $name,
         private readonly bool $required,
     ) {
     }
@@ -20,6 +21,10 @@ abstract class FormElement
 
     abstract public function value(): mixed;
 
+    public function name(): string
+    {
+        return $this->name;
+    }
     public function isRequired(): bool
     {
         return $this->required;
