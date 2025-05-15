@@ -20,4 +20,9 @@ class Form extends FormElementCollection
             'properties'           => $this->getProperties()->toArray(),
         ];
     }
+
+    public function validate(): void
+    {
+        // TODO: Use 3rd party library for validation of the schema + update the $schema to latest draft version
+    }
 }
