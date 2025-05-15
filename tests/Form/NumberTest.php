@@ -74,7 +74,6 @@ class NumberTest extends TestCase
         );
 
         assertEquals(5.5, $field->value());
-
     }
 
     public function test_it_converts_into_an_array_with_translations(): void

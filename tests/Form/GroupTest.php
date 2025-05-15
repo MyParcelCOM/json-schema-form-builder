@@ -14,11 +14,8 @@ use MyParcelCom\JsonSchema\FormBuilder\Translations\LabelTranslationCollection;
 use MyParcelCom\JsonSchema\FormBuilder\Translations\Locale;
 use PHPUnit\Framework\TestCase;
 
-use function PHPUnit\Framework\assertEmpty;
 use function PHPUnit\Framework\assertEquals;
-use function PHPUnit\Framework\assertFalse;
 use function PHPUnit\Framework\assertNull;
-use function PHPUnit\Framework\assertTrue;
 
 class GroupTest extends TestCase
 {
@@ -30,7 +27,7 @@ class GroupTest extends TestCase
             children: new FormElementCollection(
                 new Text('name_1', 'Label 1'),
                 new Checkbox('name_2', 'Label 2'),
-            )
+            ),
         );
 
         assertNull($group->value());
@@ -42,7 +39,7 @@ class GroupTest extends TestCase
                 new Text('name_1', 'Label 1', initialValue: 'initial name_1'),
                 new Checkbox('name_2', 'Label 2', initialValue: true),
                 new Number('name_3', 'Label 3'),
-            )
+            ),
         );
 
         assertEquals([

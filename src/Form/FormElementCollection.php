@@ -30,28 +30,31 @@ class FormElementCollection extends ArrayObject
      */
     public function getRequired(): array
     {
-        $requiredProperties = array_values(array_filter(
-            (array) $this,
-            static fn (FormElement $field) => $field->isRequired(),
-        ));
+        $requiredProperties = array_values(
+            array_filter(
+                (array) $this,
+                static fn (FormElement $field) => $field->isRequired(),
+            ),
+        );
 
         return Arr::map(
             $requiredProperties,
             static fn (FormElement $field) => $field->name(),
         );
-
     }
 
     public function getValues(): array
     {
-        return array_filter(Arr::collapse(
-            Arr::map(
-                (array) $this,
-                static fn (FormElement $formElement) => [
-                    $formElement->name() => $formElement->value()
-                ],
-            )
-        ));
+        return array_filter(
+            Arr::collapse(
+                Arr::map(
+                    (array) $this,
+                    static fn (FormElement $formElement) => [
+                        $formElement->name() => $formElement->value(),
+                    ],
+                ),
+            ),
+        );
     }
 
 }

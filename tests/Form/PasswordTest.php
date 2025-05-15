@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Tests\Form;
 
 use Faker\Factory;
-use MyParcelCom\JsonSchema\FormBuilder\Form\Number;
 use MyParcelCom\JsonSchema\FormBuilder\Form\Password;
 use MyParcelCom\JsonSchema\FormBuilder\Translations\LabelTranslation;
 use MyParcelCom\JsonSchema\FormBuilder\Translations\LabelTranslationCollection;

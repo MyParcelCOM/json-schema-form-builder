@@ -25,6 +25,7 @@ abstract class FormElement
     {
         return $this->name;
     }
+
     public function isRequired(): bool
     {
         return $this->required;

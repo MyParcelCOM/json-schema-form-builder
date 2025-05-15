@@ -19,7 +19,7 @@ class Group extends FormElement
         public readonly ?string $help = null,
         public ?LabelTranslationCollection $labelTranslations = null,
     ) {
-        parent::__construct($name,false);
+        parent::__construct($name, false);
     }
 
     #[Override]
@@ -48,6 +48,7 @@ class Group extends FormElement
     public function value(): ?array
     {
         $values = $this->children->getValues();
+
         return empty($values) ? null : $values;
     }
 }

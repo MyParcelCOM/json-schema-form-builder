@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Tests\Form;
 
-use Faker\Factory;
 use MyParcelCom\JsonSchema\FormBuilder\Form\Checkbox;
 use MyParcelCom\JsonSchema\FormBuilder\Form\Form;
 use MyParcelCom\JsonSchema\FormBuilder\Form\Option;
@@ -119,7 +118,6 @@ class FormTest extends TestCase
 
     public function test_it_gets_values(): void
     {
-
         // TODO: implement
         $nestedForm = new Form (...$this->form->getProperties());
     }
