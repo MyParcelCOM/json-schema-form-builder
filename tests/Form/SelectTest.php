@@ -192,17 +192,32 @@ class SelectTest extends TestCase
         ], $field->toJsonSchemaProperty()->toArray());
     }
 
-    public function test_it_throws_an_invalid_argument_exception_without_options(): void
+    public function test_it_throws_invalid_argument_exception_without_options(): void
     {
         $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('Select field property requires at least one option.');
-
-        $faker = Factory::create();
+        $this->expectExceptionMessage('Select field requires at least one option.');
 
         new Select(
-            name: $faker->word,
-            label: $faker->words(asText: true),
+            name: 'name',
+            label: 'label',
             options: new OptionCollection(),
+        );
+    }
+
+    public function test_it_throws_invalid_argument_exception_when_initial_value_is_invalid(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Select field value must be one of its options. Invalid option: \'invalid\'');
+
+        new Select(
+            name: 'name',
+            label: 'label',
+            options: new OptionCollection(
+                new Option('a', 'A'),
+                new Option('b', 'B'),
+                new Option('c', 'C'),
+            ),
+            initialValue: 'invalid',
         );
     }
 }

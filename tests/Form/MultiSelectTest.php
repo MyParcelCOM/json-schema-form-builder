@@ -211,10 +211,10 @@ class MultiSelectTest extends TestCase
         ], $field->toJsonSchemaProperty()->toArray());
     }
 
-    public function test_it_throws_an_invalid_argument_exception_without_options(): void
+    public function test_it_throws_invalid_argument_exception_without_options(): void
     {
         $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('Select field property requires at least one option.');
+        $this->expectExceptionMessage('Select field requires at least one option.');
 
         $faker = Factory::create();
 
@@ -222,6 +222,25 @@ class MultiSelectTest extends TestCase
             name: $faker->word,
             label: $faker->words(asText: true),
             options: new OptionCollection(),
+        );
+    }
+
+    public function test_it_throws_invalid_exception_when_initial_value_is_invalid(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('MultiSelect Initial value must only contain valid options. Invalid options: \'d\', \'e\', \'f\'');
+
+        $faker = Factory::create();
+
+        new MultiSelect(
+            name: $faker->word,
+            label: $faker->words(asText: true),
+            options: new OptionCollection(
+                new Option('a', 'A'),
+                new Option('b', 'B'),
+                new Option('c', 'C'),
+            ),
+            initialValue: ['d', 'e', 'f'],
         );
     }
 }

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace MyParcelCom\JsonSchema\FormBuilder\Form;
 
+use InvalidArgumentException;
 use MyParcelCom\JsonSchema\FormBuilder\Properties\Items\Items;
 use MyParcelCom\JsonSchema\FormBuilder\Properties\Meta\Meta;
 use MyParcelCom\JsonSchema\FormBuilder\Properties\Meta\MetaFieldType;
@@ -26,7 +27,15 @@ class MultiSelect extends ChoiceField
         ?LabelTranslationCollection $labelTranslations = null,
         protected ?array $initialValue = null,
     ) {
-        parent::__construct($name, $label, $options, $isRequired, $help, $labelTranslations, $initialValue);
+        if ($initialValue !== null) {
+            $invalidValues = array_diff($initialValue, $options->getKeys());
+            if (!empty($invalidValues)) {
+                throw new InvalidArgumentException(
+                    'MultiSelect Initial value must only contain valid options. Invalid options: ' . implode(', ', array_map(fn($value) => "'{$value}'", $invalidValues))
+                );
+            }
+        }
+        parent::__construct($name, $label, $options, $isRequired, $help, $labelTranslations);
     }
 
     #[Override]
@@ -58,7 +67,6 @@ class MultiSelect extends ChoiceField
             ),
         );
     }
-
 
     #[Override]
     public function value(): ?array

@@ -6,6 +6,8 @@ namespace Tests\Form;
 
 use MyParcelCom\JsonSchema\FormBuilder\Form\Checkbox;
 use MyParcelCom\JsonSchema\FormBuilder\Form\Form;
+use MyParcelCom\JsonSchema\FormBuilder\Form\FormElementCollection;
+use MyParcelCom\JsonSchema\FormBuilder\Form\Group;
 use MyParcelCom\JsonSchema\FormBuilder\Form\Option;
 use MyParcelCom\JsonSchema\FormBuilder\Form\OptionCollection;
 use MyParcelCom\JsonSchema\FormBuilder\Form\RadioButtons;
@@ -116,9 +118,43 @@ class FormTest extends TestCase
         ], $this->form->toJsonSchema());
     }
 
-//    public function test_it_gets_values(): void
-//    {
-//        // TODO: implement
-//        $nestedForm = new Form (...$this->form->getProperties());
-//    }
+    public function test_it_gets_values(): void
+    {
+        $textField = new Text(
+            name: 'name_1',
+            label: 'Label 1',
+            initialValue: 'Initial text'
+        );
+        $checkboxField = new Checkbox(
+            name: 'name_2',
+            label: 'Label 2',
+            initialValue: true,
+        );
+        $radioButtonsField = new RadioButtons(
+            name: 'name_3',
+            label: 'Label 3',
+            options: new OptionCollection(
+                new Option('a', 'A'),
+                new Option('b', 'B'),
+            ),
+            isRequired: false,
+            help: 'This field has no purpose',
+        );
+        $group = new Group(
+            name: 'group',
+            label: 'Group',
+            children: new FormElementCollection(
+                $textField,
+                $checkboxField,
+                $radioButtonsField,
+            )
+        );
+        $form = new Form(
+            $textField,
+            $checkboxField,
+            $radioButtonsField,
+            $group,
+        );
+        // TODO: continue writing this test
+    }
 }

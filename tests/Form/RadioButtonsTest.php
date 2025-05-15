@@ -9,6 +9,7 @@ use InvalidArgumentException;
 use MyParcelCom\JsonSchema\FormBuilder\Form\Option;
 use MyParcelCom\JsonSchema\FormBuilder\Form\OptionCollection;
 use MyParcelCom\JsonSchema\FormBuilder\Form\RadioButtons;
+use MyParcelCom\JsonSchema\FormBuilder\Form\Select;
 use MyParcelCom\JsonSchema\FormBuilder\Translations\LabelTranslation;
 use MyParcelCom\JsonSchema\FormBuilder\Translations\LabelTranslationCollection;
 use MyParcelCom\JsonSchema\FormBuilder\Translations\Locale;
@@ -191,10 +192,10 @@ class RadioButtonsTest extends TestCase
         ], $field->toJsonSchemaProperty()->toArray());
     }
 
-    public function test_it_throws_an_invalid_argument_exception_without_options(): void
+    public function test_it_throws_invalid_argument_exception_without_options(): void
     {
         $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('Radio field property requires at least one option.');
+        $this->expectExceptionMessage('Radio field requires at least one option.');
 
         $faker = Factory::create();
 
@@ -202,6 +203,23 @@ class RadioButtonsTest extends TestCase
             name: $faker->word,
             label: $faker->words(asText: true),
             options: new OptionCollection(),
+        );
+    }
+
+    public function test_it_throws_invalid_argument_exception_when_initial_value_is_invalid(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Radio field value must be one of its options. Invalid option: \'invalid\'');
+
+        new RadioButtons(
+            name: 'name',
+            label: 'label',
+            options: new OptionCollection(
+                new Option('a', 'A'),
+                new Option('b', 'B'),
+                new Option('c', 'C'),
+            ),
+            initialValue: 'invalid',
         );
     }
 }
