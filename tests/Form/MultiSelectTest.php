@@ -228,7 +228,9 @@ class MultiSelectTest extends TestCase
     public function test_it_throws_invalid_exception_when_initial_value_is_invalid(): void
     {
         $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('MultiSelect Initial value must only contain valid options. Invalid options: \'d\', \'e\', \'f\'');
+        $this->expectExceptionMessage(
+            'MultiSelect Initial value must only contain valid options. Invalid options: \'d\', \'e\', \'f\'',
+        );
 
         $faker = Factory::create();
 
