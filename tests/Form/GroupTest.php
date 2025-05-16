@@ -8,7 +8,6 @@ use MyParcelCom\JsonSchema\FormBuilder\Form\Checkbox;
 use MyParcelCom\JsonSchema\FormBuilder\Form\FormElementCollection;
 use MyParcelCom\JsonSchema\FormBuilder\Form\Group;
 use MyParcelCom\JsonSchema\FormBuilder\Form\Number;
-use MyParcelCom\JsonSchema\FormBuilder\Form\OptionCollection;
 use MyParcelCom\JsonSchema\FormBuilder\Form\Text;
 use MyParcelCom\JsonSchema\FormBuilder\Translations\LabelTranslation;
 use MyParcelCom\JsonSchema\FormBuilder\Translations\LabelTranslationCollection;
