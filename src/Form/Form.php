@@ -14,7 +14,7 @@ class Form extends FormElementCollection
     public function toJsonSchema(): array
     {
         return [
-            '$schema'              => 'http://json-schema.org/draft-04/schema#',
+            '$schema'              => 'https://json-schema.org/draft/2020-12/schema',
             'additionalProperties' => false,
             'required'             => $this->getRequired(),
             'properties'           => $this->getProperties()->toArray(),
