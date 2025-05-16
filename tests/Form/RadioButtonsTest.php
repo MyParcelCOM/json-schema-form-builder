@@ -106,7 +106,7 @@ class RadioButtonsTest extends TestCase
                 new Option('b', 'B'),
                 new Option('c', 'C'),
             ),
-            initialValue: 'a',
+            value: 'a',
         );
 
         assertEquals('a', $field->value());
@@ -218,7 +218,7 @@ class RadioButtonsTest extends TestCase
                 new Option('b', 'B'),
                 new Option('c', 'C'),
             ),
-            initialValue: 'invalid',
+            value: 'invalid',
         );
     }
 }

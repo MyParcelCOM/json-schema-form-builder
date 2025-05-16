@@ -16,7 +16,7 @@ class Number extends Field
         bool $isRequired = false,
         ?string $help = null,
         ?LabelTranslationCollection $labelTranslations = null,
-        private readonly ?float $initialValue = null,
+        private readonly ?float $value = null,
     ) {
         parent::__construct(
             name: $name,
@@ -36,6 +36,6 @@ class Number extends Field
     #[Override]
     public function value(): ?float
     {
-        return $this->initialValue;
+        return $this->value;
     }
 }

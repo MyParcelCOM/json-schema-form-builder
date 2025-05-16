@@ -16,7 +16,7 @@ class Checkbox extends Field
         bool $isRequired = false,
         ?string $help = null,
         ?LabelTranslationCollection $labelTranslations = null,
-        private readonly ?bool $initialValue = null,
+        private readonly ?bool $value = null,
     ) {
         parent::__construct(
             name: $name,
@@ -36,6 +36,6 @@ class Checkbox extends Field
     #[Override]
     public function value(): ?bool
     {
-        return $this->initialValue;
+        return $this->value;
     }
 }

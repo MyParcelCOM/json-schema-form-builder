@@ -36,8 +36,8 @@ class GroupTest extends TestCase
             name: 'test_group',
             label: 'Test Group',
             children: new FormElementCollection(
-                new Text('name_1', 'Label 1', initialValue: 'initial name_1'),
-                new Checkbox('name_2', 'Label 2', initialValue: true),
+                new Text('name_1', 'Label 1', value: 'initial name_1'),
+                new Checkbox('name_2', 'Label 2', value: true),
                 new Number('name_3', 'Label 3'),
             ),
         );

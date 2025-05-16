@@ -70,7 +70,7 @@ class NumberTest extends TestCase
         $field = new Number(
             name: 'name',
             label: 'label',
-            initialValue: 5.5,
+            value: 5.5,
         );
 
         assertEquals(5.5, $field->value());

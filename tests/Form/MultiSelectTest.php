@@ -110,7 +110,7 @@ class MultiSelectTest extends TestCase
                 new Option('b', 'B'),
                 new Option('c', 'C'),
             ),
-            initialValue: ['a'],
+            value: ['a'],
         );
 
         assertEquals(['a'], $field->value());
@@ -123,7 +123,7 @@ class MultiSelectTest extends TestCase
                 new Option('b', 'B'),
                 new Option('c', 'C'),
             ),
-            initialValue: ['a', 'b'],
+            value: ['a', 'b'],
         );
 
         assertEquals(['a', 'b'], $field->value());
@@ -242,7 +242,7 @@ class MultiSelectTest extends TestCase
                 new Option('b', 'B'),
                 new Option('c', 'C'),
             ),
-            initialValue: ['d', 'e', 'f'],
+            value: ['d', 'e', 'f'],
         );
     }
 }

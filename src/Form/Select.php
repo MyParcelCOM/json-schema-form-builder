@@ -18,12 +18,12 @@ class Select extends ChoiceField
         bool $isRequired = false,
         ?string $help = null,
         ?LabelTranslationCollection $labelTranslations = null,
-        private readonly ?string $initialValue = null,
+        private readonly ?string $value = null,
     ) {
         // If the value is set and the field type is a string, the value must be one of the options
-        if ($this->initialValue !== null && !in_array($this->initialValue, $options->getKeys())) {
+        if ($this->value !== null && !in_array($this->value, $options->getKeys())) {
             throw new InvalidArgumentException(
-                "Select field value must be one of its options. Invalid option: '{$this->initialValue}'",
+                "Select field value must be one of its options. Invalid option: '{$this->value}'",
             );
         }
         parent::__construct(
@@ -44,6 +44,6 @@ class Select extends ChoiceField
 
     public function value(): ?string
     {
-        return $this->initialValue;
+        return $this->value;
     }
 }

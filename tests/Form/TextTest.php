@@ -70,7 +70,7 @@ class TextTest extends TestCase
         $field = new Text(
             name: 'name',
             label: 'label',
-            initialValue: 'Hello world',
+            value: 'Hello world',
         );
 
         assertEquals('Hello world', $field->value());

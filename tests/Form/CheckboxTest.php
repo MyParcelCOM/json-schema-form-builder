@@ -70,14 +70,14 @@ class CheckboxTest extends TestCase
         $field = new Checkbox(
             name: 'name',
             label: 'label',
-            initialValue: true,
+            value: true,
         );
         assertTrue($field->value());
 
         $field = new Checkbox(
             name: 'name',
             label: 'label',
-            initialValue: false,
+            value: false,
         );
         assertFalse($field->value());
     }

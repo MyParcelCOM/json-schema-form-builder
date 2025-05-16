@@ -16,7 +16,7 @@ use Override;
 class MultiSelect extends ChoiceField
 {
     /**
-     * @param array<string>|null $initialValue
+     * @param array<string>|null $value
      */
     public function __construct(
         string $name,
@@ -25,10 +25,10 @@ class MultiSelect extends ChoiceField
         bool $isRequired = false,
         ?string $help = null,
         ?LabelTranslationCollection $labelTranslations = null,
-        private readonly ?array $initialValue = null,
+        private readonly ?array $value = null,
     ) {
-        if ($initialValue !== null) {
-            $invalidValues = array_diff($initialValue, $options->getKeys());
+        if ($value !== null) {
+            $invalidValues = array_diff($value, $options->getKeys());
             if (!empty($invalidValues)) {
                 throw new InvalidArgumentException(
                     'MultiSelect Initial value must only contain valid options. Invalid options: ' . implode(
@@ -81,6 +81,6 @@ class MultiSelect extends ChoiceField
     #[Override]
     public function value(): ?array
     {
-        return $this->initialValue;
+        return $this->value;
     }
 }

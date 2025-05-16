@@ -107,7 +107,7 @@ class SelectTest extends TestCase
                 new Option('b', 'B'),
                 new Option('c', 'C'),
             ),
-            initialValue: 'b',
+            value: 'b',
         );
 
         assertEquals('b', $field->value());
@@ -217,7 +217,7 @@ class SelectTest extends TestCase
                 new Option('b', 'B'),
                 new Option('c', 'C'),
             ),
-            initialValue: 'invalid',
+            value: 'invalid',
         );
     }
 }

@@ -16,7 +16,7 @@ class Text extends Field
         bool $isRequired = false,
         ?string $help = null,
         ?LabelTranslationCollection $labelTranslations = null,
-        private readonly ?string $initialValue = null,
+        private readonly ?string $value = null,
     ) {
         parent::__construct(
             name: $name,
@@ -36,6 +36,6 @@ class Text extends Field
     #[Override]
     public function value(): ?string
     {
-        return $this->initialValue;
+        return $this->value;
     }
 }

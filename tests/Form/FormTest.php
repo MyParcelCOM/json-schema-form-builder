@@ -206,12 +206,12 @@ class FormTest extends TestCase
         $text = new Text(
             name: 'name_1',
             label: 'Label 1',
-            initialValue: 'Initial text',
+            value: 'Initial text',
         );
         $checkbox = new Checkbox(
             name: 'name_2',
             label: 'Label 2',
-            initialValue: true,
+            value: true,
         );
         $radioButtons = new RadioButtons(
             name: 'name_3',

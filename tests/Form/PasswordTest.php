@@ -71,7 +71,7 @@ class PasswordTest extends TestCase
         $field = new Password(
             name: 'name',
             label: 'label',
-            initialValue: 'It is a secret :X',
+            value: 'It is a secret :X',
         );
 
         assertEquals('It is a secret :X', $field->value());
