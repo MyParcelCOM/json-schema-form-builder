@@ -25,7 +25,7 @@ class Form extends FormElementCollection
     }
 
     /**
-     * validate form values against the JSON Schema form
+     * Validate form values against the JSON Schema form
      * @param array<string, mixed> $values a key value array of form values
      * @throws FormValidationException
      */
