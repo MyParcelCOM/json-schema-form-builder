@@ -56,12 +56,4 @@ class FormElementCollection extends ArrayObject
             ),
         );
     }
-
-    public function getMissingRequiredValues(array $values): array
-    {
-        return array_filter(
-            (array) $this,
-            fn ($field) => $field->isRequired && !array_key_exists($field->name, $values),
-        );
-    }
 }
