@@ -25,7 +25,7 @@ class MultiSelect extends ChoiceField
         bool $isRequired = false,
         ?string $help = null,
         ?LabelTranslationCollection $labelTranslations = null,
-        protected ?array $initialValue = null,
+        private readonly ?array $initialValue = null,
     ) {
         if ($initialValue !== null) {
             $invalidValues = array_diff($initialValue, $options->getKeys());

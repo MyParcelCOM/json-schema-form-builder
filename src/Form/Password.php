@@ -16,7 +16,7 @@ class Password extends Field
         bool $isRequired = false,
         ?string $help = null,
         ?LabelTranslationCollection $labelTranslations = null,
-        protected readonly ?string $initialValue = null,
+        private readonly ?string $initialValue = null,
     ) {
         parent::__construct($name, $label, $isRequired, $help, $labelTranslations);
     }

@@ -18,7 +18,7 @@ class RadioButtons extends ChoiceField
         bool $isRequired = false,
         ?string $help = null,
         ?LabelTranslationCollection $labelTranslations = null,
-        public ?string $initialValue = null,
+        private readonly ?string $initialValue = null,
     ) {
         // If the value is set and the field type is a string, the value must be one of the options
         if ($this->initialValue !== null && !in_array($this->initialValue, $options->getKeys())) {

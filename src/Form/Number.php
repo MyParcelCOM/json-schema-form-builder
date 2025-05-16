@@ -16,7 +16,7 @@ class Number extends Field
         bool $isRequired = false,
         ?string $help = null,
         ?LabelTranslationCollection $labelTranslations = null,
-        protected readonly ?float $initialValue = null,
+        private readonly ?float $initialValue = null,
     ) {
         parent::__construct($name, $label, $isRequired, $help, $labelTranslations);
     }
