@@ -8,6 +8,7 @@ use MyParcelCom\JsonSchema\FormBuilder\Form\Checkbox;
 use MyParcelCom\JsonSchema\FormBuilder\Form\FormElementCollection;
 use MyParcelCom\JsonSchema\FormBuilder\Form\Group;
 use MyParcelCom\JsonSchema\FormBuilder\Form\Number;
+use MyParcelCom\JsonSchema\FormBuilder\Form\OptionCollection;
 use MyParcelCom\JsonSchema\FormBuilder\Form\Text;
 use MyParcelCom\JsonSchema\FormBuilder\Translations\LabelTranslation;
 use MyParcelCom\JsonSchema\FormBuilder\Translations\LabelTranslationCollection;
@@ -15,10 +16,38 @@ use MyParcelCom\JsonSchema\FormBuilder\Translations\Locale;
 use PHPUnit\Framework\TestCase;
 
 use function PHPUnit\Framework\assertEquals;
+use function PHPUnit\Framework\assertFalse;
 use function PHPUnit\Framework\assertNull;
+use function PHPUnit\Framework\assertTrue;
 
 class GroupTest extends TestCase
 {
+
+    public function test_it_gets_is_required(): void
+    {
+        $requiredField = new Group(
+            name: 'name',
+            label: 'label',
+            children: new FormElementCollection(
+                new Text('name_1', 'Label 1', isRequired: true),
+                new Checkbox('name_2', 'Label 2'),
+            ),
+            isRequired: true,
+        );
+
+        $nonRequiredField = new Group(
+            name: 'name',
+            label: 'label',
+            children: new FormElementCollection(
+                new Text('name_1', 'Label 1', isRequired: true),
+                new Checkbox('name_2', 'Label 2'),
+            ),
+        );
+
+        assertTrue($requiredField->isRequired);
+        assertFalse($nonRequiredField->isRequired);
+    }
+
     public function test_it_gets_value(): void
     {
         $group = new Group(

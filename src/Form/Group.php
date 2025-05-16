@@ -15,8 +15,8 @@ class Group extends FormElement
     public function __construct(
         string $name,
         public readonly string $label,
-        ?bool $isRequired = false,
         public readonly FormElementCollection $children,
+        ?bool $isRequired = false,
         public readonly ?string $help = null,
         public ?LabelTranslationCollection $labelTranslations = null,
     ) {

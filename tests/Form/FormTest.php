@@ -65,7 +65,7 @@ class FormTest extends TestCase
 
     public function test_it_gets_required(): void
     {
-        assertEquals(['name_2', 'name_3', 'name_4'], $this->form->getRequired());
+        assertEquals(['name_2', 'name_3'], $this->form->getRequired());
     }
 
     public function test_it_gets_properties(): void
@@ -137,7 +137,7 @@ class FormTest extends TestCase
         assertEquals([
             '$schema'              => 'https://json-schema.org/draft/2020-12/schema',
             'additionalProperties' => false,
-            'required'             => ['name_2', 'name_3', 'name_4'],
+            'required'             => ['name_2', 'name_3'],
             'properties'           => [
                 'name_1' => [
                     'type'        => 'string',
@@ -262,6 +262,12 @@ class FormTest extends TestCase
                 'name_2' => false,
                 'name_3' => 'a',
             ],
+        ]);
+
+        $this->form->validate([
+            'name_1' => 'value',
+            'name_2' => false,
+            'name_3' => 'a',
         ]);
     }
 
