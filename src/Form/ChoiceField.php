@@ -27,7 +27,7 @@ abstract class ChoiceField extends FormElement
                 ucfirst($this->fieldType()->value) . ' field requires at least one option.',
             );
         }
-        parent::__construct($name, $isRequired);
+        parent::__construct(name: $name, isRequired: $isRequired);
     }
 
     abstract protected function fieldType(): MetaFieldType;

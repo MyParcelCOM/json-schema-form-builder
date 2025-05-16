@@ -26,7 +26,14 @@ class Select extends ChoiceField
                 "Select field value must be one of its options. Invalid option: '{$this->initialValue}'",
             );
         }
-        parent::__construct($name, $label, $options, $isRequired, $help, $labelTranslations);
+        parent::__construct(
+            name: $name,
+            label: $label,
+            options: $options,
+            isRequired: $isRequired,
+            help: $help,
+            labelTranslations: $labelTranslations,
+        );
     }
 
     #[Override]

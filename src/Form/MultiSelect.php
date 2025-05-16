@@ -38,7 +38,14 @@ class MultiSelect extends ChoiceField
                 );
             }
         }
-        parent::__construct($name, $label, $options, $isRequired, $help, $labelTranslations);
+        parent::__construct(
+            name: $name,
+            label: $label,
+            options: $options,
+            isRequired: $isRequired,
+            help: $help,
+            labelTranslations: $labelTranslations,
+        );
     }
 
     #[Override]

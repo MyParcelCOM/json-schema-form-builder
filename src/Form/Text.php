@@ -18,7 +18,13 @@ class Text extends Field
         ?LabelTranslationCollection $labelTranslations = null,
         private readonly ?string $initialValue = null,
     ) {
-        parent::__construct($name, $label, $isRequired, $help, $labelTranslations);
+        parent::__construct(
+            name: $name,
+            label: $label,
+            isRequired: $isRequired,
+            help: $help,
+            labelTranslations: $labelTranslations,
+        );
     }
 
     #[Override]

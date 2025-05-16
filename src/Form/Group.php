@@ -15,13 +15,12 @@ class Group extends FormElement
     public function __construct(
         string $name,
         public readonly string $label,
+        bool $isRequired = false,
         public readonly FormElementCollection $children,
         public readonly ?string $help = null,
         public ?LabelTranslationCollection $labelTranslations = null,
     ) {
-        // A group is required if any of its children are required.
-        $isRequired = !empty($this->children->getRequired());
-        parent::__construct($name, $isRequired);
+        parent::__construct(name: $name, isRequired: $isRequired);
     }
 
     #[Override]
