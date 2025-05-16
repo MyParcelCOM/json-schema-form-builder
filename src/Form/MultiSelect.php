@@ -4,15 +4,50 @@ declare(strict_types=1);
 
 namespace MyParcelCom\JsonSchema\FormBuilder\Form;
 
-use MyParcelCom\JsonSchema\FormBuilder\Properties\Items\Items;
-use MyParcelCom\JsonSchema\FormBuilder\Properties\Meta\Meta;
-use MyParcelCom\JsonSchema\FormBuilder\Properties\Meta\MetaFieldType;
-use MyParcelCom\JsonSchema\FormBuilder\Properties\SchemaProperty;
-use MyParcelCom\JsonSchema\FormBuilder\Properties\SchemaPropertyType;
+use InvalidArgumentException;
+use MyParcelCom\JsonSchema\FormBuilder\SchemaProperties\Items\Items;
+use MyParcelCom\JsonSchema\FormBuilder\SchemaProperties\Meta\Meta;
+use MyParcelCom\JsonSchema\FormBuilder\SchemaProperties\Meta\MetaFieldType;
+use MyParcelCom\JsonSchema\FormBuilder\SchemaProperties\SchemaProperty;
+use MyParcelCom\JsonSchema\FormBuilder\SchemaProperties\SchemaPropertyType;
+use MyParcelCom\JsonSchema\FormBuilder\Translations\LabelTranslationCollection;
 use Override;
 
 class MultiSelect extends ChoiceField
 {
+    /**
+     * @param array<string>|null $value
+     */
+    public function __construct(
+        string $name,
+        string $label,
+        OptionCollection $options,
+        bool $isRequired = false,
+        ?string $help = null,
+        ?LabelTranslationCollection $labelTranslations = null,
+        private readonly ?array $value = null,
+    ) {
+        if ($value !== null) {
+            $invalidValues = array_diff($value, $options->getKeys());
+            if (!empty($invalidValues)) {
+                throw new InvalidArgumentException(
+                    'MultiSelect Initial value must only contain valid options. Invalid options: ' . implode(
+                        ', ',
+                        array_map(fn ($value) => "'{$value}'", $invalidValues),
+                    ),
+                );
+            }
+        }
+        parent::__construct(
+            name: $name,
+            label: $label,
+            options: $options,
+            isRequired: $isRequired,
+            help: $help,
+            labelTranslations: $labelTranslations,
+        );
+    }
+
     #[Override]
     protected function fieldType(): MetaFieldType
     {
@@ -41,5 +76,11 @@ class MultiSelect extends ChoiceField
                 enumLabelTranslations: $this->options->getLabelTranslations(),
             ),
         );
+    }
+
+    #[Override]
+    public function value(): ?array
+    {
+        return $this->value;
     }
 }

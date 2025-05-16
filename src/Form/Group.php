@@ -4,22 +4,23 @@ declare(strict_types=1);
 
 namespace MyParcelCom\JsonSchema\FormBuilder\Form;
 
-use MyParcelCom\JsonSchema\FormBuilder\Properties\Meta\Meta;
-use MyParcelCom\JsonSchema\FormBuilder\Properties\SchemaProperty;
-use MyParcelCom\JsonSchema\FormBuilder\Properties\SchemaPropertyType;
+use MyParcelCom\JsonSchema\FormBuilder\SchemaProperties\Meta\Meta;
+use MyParcelCom\JsonSchema\FormBuilder\SchemaProperties\SchemaProperty;
+use MyParcelCom\JsonSchema\FormBuilder\SchemaProperties\SchemaPropertyType;
 use MyParcelCom\JsonSchema\FormBuilder\Translations\LabelTranslationCollection;
 use Override;
 
 class Group extends FormElement
 {
     public function __construct(
-        public readonly string $name,
+        string $name,
         public readonly string $label,
         public readonly FormElementCollection $children,
+        ?bool $isRequired = false,
         public readonly ?string $help = null,
         public ?LabelTranslationCollection $labelTranslations = null,
     ) {
-        parent::__construct(false);
+        parent::__construct(name: $name, isRequired: $isRequired);
     }
 
     #[Override]
@@ -42,5 +43,13 @@ class Group extends FormElement
     protected function schemaPropertyType(): SchemaPropertyType
     {
         return SchemaPropertyType::OBJECT;
+    }
+
+    #[Override]
+    public function value(): ?array
+    {
+        $values = $this->children->getValues();
+
+        return empty($values) ? null : $values;
     }
 }

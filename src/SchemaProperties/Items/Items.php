@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace MyParcelCom\JsonSchema\FormBuilder\Properties\Items;
+namespace MyParcelCom\JsonSchema\FormBuilder\SchemaProperties\Items;
 
-use MyParcelCom\JsonSchema\FormBuilder\Properties\SchemaPropertyType;
+use MyParcelCom\JsonSchema\FormBuilder\SchemaProperties\SchemaPropertyType;
 
 class Items
 {

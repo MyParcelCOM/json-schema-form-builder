@@ -13,6 +13,7 @@ use PHPUnit\Framework\TestCase;
 
 use function PHPUnit\Framework\assertEquals;
 use function PHPUnit\Framework\assertFalse;
+use function PHPUnit\Framework\assertNull;
 use function PHPUnit\Framework\assertTrue;
 
 class PasswordTest extends TestCase
@@ -55,8 +56,25 @@ class PasswordTest extends TestCase
             label: 'label',
         );
 
-        assertTrue($requiredField->isRequired());
-        assertFalse($nonRequiredField->isRequired());
+        assertTrue($requiredField->isRequired);
+        assertFalse($nonRequiredField->isRequired);
+    }
+
+    public function test_it_gets_value(): void
+    {
+        $field = new Password(
+            name: 'name',
+            label: 'label',
+        );
+        assertNull($field->value());
+
+        $field = new Password(
+            name: 'name',
+            label: 'label',
+            value: 'It is a secret :X',
+        );
+
+        assertEquals('It is a secret :X', $field->value());
     }
 
     public function test_it_converts_into_an_array_with_translations(): void

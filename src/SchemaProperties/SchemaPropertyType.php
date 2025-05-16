@@ -2,9 +2,7 @@
 
 declare(strict_types=1);
 
-namespace MyParcelCom\JsonSchema\FormBuilder\Properties;
-
-use MyParcelCom\JsonSchema\FormBuilder\Form\FieldType;
+namespace MyParcelCom\JsonSchema\FormBuilder\SchemaProperties;
 
 enum SchemaPropertyType: string
 {

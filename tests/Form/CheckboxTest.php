@@ -13,6 +13,7 @@ use PHPUnit\Framework\TestCase;
 
 use function PHPUnit\Framework\assertEquals;
 use function PHPUnit\Framework\assertFalse;
+use function PHPUnit\Framework\assertNull;
 use function PHPUnit\Framework\assertTrue;
 
 class CheckboxTest extends TestCase
@@ -54,8 +55,31 @@ class CheckboxTest extends TestCase
             label: 'label',
         );
 
-        assertTrue($requiredField->isRequired());
-        assertFalse($nonRequiredField->isRequired());
+        assertTrue($requiredField->isRequired);
+        assertFalse($nonRequiredField->isRequired);
+    }
+
+    public function test_it_gets_value(): void
+    {
+        $field = new Checkbox(
+            name: 'name',
+            label: 'label',
+        );
+        assertNull($field->value());
+
+        $field = new Checkbox(
+            name: 'name',
+            label: 'label',
+            value: true,
+        );
+        assertTrue($field->value());
+
+        $field = new Checkbox(
+            name: 'name',
+            label: 'label',
+            value: false,
+        );
+        assertFalse($field->value());
     }
 
     public function test_it_converts_into_an_array_with_translations(): void

@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace MyParcelCom\JsonSchema\FormBuilder\Properties;
+namespace MyParcelCom\JsonSchema\FormBuilder\SchemaProperties;
 
-use MyParcelCom\JsonSchema\FormBuilder\Properties\Items\Items;
-use MyParcelCom\JsonSchema\FormBuilder\Properties\Meta\Meta;
+use MyParcelCom\JsonSchema\FormBuilder\SchemaProperties\Items\Items;
+use MyParcelCom\JsonSchema\FormBuilder\SchemaProperties\Meta\Meta;
 
 class SchemaProperty
 {
