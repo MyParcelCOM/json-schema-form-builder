@@ -34,13 +34,13 @@ class Form extends FormElementCollection
         /**
          * CHECK_MODE_TYPE_CAST: Enable fuzzy type checking for associative arrays and objects
          * src: https://github.com/jsonrainbow/json-schema?tab=readme-ov-file#configuration-options
-        **/
+         **/
         $validator = new Validator;
         $validator->validate($values, $this->toJsonSchema(), Constraint::CHECK_MODE_TYPE_CAST);
         if (!$validator->isValid()) {
             $errorMessages = array_map(
-                fn($error) => "[{$error['property']}] {$error['message']}",
-                $validator->getErrors()
+                fn ($error) => "[{$error['property']}] {$error['message']}",
+                $validator->getErrors(),
             );
             throw new FormValidationException("Form validation failed:\n" . implode("\n", $errorMessages));
         }

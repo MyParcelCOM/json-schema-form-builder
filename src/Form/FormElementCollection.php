@@ -61,7 +61,7 @@ class FormElementCollection extends ArrayObject
     {
         return array_filter(
             (array) $this,
-            fn($field) => $field->isRequired && !array_key_exists($field->name, $values)
+            fn ($field) => $field->isRequired && !array_key_exists($field->name, $values),
         );
     }
 }

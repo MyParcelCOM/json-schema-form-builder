@@ -16,6 +16,8 @@ abstract class FormElement
     }
 
     abstract protected function schemaPropertyType(): SchemaPropertyType;
+
     abstract public function toJsonSchemaProperty(): SchemaProperty;
+
     abstract public function value(): mixed;
 }

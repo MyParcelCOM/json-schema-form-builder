@@ -31,7 +31,10 @@ class MultiSelect extends ChoiceField
             $invalidValues = array_diff($initialValue, $options->getKeys());
             if (!empty($invalidValues)) {
                 throw new InvalidArgumentException(
-                    'MultiSelect Initial value must only contain valid options. Invalid options: ' . implode(', ', array_map(fn($value) => "'{$value}'", $invalidValues))
+                    'MultiSelect Initial value must only contain valid options. Invalid options: ' . implode(
+                        ', ',
+                        array_map(fn ($value) => "'{$value}'", $invalidValues),
+                    ),
                 );
             }
         }
