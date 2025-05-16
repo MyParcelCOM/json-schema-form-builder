@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace MyParcelCom\JsonSchema\FormBuilder\Form;
 
 use InvalidArgumentException;
-use MyParcelCom\JsonSchema\FormBuilder\Properties\Items\Items;
-use MyParcelCom\JsonSchema\FormBuilder\Properties\Meta\Meta;
-use MyParcelCom\JsonSchema\FormBuilder\Properties\Meta\MetaFieldType;
-use MyParcelCom\JsonSchema\FormBuilder\Properties\SchemaProperty;
-use MyParcelCom\JsonSchema\FormBuilder\Properties\SchemaPropertyType;
+use MyParcelCom\JsonSchema\FormBuilder\SchemaProperties\Items\Items;
+use MyParcelCom\JsonSchema\FormBuilder\SchemaProperties\Meta\Meta;
+use MyParcelCom\JsonSchema\FormBuilder\SchemaProperties\Meta\MetaFieldType;
+use MyParcelCom\JsonSchema\FormBuilder\SchemaProperties\SchemaProperty;
+use MyParcelCom\JsonSchema\FormBuilder\SchemaProperties\SchemaPropertyType;
 use MyParcelCom\JsonSchema\FormBuilder\Translations\LabelTranslationCollection;
 use Override;
 

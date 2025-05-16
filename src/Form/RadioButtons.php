@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace MyParcelCom\JsonSchema\FormBuilder\Form;
 
-use MyParcelCom\JsonSchema\FormBuilder\Properties\Meta\MetaFieldType;
+use MyParcelCom\JsonSchema\FormBuilder\SchemaProperties\Meta\MetaFieldType;
 use MyParcelCom\JsonSchema\FormBuilder\Translations\LabelTranslationCollection;
 use Override;
 

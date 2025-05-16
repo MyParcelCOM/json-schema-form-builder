@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace MyParcelCom\JsonSchema\FormBuilder\Form;
 
-use MyParcelCom\JsonSchema\FormBuilder\Properties\Meta\Meta;
-use MyParcelCom\JsonSchema\FormBuilder\Properties\SchemaProperty;
-use MyParcelCom\JsonSchema\FormBuilder\Properties\SchemaPropertyType;
+use MyParcelCom\JsonSchema\FormBuilder\SchemaProperties\Meta\Meta;
+use MyParcelCom\JsonSchema\FormBuilder\SchemaProperties\SchemaProperty;
+use MyParcelCom\JsonSchema\FormBuilder\SchemaProperties\SchemaPropertyType;
 use MyParcelCom\JsonSchema\FormBuilder\Translations\LabelTranslationCollection;
 use Override;
 
@@ -19,7 +19,9 @@ class Group extends FormElement
         public readonly ?string $help = null,
         public ?LabelTranslationCollection $labelTranslations = null,
     ) {
-        parent::__construct($name, false);
+        // A group is required if any of its children are required.
+        $isRequired = !empty($this->children->getRequired());
+        parent::__construct($name, $isRequired);
     }
 
     #[Override]

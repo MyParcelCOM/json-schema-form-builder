@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace MyParcelCom\JsonSchema\FormBuilder\Properties\Meta;
+namespace MyParcelCom\JsonSchema\FormBuilder\SchemaProperties\Meta;
 
 /**
  * Used to render the `field_type` meta-field in the SchemaProperty::toArray() method.

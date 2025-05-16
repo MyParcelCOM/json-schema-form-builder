@@ -6,7 +6,7 @@ namespace MyParcelCom\JsonSchema\FormBuilder\Form;
 
 use ArrayObject;
 use Illuminate\Support\Arr;
-use MyParcelCom\JsonSchema\FormBuilder\Properties\SchemaPropertyCollection;
+use MyParcelCom\JsonSchema\FormBuilder\SchemaProperties\SchemaPropertyCollection;
 
 class FormElementCollection extends ArrayObject
 {
@@ -54,6 +54,14 @@ class FormElementCollection extends ArrayObject
                     ],
                 ),
             ),
+        );
+    }
+
+    public function getMissingRequiredValues(array $values): array
+    {
+        return array_filter(
+            (array) $this,
+            fn($field) => $field->isRequired && !array_key_exists($field->name, $values)
         );
     }
 }

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace MyParcelCom\JsonSchema\FormBuilder\Form;
 
-use MyParcelCom\JsonSchema\FormBuilder\Properties\SchemaProperty;
-use MyParcelCom\JsonSchema\FormBuilder\Properties\SchemaPropertyType;
+use MyParcelCom\JsonSchema\FormBuilder\SchemaProperties\SchemaProperty;
+use MyParcelCom\JsonSchema\FormBuilder\SchemaProperties\SchemaPropertyType;
 
 abstract class FormElement
 {
