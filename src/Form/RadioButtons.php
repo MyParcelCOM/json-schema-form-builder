@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace MyParcelCom\JsonSchema\FormBuilder\Form;
 
+use InvalidArgumentException;
 use MyParcelCom\JsonSchema\FormBuilder\SchemaProperties\Meta\MetaFieldType;
 use MyParcelCom\JsonSchema\FormBuilder\Translations\LabelTranslationCollection;
 use Override;
@@ -19,6 +20,12 @@ class RadioButtons extends ChoiceField
         ?LabelTranslationCollection $labelTranslations = null,
         public ?string $initialValue = null,
     ) {
+        // If the value is set and the field type is a string, the value must be one of the options
+        if ($this->initialValue !== null && !in_array($this->initialValue, $options->getKeys())) {
+            throw new InvalidArgumentException(
+                "Radio field value must be one of its options. Invalid option: '{$this->initialValue}'",
+            );
+        }
         parent::__construct($name, $label, $options, $isRequired, $help, $labelTranslations);
     }
 

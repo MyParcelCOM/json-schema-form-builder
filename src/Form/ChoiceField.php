@@ -27,17 +27,6 @@ abstract class ChoiceField extends FormElement
                 ucfirst($this->fieldType()->value) . ' field requires at least one option.',
             );
         }
-        // If the value is set and the field type is a string, the value must be one of the options
-        if ($this->value() !== null && $this->schemaPropertyType() === SchemaPropertyType::STRING) {
-            if (!in_array($this->value(), $this->options->getKeys())) {
-                throw new InvalidArgumentException(
-                    ucfirst(
-                        $this->fieldType()->value,
-                    ) . " field value must be one of its options. Invalid option: '{$this->value()}'",
-                );
-            }
-        }
-
         parent::__construct($name, $isRequired);
     }
 
