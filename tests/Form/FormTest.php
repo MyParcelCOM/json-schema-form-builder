@@ -265,16 +265,63 @@ class FormTest extends TestCase
         ]);
     }
 
-//    public function test_it_fails_to_validate_required_missing(): void
-//    {
-//
-//    }
-//    public function test_it_fails_to_validate_wrong_property_type(): void
-//    {
-//
-//    }
-//    public function test_it_fails_to_validate_invalid_enum_value(): void
-//    {
-//
-//    }
+    public function test_it_fails_to_validate_required_missing(): void
+    {
+        $this->expectException(FormValidationException::class);
+        $this->expectExceptionMessages([
+            "[name_3] The property name_3 is required",
+            "[name_4.name_2] The property name_2 is required"
+        ]);
+
+        $this->form->validate([
+            'name_1' => 'value',
+            'name_2' => false,
+            'name_4' => [
+                'name_1' => 'value',
+                'name_3' => 'a',
+            ],
+        ]);
+    }
+    public function test_it_fails_to_validate_wrong_property_type(): void
+    {
+        $this->expectException(FormValidationException::class);
+        $this->expectExceptionMessages([
+            "[name_1] Integer value found, but a string is required",
+            "[name_2] String value found, but a boolean is required"
+        ]);
+
+        $this->form->validate([
+            'name_1' => 5,
+            'name_2' => 'hello',
+            'name_3' => 'a',
+            'name_4' => [
+                'name_1' => 'value',
+                'name_3' => 'a',
+            ],
+        ]);
+    }
+    public function test_it_fails_to_validate_invalid_enum_value(): void
+    {
+        $this->expectException(FormValidationException::class);
+        $this->expectExceptionMessages([
+            '[name_3] Does not have a value in the enumeration ["a","b"]',
+            '[name_4.name_3] Does not have a value in the enumeration ["a","b"]'
+        ]);
+
+        $this->form->validate([
+            'name_1' => 'value',
+            'name_2' => true,
+            'name_3' => 'x',
+            'name_4' => [
+                'name_1' => 'value',
+                'name_2' => true,
+                'name_3' => 'y',
+            ],
+        ]);
+    }
+
+    private function expectExceptionMessages(array $messages): void
+    {
+        $this->expectExceptionMessage(implode("\n", $messages));
+    }
 }
