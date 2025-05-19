@@ -6,7 +6,7 @@ namespace MyParcelCom\JsonSchema\FormBuilder\Form;
 
 use ArrayObject;
 use Illuminate\Support\Arr;
-use MyParcelCom\JsonSchema\FormBuilder\Properties\SchemaPropertyCollection;
+use MyParcelCom\JsonSchema\FormBuilder\SchemaProperties\SchemaPropertyCollection;
 
 class FormElementCollection extends ArrayObject
 {
@@ -30,17 +30,30 @@ class FormElementCollection extends ArrayObject
      */
     public function getRequired(): array
     {
-        $requiredProperties = array_filter(
-            (array) $this,
-            static fn (FormElement $field) => $field->isRequired(),
+        $requiredProperties = array_values(
+            array_filter(
+                (array) $this,
+                static fn (FormElement $field) => $field->isRequired,
+            ),
         );
 
-        return array_values(
-            Arr::map(
-                $requiredProperties,
-                static fn (FormElement $field) => $field->name,
-            ),
+        return Arr::map(
+            $requiredProperties,
+            static fn (FormElement $field) => $field->name,
         );
     }
 
+    public function getValues(): array
+    {
+        return array_filter(
+            Arr::collapse(
+                Arr::map(
+                    (array) $this,
+                    static fn (FormElement $formElement) => [
+                        $formElement->name => $formElement->value(),
+                    ],
+                ),
+            ),
+        );
+    }
 }

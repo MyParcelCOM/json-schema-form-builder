@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Properties\Items;
 
-use MyParcelCom\JsonSchema\FormBuilder\Properties\Items\Items;
+use MyParcelCom\JsonSchema\FormBuilder\SchemaProperties\Items\Items;
 use PHPUnit\Framework\TestCase;
 
 use function PHPUnit\Framework\assertEquals;
