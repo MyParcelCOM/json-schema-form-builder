@@ -35,11 +35,11 @@ The following section provides examples of how to use the library to create form
 
 ### Meta Fields
 
-While JSON Schema is effective for laying out form structures, 
+While `JSON Schema` is effective for laying out form structures, 
 it has limitations in the information it allows to specify. To address this, 
-properties that fall outside the scope of the JSON Schema specification will 
+properties that fall outside the scope of the `JSON Schema` specification will 
 be stored as meta-fields. 
-In this library, these fields will be defined using the `Meta.php`. This class currently supports the following:
+Setting these fields is handled using the `Meta.php` which currently supports the following:
 
 - `help`: A string that describes the purpose of the field.
 - `label_translations`: Translations for the label of the field. (the non-translated label is stored as the
