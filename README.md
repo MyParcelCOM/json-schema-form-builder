@@ -35,9 +35,11 @@ The following section provides examples of how to use the library to create form
 
 ### Meta Fields
 
-While `JSON Schema` is useful for laying out forms it is also limited in the options in allows specifying. To prevent this from being an issue, information that is not part of the JSON Schema specification will be stored as `meta`
-fields. and will be defined using the `Meta.php` class.
-The following meta-fields are supported:
+While `JSON Schema` is effective for laying out form structures, 
+it has limitations in the information it allows to specify. To address this, 
+properties that fall outside the scope of the `JSON Schema` specification will 
+be stored as meta-fields. 
+Setting these fields is handled using the `Meta.php` which currently supports the following:
 
 - `help`: A string that describes the purpose of the field.
 - `label_translations`: Translations for the label of the field. (the non-translated label is stored as the
@@ -51,11 +53,12 @@ The following meta-fields are supported:
 ### Example: Constructing a Form and Converting it to a JSON Schema
 
 ```php
-use MyParcelCom\JsonSchema\FormBuilder\Form\Form;
 use MyParcelCom\JsonSchema\FormBuilder\Form\Text;
+use MyParcelCom\JsonSchema\FormBuilder\Form\Checkbox;
 use MyParcelCom\JsonSchema\FormBuilder\Form\Select;
 use MyParcelCom\JsonSchema\FormBuilder\Form\Option;
 use MyParcelCom\JsonSchema\FormBuilder\Form\OptionCollection;
+use MyParcelCom\JsonSchema\FormBuilder\Form\Form;
 
 $textField = new Text(
     name: 'example_text',
@@ -129,6 +132,58 @@ The resulting JSON Schema will look as follows:
 }
 ```
 
+### Example: Setting values
+In some cases, you may require setting a value on a form element during its construction. This includes:
+1. Populating the field with values previously set by the user
+2. Default values
+
+To support this, form elements allow setting a `value` property. These values can be obtained in a form by calling the
+`getValues()` method on the `Form.php` class. This method returns an associative array with the field names as keys and their respective values.
+This means that when serialized to JSON, it will be rendered as a JSON object (see example below).
+
+```php
+use MyParcelCom\JsonSchema\FormBuilder\Form\Text;
+use MyParcelCom\JsonSchema\FormBuilder\Form\Checkbox;
+use MyParcelCom\JsonSchema\FormBuilder\Form\Select;
+use MyParcelCom\JsonSchema\FormBuilder\Form\Option;
+use MyParcelCom\JsonSchema\FormBuilder\Form\OptionCollection;
+use MyParcelCom\JsonSchema\FormBuilder\Form\Form;
+
+$textField = new Text(
+    name: 'example_text',
+    label: 'Example Text Field',
+    value: 'previously-set-value'
+);
+
+$checkboxField = new Checkbox(
+    name: 'example_checkbox',
+    label: 'Example Checkbox Field',
+);
+
+$selectField = new Select(
+    name: 'example_select',
+    label: 'Example Select Field',
+    options: new OptionCollection(
+        new Option('option_1_key', 'Option 1 Label'),
+        new Option('option_2_key', 'Option 2 Label')
+    ),
+    value: 'option_2_key'
+);
+
+$form = new Form($textField, $checkboxField, $selectField);
+$form->getValues();
+```
+
+When serialized to JSON, the resulting array will look as follows:
+
+```json
+{
+  "example_text": "previously-set-value",
+  "example_select": "option_2_key"
+}
+```
+
+
 ### Example: Grouping elements
 
 ```php
@@ -190,6 +245,43 @@ The resulting JSON Schema property for the group will look as follows:
 ```
 
 NOTE: When defining groups, required properties that are its direct children will be added to its `required` property rather than the `required` property of the parent form.
+
+#### Values in Groups
+If children of a group have a value set, their values will be rendered as a nested structure.
+For example:
+```php
+use MyParcelCom\JsonSchema\FormBuilder\Form\Text;
+use MyParcelCom\JsonSchema\FormBuilder\Form\Group;
+use MyParcelCom\JsonSchema\FormBuilder\Form\Form;
+
+$group = new Group(
+    name: 'group',
+    label: 'Group',
+    children: new FormElementCollection(
+        new Text(name: 'group_child', label: 'Group Child', value: 'some_value')
+    ),
+);
+
+$someOtherField = new Text(
+    name: 'some_other_field',
+    label: 'Some Other Field',
+    value: 'some_other_value'
+);
+
+$form = new Form($group, $someOtherField);
+$form->getValues();
+```
+
+When serialized, `getValues()` will result in the following JSON object:
+
+```json
+{
+  "group": {
+    "group_child": "some_value"
+  },
+  "some_other_field": "some_other_value"
+}
+```
 
 ### Example: Adding translations to a form element's label
 
