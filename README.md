@@ -11,7 +11,7 @@ This package includes the following functionalities:
 5. Adding translations to form elements using the `LabelTranslationCollection` class. This includes:
     - Field label translations (for all fields and groups).
     - Option labels (for fields with a finite set of options such as `Select` and `Radio`).
-6. Defining values for form fields using the `ValueCollection` class.
+6. Defining values for form fields.
 
 ## PHP 8
 
