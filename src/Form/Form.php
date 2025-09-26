@@ -42,7 +42,7 @@ class Form extends FormElementCollection
                 fn ($error) => "[{$error['property']}] {$error['message']}",
                 $validator->getErrors(),
             );
-            throw new FormValidationException("Form validation failed", $validator->getErrors());
+            throw new FormValidationException("Form validation failed", $errorMessages);
         }
     }
 }
