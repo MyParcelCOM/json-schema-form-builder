@@ -204,12 +204,12 @@ class FormTest extends TestCase
     public function test_it_gets_values(): void
     {
         $text = new Text(
-            name: 'name_1',
+            name: '1001',
             label: 'Label 1',
             value: 'Initial text',
         );
         $checkbox = new Checkbox(
-            name: 'name_2',
+            name: '1002',
             label: 'Label 2',
             value: true,
         );
@@ -238,11 +238,11 @@ class FormTest extends TestCase
         );
 
         assertEquals([
-            'name_1' => 'Initial text',
-            'name_2' => true,
+            1001 => 'Initial text',
+            1002 => true,
             'name_4' => [
-                'name_1' => 'Initial text',
-                'name_2' => true,
+                1001 => 'Initial text',
+                1002 => true,
             ],
         ], $form->getValues());
     }

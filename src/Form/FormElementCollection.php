@@ -46,13 +46,11 @@ class FormElementCollection extends ArrayObject
     public function getValues(): array
     {
         return array_filter(
-            Arr::collapse(
-                Arr::map(
-                    (array) $this,
-                    static fn (FormElement $formElement) => [
-                        $formElement->name => $formElement->value(),
-                    ],
-                ),
+            Arr::mapWithKeys(
+                (array) $this,
+                static fn (FormElement $formElement) => [
+                    $formElement->name => $formElement->value(),
+                ],
             ),
         );
     }
