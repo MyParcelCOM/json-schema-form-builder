@@ -7,16 +7,21 @@ namespace MyParcelCom\JsonSchema\FormBuilder\Form\Exceptions;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Arr;
+use Opis\JsonSchema\Errors\ErrorFormatter;
+use Opis\JsonSchema\ValidationResult;
 use Throwable;
 
 class FormValidationException extends Exception
 {
+    private array $errors;
     public function __construct(
+        private readonly ValidationResult $validationResult,
         string $message = 'Form validation failed',
-        private readonly array $errors = [],
-        ?Throwable $previous = null,
+        ?ErrorFormatter $errorFormatter = null,
     ) {
-        parent::__construct(message: $message, previous: $previous);
+        parent::__construct(message: $message);
+        $errorFormatter ??= new ErrorFormatter();
+        $this->errors = $errorFormatter->format($this->validationResult->error());
     }
 
     /**
@@ -29,16 +34,10 @@ class FormValidationException extends Exception
 
     public function render(): JsonResponse
     {
-        $errorMapping = Arr::collapse(array_map(
-            fn ($error) => [
-                $error['property'] => $error['message'],
-            ],
-            $this->errors,
-        ));
-        return new JsonResponse([
+        return new JsonResponse(array_filter([
             'message' => $this->getMessage(),
-            'errors' => $errorMapping,
-        ], 422);
+            'errors' => $this->errors,
+        ]), 422);
     }
 
     /**

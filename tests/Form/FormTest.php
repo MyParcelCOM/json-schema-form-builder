@@ -136,6 +136,7 @@ class FormTest extends TestCase
     {
         assertEquals([
             '$schema'              => 'https://json-schema.org/draft/2020-12/schema',
+            'type'                 => 'object',
             'additionalProperties' => false,
             'required'             => ['name_2', 'name_3'],
             'properties'           => [
