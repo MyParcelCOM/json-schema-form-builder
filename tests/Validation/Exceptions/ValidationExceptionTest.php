@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Tests\Form\Exceptions;
+namespace Tests\Validation\Exceptions;
 
 use Mockery;
-use MyParcelCom\JsonSchema\FormBuilder\Form\Exceptions\FormValidationException;
+use MyParcelCom\JsonSchema\FormBuilder\Validation\Exceptions\ValidationException;
 use Opis\JsonSchema\Errors\ErrorFormatter;
 use Opis\JsonSchema\Errors\ValidationError;
 use Opis\JsonSchema\ValidationResult;
@@ -13,7 +13,7 @@ use PHPUnit\Framework\TestCase;
 
 use function PHPUnit\Framework\assertEquals;
 
-class FormValidationExceptionTest extends TestCase
+class ValidationExceptionTest extends TestCase
 {
     public function test_it_renders(): void
     {
@@ -25,7 +25,7 @@ class FormValidationExceptionTest extends TestCase
 
         $errorFormatterMock->expects('format')->with($errorMock)->andReturn(['foo.bar' => 'Foo is required', 'bar.foo' => 'Bar is required']);
 
-        $exception = new FormValidationException($resultMock, 'What a failure', $errorFormatterMock);
+        $exception = new ValidationException($resultMock, 'What a failure', $errorFormatterMock);
 
         $response = $exception->render();
 

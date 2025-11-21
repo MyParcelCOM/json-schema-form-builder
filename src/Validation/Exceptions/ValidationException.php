@@ -2,16 +2,14 @@
 
 declare(strict_types=1);
 
-namespace MyParcelCom\JsonSchema\FormBuilder\Form\Exceptions;
+namespace MyParcelCom\JsonSchema\FormBuilder\Validation\Exceptions;
 
 use Exception;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Arr;
 use Opis\JsonSchema\Errors\ErrorFormatter;
 use Opis\JsonSchema\ValidationResult;
-use Throwable;
 
-class FormValidationException extends Exception
+class ValidationException extends Exception
 {
     private array $errors;
     public function __construct(

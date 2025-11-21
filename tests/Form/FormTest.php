@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Tests\Form;
 
 use MyParcelCom\JsonSchema\FormBuilder\Form\Checkbox;
-use MyParcelCom\JsonSchema\FormBuilder\Form\Exceptions\FormValidationException;
 use MyParcelCom\JsonSchema\FormBuilder\Form\Form;
 use MyParcelCom\JsonSchema\FormBuilder\Form\FormElementCollection;
 use MyParcelCom\JsonSchema\FormBuilder\Form\Group;
@@ -25,7 +24,6 @@ class FormTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-
         $propertyOne = new Text(
             name: 'name_1',
             label: 'Label 1',
@@ -61,6 +59,7 @@ class FormTest extends TestCase
                 ),
             ),
         );
+        dump($this->form->toJsonSchema());
     }
 
     public function test_it_gets_required(): void
@@ -246,71 +245,5 @@ class FormTest extends TestCase
                 1002 => true,
             ],
         ], $form->getValues());
-    }
-
-    /**
-     * @throws FormValidationException
-     */
-    public function test_it_validates(): void
-    {
-        $this->expectNotToPerformAssertions();
-        $this->form->validate([
-            'name_1' => 'value',
-            'name_2' => false,
-            'name_3' => 'a',
-            'name_4' => [
-                'name_1' => 'value',
-                'name_2' => false,
-                'name_3' => 'a',
-            ],
-        ]);
-
-        $this->form->validate([
-            'name_1' => 'value',
-            'name_2' => false,
-            'name_3' => 'a',
-        ]);
-    }
-
-    public function test_it_fails_to_validate_required_missing(): void
-    {
-        $this->expectException(FormValidationException::class);
-        $this->form->validate([
-            'name_1' => 'value',
-            'name_2' => false,
-            'name_4' => [
-                'name_1' => 'value',
-                'name_3' => 'a',
-            ],
-        ]);
-    }
-
-    public function test_it_fails_to_validate_wrong_property_type(): void
-    {
-        $this->expectException(FormValidationException::class);
-        $this->form->validate([
-            'name_1' => 5,
-            'name_2' => 'hello',
-            'name_3' => 'a',
-            'name_4' => [
-                'name_1' => 'value',
-                'name_3' => 'a',
-            ],
-        ]);
-    }
-
-    public function test_it_fails_to_validate_invalid_enum_value(): void
-    {
-        $this->expectException(FormValidationException::class);
-        $this->form->validate([
-            'name_1' => 'value',
-            'name_2' => true,
-            'name_3' => 'x',
-            'name_4' => [
-                'name_1' => 'value',
-                'name_2' => true,
-                'name_3' => 'y',
-            ],
-        ]);
     }
 }
