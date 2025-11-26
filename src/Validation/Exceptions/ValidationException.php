@@ -9,6 +9,9 @@ use Illuminate\Http\JsonResponse;
 use Opis\JsonSchema\Errors\ErrorFormatter;
 use Opis\JsonSchema\ValidationResult;
 
+/**
+ * Exception thrown when form validation fails.
+ */
 class ValidationException extends Exception
 {
     private array $errors;

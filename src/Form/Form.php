@@ -31,6 +31,9 @@ class Form extends FormElementCollection
      */
     public function validate(array $values): void
     {
-        Validator::validate($values, $this->toJsonSchema());
+        $result = Validator::validate($values, $this->toJsonSchema());
+        if(!$result->isValid()) {
+            throw new ValidationException($result);
+        }
     }
 }
