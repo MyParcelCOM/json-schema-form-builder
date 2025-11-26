@@ -97,7 +97,6 @@ class ValidatorTest extends TestCase
      */
     public function test_it_validates(): void
     {
-        $this->expectNotToPerformAssertions();
         $validationResult = Mockery::mock(ValidationResult::class);
         $validationResult->expects('isValid');
         $validationResult->expects('error');
@@ -105,7 +104,7 @@ class ValidatorTest extends TestCase
         $jsonSchemaValidator = Mockery::mock(JsonSchemaValidator::class);
         $jsonSchemaValidator->expects('validate')->andReturn($validationResult);
 
-        Validator::validate([
+        $result = Validator::validate([
             'name_1' => 'value',
             'name_2' => false,
             'name_3' => 'a',
@@ -115,5 +114,7 @@ class ValidatorTest extends TestCase
                 'name_3' => 'a',
             ],
         ], $this->schema, $jsonSchemaValidator);
+
+        $this->assertSame($result, $validationResult);
     }
 }
