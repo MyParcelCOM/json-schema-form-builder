@@ -59,7 +59,6 @@ class FormTest extends TestCase
                 ),
             ),
         );
-        dump($this->form->toJsonSchema());
     }
 
     public function test_it_gets_required(): void
