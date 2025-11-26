@@ -6,6 +6,7 @@ namespace Tests\Validation;
 
 use MyParcelCom\JsonSchema\FormBuilder\Validation\Exceptions\FormValidationException;
 use MyParcelCom\JsonSchema\FormBuilder\Validation\Validator;
+use Opis\JsonSchema\Errors\ErrorFormatter;
 use PHPUnit\Framework\TestCase;
 
 class ValidatorTest extends TestCase
@@ -95,40 +96,52 @@ class ValidatorTest extends TestCase
      */
     public function test_it_validates(): void
     {
-        $this->assertTrue(
-            Validator::validate([
-                'name_1' => 'value',
-                'name_2' => false,
-                'name_3' => 'a',
-                'name_4' => [
-                    'name_1' => 'value',
-                    'name_2' => false,
-                    'name_3' => 'a',
-                ],
-            ], $this->schema)->isValid());
-
-        $this->assertTrue(Validator::validate([
+        $validationResult = Validator::validate([
             'name_1' => 'value',
             'name_2' => false,
             'name_3' => 'a',
-        ], $this->schema)->isValid());
+            'name_4' => [
+                'name_1' => 'value',
+                'name_2' => false,
+                'name_3' => 'a',
+            ],
+        ], $this->schema);
+
+        $this->assertTrue($validationResult->isValid());
+        $this->assertFalse($validationResult->hasError());
+        $this->assertNull($validationResult->error());
+
+        $validationResult = Validator::validate([
+            'name_1' => 'value',
+            'name_2' => false,
+            'name_3' => 'a',
+        ], $this->schema);
+
+        $this->assertTrue($validationResult->isValid());
+        $this->assertFalse($validationResult->hasError());
+        $this->assertNull($validationResult->error());
     }
 
     public function test_it_fails_to_validate_required_missing(): void
     {
-        $this->assertFalse(Validator::validate([
+        $validationResult = Validator::validate([
             'name_1' => 'value',
             'name_2' => false,
             'name_4' => [
                 'name_1' => 'value',
                 'name_3' => 'a',
             ],
-        ], $this->schema)->isValid());
+        ], $this->schema);
+
+        $errors = $this->formatErrorsFromValidationResult($validationResult);
+
+        $this->assertFalse($validationResult->isValid());
+        $this->assertContains('The required properties (name_3) are missing', $errors['/']);
     }
 
     public function test_it_fails_to_validate_wrong_property_type(): void
     {
-        $this->assertFalse(Validator::validate([
+        $validationResult = Validator::validate([
             'name_1' => 5,
             'name_2' => 'hello',
             'name_3' => 'a',
@@ -136,12 +149,17 @@ class ValidatorTest extends TestCase
                 'name_1' => 'value',
                 'name_3' => 'a',
             ],
-        ], $this->schema)->isValid());
+        ], $this->schema);
+
+        $errors = $this->formatErrorsFromValidationResult($validationResult);
+
+        $this->assertFalse($validationResult->isValid());
+        $this->assertContains('The data (integer) must match the type: string', $errors['/name_1']);
     }
 
     public function test_it_fails_to_validate_invalid_enum_value(): void
     {
-        $this->assertFalse(Validator::validate([
+        $validationResult = Validator::validate([
             'name_1' => 'value',
             'name_2' => true,
             'name_3' => 'x',
@@ -150,6 +168,22 @@ class ValidatorTest extends TestCase
                 'name_2' => true,
                 'name_3' => 'y',
             ],
-        ], $this->schema)->isValid());
+        ], $this->schema);
+
+        $errors = $this->formatErrorsFromValidationResult($validationResult);
+
+        $this->assertFalse($validationResult->isValid());
+        $this->assertContains('The data should match one item from enum', $errors['/name_3']);
+    }
+
+    /**
+     * Helper function to format errors from a ValidationResult as described in opis/json-schema (used in FormValidationException).
+     * @param $validationResult
+     * @return array
+     */
+    private function formatErrorsFromValidationResult($validationResult): array
+    {
+        $errorFormatter ??= new ErrorFormatter();
+        return $errorFormatter->format($validationResult->error());
     }
 }
