@@ -25,6 +25,7 @@ class FormTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
+
         $propertyOne = new Text(
             name: 'name_1',
             label: 'Label 1',
