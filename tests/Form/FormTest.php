@@ -12,6 +12,7 @@ use MyParcelCom\JsonSchema\FormBuilder\Form\Option;
 use MyParcelCom\JsonSchema\FormBuilder\Form\OptionCollection;
 use MyParcelCom\JsonSchema\FormBuilder\Form\RadioButtons;
 use MyParcelCom\JsonSchema\FormBuilder\Form\Text;
+use MyParcelCom\JsonSchema\FormBuilder\Validation\Exceptions\FormValidationException;
 use PHPUnit\Framework\TestCase;
 
 use function PHPUnit\Framework\assertEquals;
@@ -244,5 +245,71 @@ class FormTest extends TestCase
                 1002 => true,
             ],
         ], $form->getValues());
+    }
+
+    /**
+     * @throws FormValidationException
+     */
+    public function test_it_validates(): void
+    {
+        $this->expectNotToPerformAssertions();
+        $this->form->validate([
+            'name_1' => 'value',
+            'name_2' => false,
+            'name_3' => 'a',
+            'name_4' => [
+                'name_1' => 'value',
+                'name_2' => false,
+                'name_3' => 'a',
+            ],
+        ]);
+
+        $this->form->validate([
+            'name_1' => 'value',
+            'name_2' => false,
+            'name_3' => 'a',
+        ]);
+    }
+
+    public function test_it_fails_to_validate_required_missing(): void
+    {
+        $this->expectException(FormValidationException::class);
+        $this->form->validate([
+            'name_1' => 'value',
+            'name_2' => false,
+            'name_4' => [
+                'name_1' => 'value',
+                'name_3' => 'a',
+            ],
+        ]);
+    }
+
+    public function test_it_fails_to_validate_wrong_property_type(): void
+    {
+        $this->expectException(FormValidationException::class);
+        $this->form->validate([
+            'name_1' => 5,
+            'name_2' => 'hello',
+            'name_3' => 'a',
+            'name_4' => [
+                'name_1' => 'value',
+                'name_3' => 'a',
+            ],
+        ]);
+    }
+
+    public function test_it_fails_to_validate_invalid_enum_value(): void
+    {
+        $this->expectException(FormValidationException::class);
+        $this->form->validate([
+            'name_1' => 'value',
+            'name_2' => true,
+            'name_3' => 'x',
+            'name_4' => [
+                'name_1' => 'value',
+                'name_2' => true,
+                'name_3' => 'y',
+            ],
+        ]);
     }
 }

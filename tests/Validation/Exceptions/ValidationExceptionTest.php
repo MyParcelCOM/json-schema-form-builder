@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Tests\Validation\Exceptions;
 
 use Mockery;
-use MyParcelCom\JsonSchema\FormBuilder\Validation\Exceptions\ValidationException;
+use MyParcelCom\JsonSchema\FormBuilder\Validation\Exceptions\FormValidationException;
 use Opis\JsonSchema\Errors\ErrorFormatter;
 use Opis\JsonSchema\Errors\ValidationError;
 use Opis\JsonSchema\ValidationResult;
@@ -25,7 +25,7 @@ class ValidationExceptionTest extends TestCase
 
         $errorFormatterMock->expects('format')->with($errorMock)->andReturn(['foo.bar' => 'Foo is required', 'bar.foo' => 'Bar is required']);
 
-        $exception = new ValidationException($resultMock, 'What a failure', $errorFormatterMock);
+        $exception = new FormValidationException($resultMock, 'What a failure', $errorFormatterMock);
 
         $response = $exception->render();
 

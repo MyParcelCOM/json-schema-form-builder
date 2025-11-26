@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Validation;
 
-use MyParcelCom\JsonSchema\FormBuilder\Validation\Exceptions\ValidationException;
+use MyParcelCom\JsonSchema\FormBuilder\Validation\Exceptions\FormValidationException;
 use MyParcelCom\JsonSchema\FormBuilder\Validation\Validator;
 use PHPUnit\Framework\TestCase;
 
@@ -92,46 +92,43 @@ class ValidatorTest extends TestCase
     }
 
     /**
-     * @throws ValidationException
      */
     public function test_it_validates(): void
     {
-        $this->expectNotToPerformAssertions();
-        Validator::validate([
-            'name_1' => 'value',
-            'name_2' => false,
-            'name_3' => 'a',
-            'name_4' => [
+        $this->assertTrue(
+            Validator::validate([
                 'name_1' => 'value',
                 'name_2' => false,
                 'name_3' => 'a',
-            ],
-        ], $this->schema);
+                'name_4' => [
+                    'name_1' => 'value',
+                    'name_2' => false,
+                    'name_3' => 'a',
+                ],
+            ], $this->schema)->isValid());
 
-        Validator::validate([
+        $this->assertTrue(Validator::validate([
             'name_1' => 'value',
             'name_2' => false,
             'name_3' => 'a',
-        ], $this->schema);
+        ], $this->schema)->isValid());
     }
 
     public function test_it_fails_to_validate_required_missing(): void
     {
-        $this->expectException(ValidationException::class);
-        Validator::validate([
+        $this->assertFalse(Validator::validate([
             'name_1' => 'value',
             'name_2' => false,
             'name_4' => [
                 'name_1' => 'value',
                 'name_3' => 'a',
             ],
-        ], $this->schema);
+        ], $this->schema)->isValid());
     }
 
     public function test_it_fails_to_validate_wrong_property_type(): void
     {
-        $this->expectException(ValidationException::class);
-        Validator::validate([
+        $this->assertFalse(Validator::validate([
             'name_1' => 5,
             'name_2' => 'hello',
             'name_3' => 'a',
@@ -139,13 +136,12 @@ class ValidatorTest extends TestCase
                 'name_1' => 'value',
                 'name_3' => 'a',
             ],
-        ], $this->schema);
+        ], $this->schema)->isValid());
     }
 
     public function test_it_fails_to_validate_invalid_enum_value(): void
     {
-        $this->expectException(ValidationException::class);
-        Validator::validate([
+        $this->assertFalse(Validator::validate([
             'name_1' => 'value',
             'name_2' => true,
             'name_3' => 'x',
@@ -154,7 +150,6 @@ class ValidatorTest extends TestCase
                 'name_2' => true,
                 'name_3' => 'y',
             ],
-        ], $this->schema);
+        ], $this->schema)->isValid());
     }
-
 }

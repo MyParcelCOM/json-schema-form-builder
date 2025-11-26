@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace MyParcelCom\JsonSchema\FormBuilder\Form;
 
 use ArrayObject;
-use MyParcelCom\JsonSchema\FormBuilder\Validation\Exceptions\ValidationException;
+use MyParcelCom\JsonSchema\FormBuilder\Validation\Exceptions\FormValidationException;
 use MyParcelCom\JsonSchema\FormBuilder\Validation\Validator;
 
 /**
@@ -27,13 +27,13 @@ class Form extends FormElementCollection
     /**
      * Validate form values against the JSON Schema form
      * @param array<string, mixed> $values a key value array of form values
-     * @throws ValidationException
+     * @throws FormValidationException
      */
     public function validate(array $values): void
     {
         $result = Validator::validate($values, $this->toJsonSchema());
         if(!$result->isValid()) {
-            throw new ValidationException($result);
+            throw new FormValidationException($result);
         }
     }
 }

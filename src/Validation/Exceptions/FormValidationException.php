@@ -12,7 +12,7 @@ use Opis\JsonSchema\ValidationResult;
 /**
  * Exception thrown when form validation fails.
  */
-class ValidationException extends Exception
+class FormValidationException extends Exception
 {
     private array $errors;
     public function __construct(
