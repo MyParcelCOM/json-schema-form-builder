@@ -13,13 +13,13 @@ class ValidationException extends Exception
 {
     private array $errors;
     public function __construct(
-        private readonly ValidationResult $validationResult,
+        ValidationResult $validationResult,
         string $message = 'Form validation failed',
         ?ErrorFormatter $errorFormatter = null,
     ) {
         parent::__construct(message: $message);
         $errorFormatter ??= new ErrorFormatter();
-        $this->errors = $errorFormatter->format($this->validationResult->error());
+        $this->errors = $errorFormatter->format($validationResult->error());
     }
 
     /**
