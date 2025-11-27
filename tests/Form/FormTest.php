@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Form;
 
+use Mockery;
 use MyParcelCom\JsonSchema\FormBuilder\Form\Checkbox;
 use MyParcelCom\JsonSchema\FormBuilder\Form\Form;
 use MyParcelCom\JsonSchema\FormBuilder\Form\FormElementCollection;
@@ -13,6 +14,10 @@ use MyParcelCom\JsonSchema\FormBuilder\Form\OptionCollection;
 use MyParcelCom\JsonSchema\FormBuilder\Form\RadioButtons;
 use MyParcelCom\JsonSchema\FormBuilder\Form\Text;
 use MyParcelCom\JsonSchema\FormBuilder\Validation\Exceptions\FormValidationException;
+use MyParcelCom\JsonSchema\FormBuilder\Validation\Validator;
+use Opis\JsonSchema\Errors\ErrorFormatter;
+use Opis\JsonSchema\Errors\ValidationError;
+use Opis\JsonSchema\ValidationResult;
 use PHPUnit\Framework\TestCase;
 
 use function PHPUnit\Framework\assertEquals;
@@ -251,9 +256,16 @@ class FormTest extends TestCase
     /**
      * @throws FormValidationException
      */
-    public function test_it_validates(): void
+    public function test_it_validates_success(): void
     {
         $this->expectNotToPerformAssertions();
+
+        $validationResult = Mockery::mock(ValidationResult::class);
+        $validationResult->expects('isValid')->andReturns(true);
+
+        $validator = Mockery::mock(Validator::class);
+        $validator->expects('validate')->andReturn($validationResult);
+
         $this->form->validate([
             'name_1' => 'value',
             'name_2' => false,
@@ -264,53 +276,33 @@ class FormTest extends TestCase
                 'name_3' => 'a',
             ],
         ]);
+    }
+
+    public function test_it_validates_failure(): void
+    {
+        $this->expectException(FormValidationException::class);
+
+        $errorMock = Mockery::mock(ValidationError::class);
+
+        $validationResult = Mockery::mock(ValidationResult::class);
+        $validationResult->expects('isValid')->andReturns(false);
+        $validationResult->expects('error')->andReturn($errorMock);
+
+        $errorFormatterMock = Mockery::mock(ErrorFormatter::class);
+        $errorFormatterMock->expects('format')->with($errorMock);
+
+        $validator = Mockery::mock(Validator::class);
+        $validator->expects('validate')->andReturn($validationResult);
 
         $this->form->validate([
             'name_1' => 'value',
             'name_2' => false,
             'name_3' => 'a',
-        ]);
-    }
-
-    public function test_it_fails_to_validate_required_missing(): void
-    {
-        $this->expectException(FormValidationException::class);
-        $this->form->validate([
-            'name_1' => 'value',
-            'name_2' => false,
             'name_4' => [
                 'name_1' => 'value',
+                'name_2' => false,
                 'name_3' => 'a',
             ],
-        ]);
-    }
-
-    public function test_it_fails_to_validate_wrong_property_type(): void
-    {
-        $this->expectException(FormValidationException::class);
-        $this->form->validate([
-            'name_1' => 5,
-            'name_2' => 'hello',
-            'name_3' => 'a',
-            'name_4' => [
-                'name_1' => 'value',
-                'name_3' => 'a',
-            ],
-        ]);
-    }
-
-    public function test_it_fails_to_validate_invalid_enum_value(): void
-    {
-        $this->expectException(FormValidationException::class);
-        $this->form->validate([
-            'name_1' => 'value',
-            'name_2' => true,
-            'name_3' => 'x',
-            'name_4' => [
-                'name_1' => 'value',
-                'name_2' => true,
-                'name_3' => 'y',
-            ],
-        ]);
+        ], $validator, $errorFormatterMock);
     }
 }

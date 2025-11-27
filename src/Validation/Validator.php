@@ -13,9 +13,9 @@ class Validator
     /**
      * Validate form values against a JSON Schema. Returns a ValidationResult.
      */
-    public static function validate(array $values, array $schema, ?JsonSchemaValidator $validator = null): ValidationResult
+    public function validate(array $values, array $schema): ValidationResult
     {
-        $validator ??= new JsonSchemaValidator();
+        $validator = new JsonSchemaValidator();
 
         return $validator->validate(Helper::toJSON($values), Helper::toJSON($schema));
     }

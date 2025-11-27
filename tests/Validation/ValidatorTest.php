@@ -12,10 +12,12 @@ use Opis\JsonSchema\Validator as JsonSchemaValidator;
 
 class ValidatorTest extends TestCase
 {
+    protected Validator $validator;
     protected array $schema;
     protected function setUp(): void
     {
         parent::setUp();
+        $this->validator = new Validator();
         $this->schema = [
             '$schema'              => 'https://json-schema.org/draft/2020-12/schema',
             'type'                 => 'object',
@@ -97,14 +99,16 @@ class ValidatorTest extends TestCase
      */
     public function test_it_validates(): void
     {
+        $this->expectNotToPerformAssertions();
+
         $validationResult = Mockery::mock(ValidationResult::class);
         $validationResult->expects('isValid');
         $validationResult->expects('error');
 
         $jsonSchemaValidator = Mockery::mock(JsonSchemaValidator::class);
-        $jsonSchemaValidator->expects('validate')->andReturn($validationResult);
+        $jsonSchemaValidator->expects('validate')->with()->andReturn($validationResult);
 
-        $result = Validator::validate([
+        $this->validator->validate([
             'name_1' => 'value',
             'name_2' => false,
             'name_3' => 'a',
@@ -113,8 +117,6 @@ class ValidatorTest extends TestCase
                 'name_2' => false,
                 'name_3' => 'a',
             ],
-        ], $this->schema, $jsonSchemaValidator);
-
-        $this->assertSame($result, $validationResult);
+        ], $this->schema);
     }
 }

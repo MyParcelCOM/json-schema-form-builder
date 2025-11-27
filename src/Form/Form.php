@@ -7,6 +7,7 @@ namespace MyParcelCom\JsonSchema\FormBuilder\Form;
 use ArrayObject;
 use MyParcelCom\JsonSchema\FormBuilder\Validation\Exceptions\FormValidationException;
 use MyParcelCom\JsonSchema\FormBuilder\Validation\Validator;
+use Opis\JsonSchema\Errors\ErrorFormatter;
 
 /**
  * @extends ArrayObject<array-key, FormElement>
@@ -29,11 +30,12 @@ class Form extends FormElementCollection
      * @param array<string, mixed> $values a key value array of form values
      * @throws FormValidationException
      */
-    public function validate(array $values): void
+    public function validate(array $values, ?Validator $validator = null, ?ErrorFormatter $errorFormatter = null): void
     {
-        $result = Validator::validate($values, $this->toJsonSchema());
+        $validator ??= new Validator();
+        $result = $validator->validate($values, $this->toJsonSchema());
         if(!$result->isValid()) {
-            throw new FormValidationException($result);
+            throw new FormValidationException(validationResult: $result, errorFormatter: $errorFormatter);
         }
     }
 }
