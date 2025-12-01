@@ -18,7 +18,7 @@ class Validator
     }
 
     /**
-     * Validate the form values against the JSON Schema. Returns a ValidationResult.
+     * Validates the form values against the JSON Schema.
      */
     public function isValid(): bool
     {
