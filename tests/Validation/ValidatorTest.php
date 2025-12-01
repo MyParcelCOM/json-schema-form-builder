@@ -98,9 +98,7 @@ class ValidatorTest extends TestCase
 
         $validator = new Validator($values, $schema);
         self::assertTrue($validator->isValid());
-        dump($validator->getErrors());
-
-        self::assertContains('name_1', $validator->getErrors());
+        self::assertEquals([], $validator->getErrors());
 
         $values = [
             'name_1' => 'value',
@@ -114,6 +112,9 @@ class ValidatorTest extends TestCase
 
         $validator = new Validator($values, $schema);
         self::assertFalse($validator->isValid());
-
+        self::assertContains(
+            ['The required properties (name_2) are missing'],
+            $validator->getErrors()
+        );
     }
 }
