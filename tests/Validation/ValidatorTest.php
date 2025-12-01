@@ -6,26 +6,17 @@ namespace Tests\Validation;
 
 use Mockery;
 use MyParcelCom\JsonSchema\FormBuilder\Validation\Validator;
-use Opis\JsonSchema\ValidationResult;
 use PHPUnit\Framework\TestCase;
-use Opis\JsonSchema\Validator as JsonSchemaValidator;
 
 class ValidatorTest extends TestCase
 {
-    protected Validator $validator;
-    protected array $schema;
-    protected function setUp(): void
+    public function test_it_validates(): void
     {
-        parent::setUp();
-        $this->validator = new Validator();
-        $this->schema = [
+        $schema = [
             '$schema'              => 'https://json-schema.org/draft/2020-12/schema',
             'type'                 => 'object',
             'additionalProperties' => false,
-            'required'             => [
-                0 => 'name_2',
-                1 => 'name_3',
-            ],
+            'required'             => ['name_2', 'name_3'],
             'properties'           => [
                 'name_1' => [
                     'type'        => 'string',
@@ -93,22 +84,8 @@ class ValidatorTest extends TestCase
                 ],
             ],
         ];
-    }
 
-    /**
-     */
-    public function test_it_validates(): void
-    {
-        $this->expectNotToPerformAssertions();
-
-        $validationResult = Mockery::mock(ValidationResult::class);
-        $validationResult->expects('isValid');
-        $validationResult->expects('error');
-
-        $jsonSchemaValidator = Mockery::mock(JsonSchemaValidator::class);
-        $jsonSchemaValidator->expects('validate')->with()->andReturn($validationResult);
-
-        $this->validator->validate([
+        $values = [
             'name_1' => 'value',
             'name_2' => false,
             'name_3' => 'a',
@@ -117,6 +94,26 @@ class ValidatorTest extends TestCase
                 'name_2' => false,
                 'name_3' => 'a',
             ],
-        ], $this->schema);
+        ];
+
+        $validator = new Validator($values, $schema);
+        self::assertTrue($validator->isValid());
+        dump($validator->getErrors());
+
+        self::assertContains('name_1', $validator->getErrors());
+
+        $values = [
+            'name_1' => 'value',
+            'name_3' => 'a',
+            'name_4' => [
+                'name_1' => 'value',
+                'name_2' => false,
+                'name_3' => 'a',
+            ],
+        ];
+
+        $validator = new Validator($values, $schema);
+        self::assertFalse($validator->isValid());
+
     }
 }

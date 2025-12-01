@@ -30,12 +30,11 @@ class Form extends FormElementCollection
      * @param array<string, mixed> $values a key value array of form values
      * @throws FormValidationException
      */
-    public function validate(array $values, ?Validator $validator = null, ?ErrorFormatter $errorFormatter = null): void
+    public function validate(array $values, ?Validator $validator = null): void
     {
-        $validator ??= new Validator();
-        $result = $validator->validate($values, $this->toJsonSchema());
-        if(!$result->isValid()) {
-            throw new FormValidationException(validationResult: $result, errorFormatter: $errorFormatter);
+        $validator ??= new Validator($values, $this->toJsonSchema());
+        if(!$validator->isValid()) {
+            throw new FormValidationException(errors: $validator->getErrors());
         }
     }
 }

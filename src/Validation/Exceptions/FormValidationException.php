@@ -14,15 +14,11 @@ use Opis\JsonSchema\ValidationResult;
  */
 class FormValidationException extends Exception
 {
-    private array $errors;
     public function __construct(
-        ValidationResult $validationResult,
         string $message = 'Form validation failed',
-        ?ErrorFormatter $errorFormatter = null,
+        private readonly ?array $errors = null,
     ) {
-        parent::__construct(message: $message);
-        $errorFormatter ??= new ErrorFormatter();
-        $this->errors = $errorFormatter->format($validationResult->error());
+        parent::__construct($message);
     }
 
     /**

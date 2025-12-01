@@ -17,15 +17,10 @@ class FormValidationExceptionTest extends TestCase
 {
     public function test_it_renders(): void
     {
-        $resultMock = Mockery::mock(ValidationResult::class);
-        $errorMock = Mockery::mock(ValidationError::class);
-        $errorFormatterMock = Mockery::mock(ErrorFormatter::class);
-
-        $resultMock->expects('error')->andReturn($errorMock);
-
-        $errorFormatterMock->expects('format')->with($errorMock)->andReturn(['foo.bar' => 'Foo is required', 'bar.foo' => 'Bar is required']);
-
-        $exception = new FormValidationException($resultMock, 'What a failure', $errorFormatterMock);
+        $exception = new FormValidationException('What a failure', [
+            'foo.bar' => 'Foo is required',
+            'bar.foo' => 'Bar is required',
+        ]);
 
         $response = $exception->render();
 
