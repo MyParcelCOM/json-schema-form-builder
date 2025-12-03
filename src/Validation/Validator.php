@@ -11,10 +11,13 @@ use Opis\JsonSchema\Validator as JsonSchemaValidator;
 
 class Validator
 {
+    private ValidationResult $validationResult;
     public function __construct(
         private readonly array $values,
         private readonly array $schema,
     ) {
+        $jsonSchemaValidator = new JsonSchemaValidator();
+        $this->validationResult = $jsonSchemaValidator->validate(Helper::toJSON($this->values), Helper::toJSON($this->schema));
     }
 
     /**
@@ -22,19 +25,12 @@ class Validator
      */
     public function isValid(): bool
     {
-        return $this->getValidationResult()->isValid();
+        return $this->validationResult->isValid();
     }
     public function getErrors(): array
     {
-        return $this->getValidationResult()->hasError()
-            ? new ErrorFormatter()->format($this->getValidationResult()->error())
+        return $this->validationResult->hasError()
+            ? new ErrorFormatter()->format($this->validationResult->error())
             : [];
-    }
-
-    private function getValidationResult(): ValidationResult
-    {
-        $validator = new JsonSchemaValidator();
-
-        return $validator->validate(Helper::toJSON($this->values), Helper::toJSON($this->schema));
     }
 }
