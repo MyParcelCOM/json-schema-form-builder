@@ -5,9 +5,8 @@ declare(strict_types=1);
 namespace MyParcelCom\JsonSchema\FormBuilder\Form;
 
 use ArrayObject;
-use JsonSchema\Constraints\Constraint;
-use JsonSchema\Validator;
-use MyParcelCom\JsonSchema\FormBuilder\Form\Exceptions\FormValidationException;
+use MyParcelCom\JsonSchema\FormBuilder\Validation\Validator;
+use MyParcelCom\JsonSchema\FormBuilder\Validation\Exceptions\FormValidationException;
 
 /**
  * @extends ArrayObject<array-key, FormElement>
@@ -18,6 +17,7 @@ class Form extends FormElementCollection
     {
         return [
             '$schema'              => 'https://json-schema.org/draft/2020-12/schema',
+            'type'                 => 'object',
             'additionalProperties' => false,
             'required'             => $this->getRequired(),
             'properties'           => $this->getProperties()->toArray(),
@@ -29,16 +29,11 @@ class Form extends FormElementCollection
      * @param array<string, mixed> $values a key value array of form values
      * @throws FormValidationException
      */
-    public function validate(array $values): void
+    public function validate(array $values, ?Validator $validator = null): void
     {
-        /**
-         * CHECK_MODE_TYPE_CAST: Enable fuzzy type checking for associative arrays and objects
-         * src: https://github.com/jsonrainbow/json-schema?tab=readme-ov-file#configuration-options
-         **/
-        $validator = new Validator;
-        $validator->validate($values, $this->toJsonSchema(), Constraint::CHECK_MODE_TYPE_CAST);
-        if (!$validator->isValid()) {
-            throw new FormValidationException("Form validation failed", $validator->getErrors());
+        $validator ??= new Validator($values, $this->toJsonSchema());
+        if(!$validator->isValid()) {
+            throw new FormValidationException(errors: $validator->getErrors());
         }
     }
 }
