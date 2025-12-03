@@ -10,9 +10,11 @@ use PHPUnit\Framework\TestCase;
 
 class ValidatorTest extends TestCase
 {
-    public function test_it_validates(): void
+    private array $schema;
+    protected function setUp(): void
     {
-        $schema = [
+        parent::setUp();
+        $this->schema = [
             '$schema'              => 'https://json-schema.org/draft/2020-12/schema',
             'type'                 => 'object',
             'additionalProperties' => false,
@@ -84,7 +86,10 @@ class ValidatorTest extends TestCase
                 ],
             ],
         ];
+    }
 
+    public function test_it_validates_success(): void
+    {
         $values = [
             'name_1' => 'value',
             'name_2' => false,
@@ -96,10 +101,13 @@ class ValidatorTest extends TestCase
             ],
         ];
 
-        $validator = new Validator($values, $schema);
+        $validator = new Validator($values, $this->schema);
         self::assertTrue($validator->isValid());
         self::assertEquals([], $validator->getErrors());
+    }
 
+    public function test_it_validates_failure(): void
+    {
         $values = [
             'name_1' => 'value',
             'name_3' => 'a',
@@ -110,7 +118,7 @@ class ValidatorTest extends TestCase
             ],
         ];
 
-        $validator = new Validator($values, $schema);
+        $validator = new Validator($values, $this->schema);
         self::assertFalse($validator->isValid());
         self::assertContains(
             ['The required properties (name_2) are missing'],
