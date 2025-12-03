@@ -259,7 +259,7 @@ class FormTest extends TestCase
 
         $validator = Mockery::mock(Validator::class);
 
-        $validator->expects('isValid')->andReturn(true);
+        $validator->expects('isValid')->andReturnTrue();
         $validator->expects('getErrors')->never();
 
         $this->form->validate([
@@ -279,7 +279,7 @@ class FormTest extends TestCase
         $this->expectException(FormValidationException::class);
 
         $validator = Mockery::mock(Validator::class);
-        $validator->expects('isValid')->andReturn(false);
+        $validator->expects('isValid')->andReturnFalse();
         $validator->expects('getErrors');
 
         $this->form->validate([
