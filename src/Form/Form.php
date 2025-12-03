@@ -5,9 +5,8 @@ declare(strict_types=1);
 namespace MyParcelCom\JsonSchema\FormBuilder\Form;
 
 use ArrayObject;
-use MyParcelCom\JsonSchema\FormBuilder\Validation\Exceptions\FormValidationException;
 use MyParcelCom\JsonSchema\FormBuilder\Validation\Validator;
-use Opis\JsonSchema\Errors\ErrorFormatter;
+use MyParcelCom\JsonSchema\FormBuilder\Validation\Exceptions\FormValidationException;
 
 /**
  * @extends ArrayObject<array-key, FormElement>
